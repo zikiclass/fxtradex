@@ -31,7 +31,7 @@ const BankWithdraw = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/withdrawal", {
+      const response = await axios.post("/api/users/withdrawals", {
         type: "bank",
         id: data.id,
         fromAccount,
