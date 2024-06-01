@@ -4,30 +4,46 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --primary-color: #6648fe;
+  --secondary-color: #04b897;
+  --background-color: #f4f7fd;
+  --text-gray: #777;
+  --dark: #000;
+  --orange-color: #f7921b;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: #000;
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+input{
+  background-color: transparent;
+}
+.container{
+
+  margin: 3rem auto;
+  width: 90%;
+}
+
+.cta button{
+  background: linear-gradient(to bottom, var(--primary-color), #8e63f0);
+  border-radius: 10px;
+  color: #fff;
+  padding: 5px;
+  width: 100%;
+  transition: 0.2s ease all;
+}
+.cta button:hover{
+  background: linear-gradient(to bottom, var(--secondary-color), var(--secondary-color));
+  box-shadow: 0 2px 6px 0px rgba(0,0,0,0.7);
 }

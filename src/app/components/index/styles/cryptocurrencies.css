@@ -1,0 +1,38 @@
+.crypto__container{
+    background-color: #fff;
+    padding: 1.1rem 0;
+    margin: 1.4rem 0;
+}
+.crypto__container h3{
+    text-align: center;
+    color: #000;
+    font-size: 2.3rem;
+    margin-bottom: 0.3rem;
+}
+.crypto__container p{
+    margin: 0.9rem 0;
+    color: var(--text-gray);
+}
+.crypto__miners{
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.crypto__miner{
+    background-color: #f4f7fd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem 0;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+    border-radius: 7px;
+    gap: 0.3rem;
+}
+
+@media screen and (max-width: 760px){
+    .crypto__miners{
+        flex-direction: column;
+    }
+}

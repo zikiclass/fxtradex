@@ -1,0 +1,66 @@
+.payouts__row{
+    display: flex;
+    gap: 1.8rem;
+}
+.col_payout_1{
+    flex: 2.7;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.testimony{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-gray);
+    padding: 1.4rem;
+}
+.testimony #name{
+    font-weight: bold;
+    margin-top: 10px;
+}
+.testimony #comment{
+    text-align: center;
+    font-size: 15px;
+}
+.img-testimony{
+    width: 150px;
+    border-radius: 50%;
+}
+.col_payout_2{
+    flex: 1.3;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0px rgb(0,0,0,0.3);
+    padding: 1.6rem;
+    color: var(--text-gray);
+}
+.col_payout_2 h4{
+    text-align: center;
+    font-size: 2.3rem;
+    color: #000;
+    text-transform: capitalize;
+    margin: 0 0 1.5rem 0;
+}
+.payout {
+    display: flex;
+    justify-content: space-between;
+}
+#box_wrapper{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.box{
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+}
+
+@media screen and (max-width: 760px){
+    .payouts__row{
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,31 @@
+.features__container{
+    display: flex;
+    gap: 1.5rem;
+}
+.feature__card{
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 0px rgba(0,0,0,0.2);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    background-color: #fff;
+    height: 100%;
+}
+
+.feature__card h4{
+    font-size: 1.7rem;
+}
+.feature__card p{
+    line-height: 1.2rem;
+    color: var(--text-gray);
+    text-align: center;
+}
+
+
+@media screen and (max-width: 760px){
+    .features__container{
+        flex-direction: column;
+    }
+}
