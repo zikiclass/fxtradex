@@ -43,7 +43,7 @@ const Login = () => {
               </Link>
               <p>
                 Don&apos;t have an account?{" "}
-                <Link className="links" href="register">
+                <Link className="links" href="signup">
                   Sign Up
                 </Link>
               </p>

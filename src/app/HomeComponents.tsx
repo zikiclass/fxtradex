@@ -11,6 +11,7 @@ import TradingPlan from "./components/index/TradingPlan";
 import LatestPayouts from "./components/index/LatestPayouts";
 import Faq from "./components/index/Faq";
 import Footer from "./components/index/Footer";
+import PageNavigator from "./components/PageNavigator";
 export {
   Carousel,
   CopyExperts,
@@ -25,4 +26,5 @@ export {
   Faq,
   Footer,
   NavBarLight,
+  PageNavigator,
 };

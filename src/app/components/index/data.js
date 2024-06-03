@@ -31,6 +31,15 @@ import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import DonutLargeOutlinedIcon from "@mui/icons-material/DonutLargeOutlined";
 import PeopleIcon from "@mui/icons-material/People";
 
+import apple from "../../../../public/img/pair-icon-aapl.img.svg";
+import amcholdings from "../../../../public/img/pair-icon-amc.img.svg";
+import eurusd from "../../../../public/img/pair-icon-eurusd.img.svg";
+import usdjpy from "../../../../public/img/pair-icon-usdjpy.img.svg";
+import bitcoin_ from "../../../../public/img/pair-icon-btcusd.img.svg";
+import ethereum_ from "../../../../public/img/pair-icon-ethusd.img.svg";
+import spx500 from "../../../../public/img/pair-icon-spx500usd.img.svg";
+import uk100 from "../../../../public/img/pair-icon-uk100gbp.img.svg";
+
 export const payouts = [
   { id: 1, color: "#7653e1", text: "Delmer Kuhlman", amount: "2,328.00" },
   { id: 2, color: "#7cbef9", text: "Clifton Deckow", amount: "7,474.00" },
@@ -589,4 +598,15 @@ export const sidebarLinks = [
     link: "generalrisk",
   },
   { id: 19, icon: PeopleIcon, name: "About Us", link: "about" },
+];
+
+export const favorites = [
+  { id: 1, svg: apple, name: "Apple", desc: "AAPL" },
+  { id: 2, svg: amcholdings, name: "AMC Holdings", desc: "AMC" },
+  { id: 3, svg: eurusd, name: "EURUSD", desc: "EURUSD" },
+  { id: 4, svg: usdjpy, name: "USDJPY", desc: "USDJPY" },
+  { id: 5, svg: bitcoin_, name: "Bitcoin", desc: "BTCUSD" },
+  { id: 6, svg: ethereum_, name: "Ethereum", desc: "ETHUSD" },
+  { id: 7, svg: spx500, name: "S&P 500", desc: "SPX500USD" },
+  { id: 8, svg: uk100, name: "UK 100", desc: "UK100GBP" },
 ];

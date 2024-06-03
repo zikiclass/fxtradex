@@ -8,6 +8,7 @@ const PageNavigator = ({ text }) => {
         gap: "6px",
         alignItems: "center",
         marginTop: "5rem",
+        marginBottom: "1.5rem",
         fontSize: "14px",
       }}
     >
