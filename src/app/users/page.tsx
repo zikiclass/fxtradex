@@ -22,7 +22,7 @@ const Dashboard = () => {
           <Categories />
         </div>
       </div>
-      <BottomNavBar />
+      <BottomNavBar active="users" />
     </div>
   );
 };

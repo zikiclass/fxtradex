@@ -11,6 +11,7 @@ import Bitcoin from "../../../../public/img/pair-icon-btcusd.img.svg";
 import Ethereum from "../../../../public/img/pair-icon-ethusd.img.svg";
 import Binance from "../../../../public/img/pair-icon-bnbusd.img.svg";
 import Cosmos from "../../../../public/img/pair-icon-atomusd.img.svg";
+import dodge from "../../../../public/img/pair-icon-dogeusd.img.svg";
 
 import Crypto from "../../../../public/img/Crypto.jpeg";
 import Trading from "../../../../public/img/Trading.jpeg";
@@ -609,4 +610,42 @@ export const favorites = [
   { id: 6, svg: ethereum_, name: "Ethereum", desc: "ETHUSD" },
   { id: 7, svg: spx500, name: "S&P 500", desc: "SPX500USD" },
   { id: 8, svg: uk100, name: "UK 100", desc: "UK100GBP" },
+];
+
+export const min_ghs = [
+  {
+    id: 1,
+    svg: Bitcoin,
+    crypto_amt: "0.000000 BTC",
+    dollar_amt: "$0.00",
+    ghs: "GH/s",
+  },
+  {
+    id: 2,
+    svg: Ethereum,
+    crypto_amt: "0.000000 ETH",
+    dollar_amt: "$0.00",
+    ghs: "GH/s",
+  },
+  {
+    id: 3,
+    svg: Binance,
+    crypto_amt: "0.000000 BNB",
+    dollar_amt: "$0.00",
+    ghs: "0 GH/s",
+  },
+  {
+    id: 4,
+    svg: dodge,
+    crypto_amt: "0.000000 DOGE",
+    dollar_amt: "$0.00",
+    ghs: "GH/s",
+  },
+  {
+    id: 5,
+    svg: Cosmos,
+    crypto_amt: "0.000000 ATOM",
+    dollar_amt: "$0.00",
+    ghs: "GH/s",
+  },
 ];

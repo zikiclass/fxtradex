@@ -20,14 +20,48 @@
 }
 
 .bottom_nav_links.active{
-    color: #6648fe;
+    color: #6648fe!important;
     font-weight: bold;
 }
 
 /* DEPOSIT SECTION */
-.deposit{
+.min_flex{
     flex: 1.5;
     overflow: hidden;
+   
+}
+.min_flex_top{
+    width: 100%;
+    background: url("../../../../../public/img/Gradient.webp") center no-repeat;
+    background-size: cover;
+    height: 180px;
+    padding: 3rem 2rem;
+    margin-bottom: 0.7rem;
+    color: #fff;
+    border-radius: 10px;
+}
+.min_flex_top span{
+    font-size: 2.5rem;
+}
+.min_flex_buttons{
+display: flex;
+justify-content: space-between;
+margin: 0.4rem 0;
+gap: 0.3rem;
+}
+.min_flex_buttons #link__button__min{
+    flex: 1;
+    padding: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+.min_flex_buttons #link__button__min:hover{
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.8);
+    background-color: #fff;
 }
 
 .deposit__top{
@@ -163,7 +197,63 @@
     color: var(--primary-color);
 }
 
+.profile{
+    display: flex;
+    gap: 1rem;
+    margin-top: 5rem;
+}
+.profile__col{
+    flex: 1;
+}
+.profile__col:last-child{
+    margin-top: 2rem;
+}
+.profile__pic__wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
 
+}
+.profile__pic__wrap span{
+    font-size: 2rem;
+}
+.profile__pic{
+    border-radius: 50%;
+    width: 120px;
+    margin-bottom: 1rem;
+}
+.profile__listings{
+    display: flex;
+    flex-direction: column;
+}
+.profile_list span{
+    width: 100%;
+    text-align: left;
+    margin-left: 1.4rem;
+    color: #26a69a;
+}
+.profile_list{
+    background-color: #fff;
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 0.4rem;
+    border-radius: 5px;
+}
+.profile_list:hover{
+    background-color: rgba(0,0,0,0.03);
+}
+.profile_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list__icon{
+    padding: 0.8rem;
+    color: #fff;
+    border-radius: 10px;
+}
 @media screen and (max-width: 760px){
     .categories{
         margin-top: 2rem;
@@ -177,5 +267,8 @@
     }
     .bottom__nav{
         gap: 2rem;
+    }
+    .profile{
+        flex-direction: column;
     }
 }

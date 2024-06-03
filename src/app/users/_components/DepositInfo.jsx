@@ -6,7 +6,7 @@ import "./styles/user.css";
 import Link from "next/link";
 const DepositInfo = () => {
   return (
-    <div className="deposit">
+    <div className="min_flex">
       <div className="deposit__top">
         <div className="deposit__top__item">
           <div>

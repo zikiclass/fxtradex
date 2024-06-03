@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FlagIcon } from "react-flag-kit";
 import { countryList, sidebarLinks } from "./data";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import "./styles/navbar.css";
 
 const NavBar = () => {
