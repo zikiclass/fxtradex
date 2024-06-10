@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, Suspense } from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
 import PanelPlain from "../_components/Panel";
@@ -22,31 +22,33 @@ const DepositStep2 = () => {
   };
   return (
     <>
-      <div>
-        <DashboardNavbar />
-        <div className="container" style={{ marginTop: "3rem" }}>
-          <DashboardPageNavigator text="Deposit" />
-          <div className="dashboard_" ref={dashboardRef}>
-            <div className="deposit">
-              <h2>
-                PAY{" "}
-                {Number(amount).toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                })}
-              </h2>
-              <p style={{ marginTop: "-20px" }}>SELECT PAYMENT METHOD</p>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div>
+          <DashboardNavbar />
+          <div className="container" style={{ marginTop: "3rem" }}>
+            <DashboardPageNavigator text="Deposit" />
+            <div className="dashboard_" ref={dashboardRef}>
+              <div className="deposit">
+                <h2>
+                  PAY{" "}
+                  {Number(amount).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </h2>
+                <p style={{ marginTop: "-20px" }}>SELECT PAYMENT METHOD</p>
 
-              <PanelPlain
-                title="Send Crypto"
-                text="send supported crypto currencies"
-                onClick={handleClick}
-              />
+                <PanelPlain
+                  title="Send Crypto"
+                  text="send supported crypto currencies"
+                  onClick={handleClick}
+                />
+              </div>
             </div>
           </div>
+          <BottomNavBar active="dashboard" />
         </div>
-        <BottomNavBar active="dashboard" />
-      </div>
+      </Suspense>
     </>
   );
 };

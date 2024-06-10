@@ -10,7 +10,10 @@ import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import Button from "../../components/Button2";
 import ButtonTransparent from "../../components/ButtonTransparent";
 const DepositWalletAddress = () => {
-  const initialTimeLeft = localStorage.getItem("timeLeft") || 3600;
+  const initialTimeLeft =
+    typeof window !== "undefined"
+      ? localStorage.getItem("timeLeft") || 3600
+      : 3600;
   const [timeLeft, setTimeLeft] = useState(parseInt(initialTimeLeft, 10));
   const [refreshed, setRefreshed] = useState(false);
   const searchParams = useSearchParams();

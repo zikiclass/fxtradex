@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
@@ -8,8 +8,6 @@ import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 const CryptoWithdraw = () => {
-  const searchParams = useSearchParams();
-  const amount = searchParams.get("amount");
   const dashboardRef = useRef(null);
   const router = useRouter();
   useEffect(() => {
