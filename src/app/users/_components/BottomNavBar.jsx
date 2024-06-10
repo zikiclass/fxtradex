@@ -11,7 +11,7 @@ import "./styles/user.css";
 const BottomNavBar = ({ active }) => {
   const [activeIndex, setActiveIndex] = useState(active);
   const navbars = [
-    { id: 1, icon: HomeIcon, title: "Home", href: "users" },
+    { id: 1, icon: HomeIcon, title: "Home", href: "dashboard" },
     { id: 2, icon: TokenIcon, title: "Mining", href: "mining" },
     { id: 3, icon: InsertChartIcon, title: "Markets", href: "/" },
     { id: 4, icon: BrowseGalleryIcon, title: "Trade", href: "/" },

@@ -138,6 +138,106 @@ gap: 0.3rem;
     align-items: center;
     font-size: 14px;
 }
+
+.deposit{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.deposit h2{
+    font-size: 3rem!important;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+.deposit .pricing{
+    color: var(--primary-color);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+.deposit__form, .deposit__form__{
+    width: 100%;
+    background-color: #fff;
+    padding: 3rem 1.4rem;
+    padding-top: 1.5rem!important;
+    width: 400px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+.deposit__form__{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px!important;
+}
+.deposit__form__ .span__dep{
+    color: #777;
+}
+.deposit__form center{
+    padding-bottom: 2rem;
+    color: #777;
+}
+.input__deposit{
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.input__deposit label{
+    font-size: 12px;
+    margin-left: 1.4rem;
+    margin-bottom: 4px;
+    color: #777;
+}
+.text__input, .select__deposit{
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 7px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+}
+.text__input span{
+    color: #777;
+    font-size: 15px;
+}
+.text__input input, .select__deposit{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+.text__input input:focus{
+    outline: none;
+}
+.input__deposit__{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 13px;
+    border-radius: 7px;
+    margin: 1.2rem 0;
+
+}
+.input__deposit__ input[type="text"]{
+    width: 100%;
+    margin-left: 14px;
+}
+.input__deposit__ input[type="text"]:focus{
+    outline: none;
+}
+.input__deposit__ #icon{
+    color: #777;
+    cursor: pointer;
+    font-size: 18px;
+    margin: 0px 7px;
+}
+
 /* CATEGORIES SECTION */
 .categories{
     flex: 2.5;
@@ -201,6 +301,11 @@ gap: 0.3rem;
     display: flex;
     gap: 1rem;
     margin-top: 5rem;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.profile.fadeIn{
+    opacity: 1;
 }
 .profile__col{
     flex: 1;
@@ -254,7 +359,264 @@ gap: 0.3rem;
     color: #fff;
     border-radius: 10px;
 }
+.panel{
+    width: 500px;
+  height: auto;
+  padding: 2rem;
+  padding-bottom: 1rem !important;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+.panel:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+.panel span{
+    color: var(--primary-color);
+  font-weight: bold;
+}
+.panel p{
+    color: #777;
+}
+
+/* DEPOSIT LIST */
+.deposit_pending{
+    width: 80%;
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 0px 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.deposit_list{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    color: #545353;
+}
+.deposit_pending:hover, .deposit_list:hover, .no__refer:hover, .panel__:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+.deposit_pending p{
+    padding-top: 12px;
+    text-align: left;
+}
+.deposit_pending_icon{
+    cursor: pointer;
+    font-size: 20px;
+}
+.date{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.date span:last-child{
+    margin-top: -20px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.deposit_list_details{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 30px;
+    font-weight: bold;
+}
+.crypto_equiv{
+    width: 100%;
+    text-align: right;
+}
+.input__form__{
+    margin-bottom: 1rem;
+    padding: 1.3rem;
+}
+.referral__wrap{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 3rem;
+}
+.referral__wrap .col__1{
+    flex: 1.2;
+}
+.referral__wrap .col__2{
+    flex: 2.8;
+}
+.refer__balance, .refer__link{
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 2px 0px rgba(0,0,0,0.3);
+    padding: 2rem 1.3rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.refer__balance #amt{
+    font-weight: bold;
+    font-size: 3rem;
+}
+.refer__balance #refer_bal{
+    color: #777;
+    margin-top: -15px;
+    margin-bottom: 1.5rem;
+}
+.refer__link input{
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 4px;
+    width: 100%;
+}
+.refer__link input:focus{
+    outline: none;
+}
+.refer__link span{
+    font-size: 15px;
+    margin: 4px 0px;
+}
+.refer__link{
+    color: #777;
+}
+.no__refer{
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 2rem;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease all;
+}
+.dashboard_ h5{
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+}
+.panel__{
+    width: 40%;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: -8px;
+    padding: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+.panel__text{
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* WITHDRAWAL BANK */
+.withdrawal{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 2px;
+    margin-bottom: 2.5rem;
+  
+}
+.withdrawal p{
+    text-align: center;
+}
+.withdraw__heading{
+    color: #777;
+}
+.withdraw_form{
+    display: flex;
+    margin: 1.2rem 0;
+    gap: 2rem;
+    padding: 0 2rem;
+}
+.withdraw_form input, .withdraw_form select{
+    background-color: transparent;
+    accent-color: transparent;
+}
+.withdraw_form input:focus{
+    outline: none;
+}
+.withdraw_form input[type="number"]{
+    background: transparent!important;
+}
+.withdraw_form .input__form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.4rem;
+}
+.withdraw_form label{
+    font-size: 12px;
+    color: #8e9db0;
+    margin-bottom: 0.2rem;
+}
+.input__usd, .withdraw_form .input__form input, .withdraw_form .input__form select{
+    border: 1px solid #edeeef;
+    padding: 7px;
+    border-radius: 4px;
+    font-size: 15px;
+   
+}
+.input__usd{
+    display: flex;
+}
+.input__usd input{
+    border: none!important;
+    padding: 0px 7px!important;
+}
+.input__usd span{
+    color: #a3a2a2;
+    font-weight: 100;
+}
+
 @media screen and (max-width: 760px){
+    .withdraw_form{
+        flex-direction: column;
+        gap: 0;
+    }
+   .withdrawal{
+    width: 100%;
+    overflow: hidden;
+   }
+    .panel__{
+        width: 100%;
+    }
+    .referral__wrap{
+        flex-direction: column;
+    }
+    .deposit_pending_icon{
+        font-size: 15px;
+    }
+    .deposit_pending p{
+        font-size: 13px;
+    }
+    .deposit_pending{
+        width: 100%;
+    }
+    .panel{
+        width: 100%;
+    }
     .categories{
         margin-top: 2rem;
         
@@ -270,5 +632,11 @@ gap: 0.3rem;
     }
     .profile{
         flex-direction: column;
+    }
+    .deposit__form{
+        width: 100%;
+    }
+    .deposit h2{
+        font-size: 2.4rem!important;
     }
 }

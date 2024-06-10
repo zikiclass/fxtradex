@@ -12,6 +12,8 @@ import LatestPayouts from "./components/index/LatestPayouts";
 import Faq from "./components/index/Faq";
 import Footer from "./components/index/Footer";
 import PageNavigator from "./components/PageNavigator";
+import DashboardNavbar from "./components/index/DashboardNavbar";
+import DashboardPageNavigator from "./components/DashboardPageNavigator";
 export {
   Carousel,
   CopyExperts,
@@ -27,4 +29,6 @@ export {
   Footer,
   NavBarLight,
   PageNavigator,
+  DashboardNavbar,
+  DashboardPageNavigator,
 };

@@ -1,0 +1,45 @@
+.button_2{
+    background-color: var(--primary-color);
+  padding: 6px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+  color: #fff;
+  width: 100%;
+  font-size: 14px;
+  display: block;
+  margin-top: 12px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.button_2:hover, .button_:hover{
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.4);
+}
+.button_{
+    background-color: var(--primary-color);
+  padding: 3px;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  margin-top: 0.2rem;
+  color: #fff;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+.btnTransparent{
+    border: 2px solid #000;
+    padding: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+.btnTransparent:hover{
+    box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.8);
+    background-color: #fff;
+}

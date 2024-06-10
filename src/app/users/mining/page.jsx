@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { NavBarLight } from "../HomeComponents";
-import Contract from "../users/_components/Contract";
-import "../users/styles/dashboard.css";
-import BottomNavBar from "../users/_components/BottomNavBar";
-import MiningGHS from "../users/_components/MiningGHS";
+import { DashboardNavbar } from "../../HomeComponents";
+import Contract from "../_components/Contract";
+import "../dashboard/styles/dashboard.css";
+import BottomNavBar from "../_components/BottomNavBar";
+import MiningGHS from "../_components/MiningGHS";
 const Mining = () => {
   const dashboardRef = useRef(null);
 
@@ -16,7 +16,7 @@ const Mining = () => {
   return (
     <>
       <div>
-        <NavBarLight />
+        <DashboardNavbar />
         <div className="container" style={{ marginTop: "7rem" }}>
           <div className="dashboard" ref={dashboardRef}>
             <Contract />

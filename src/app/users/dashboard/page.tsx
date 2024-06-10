@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import { NavBarLight } from "../HomeComponents";
-import DepositInfo from "./_components/DepositInfo";
+import { DashboardNavbar } from "../../HomeComponents";
+import DepositInfo from "../_components/DepositInfo";
 import "./styles/dashboard.css";
-import BottomNavBar from "./_components/BottomNavBar";
-import Categories from "./_components/Categories";
+import BottomNavBar from "../_components/BottomNavBar";
+import Categories from "../_components/Categories";
 const Dashboard = () => {
   const dashboardRef = useRef(null);
 
@@ -15,14 +15,14 @@ const Dashboard = () => {
   }, []);
   return (
     <div>
-      <NavBarLight />
+      <DashboardNavbar />
       <div className="container" style={{ marginTop: "7rem" }}>
         <div className="dashboard" ref={dashboardRef}>
           <DepositInfo />
           <Categories />
         </div>
       </div>
-      <BottomNavBar active="users" />
+      <BottomNavBar active="dashboard" />
     </div>
   );
 };

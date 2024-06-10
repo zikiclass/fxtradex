@@ -10,7 +10,7 @@ import "./styles/navbar.css";
 import Image from "next/image";
 import logo from "../../../../public/img/logo.png";
 
-const NavBarLight = () => {
+const DashboardNavbar = () => {
   const [countryShow, setCountryShow] = useState(false);
   const [fadeOut, setFadeOut] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -40,13 +40,13 @@ const NavBarLight = () => {
         </Link>
       </div>
       <div className="navbar__links">
-        <Link href="contact" className="md-links">
+        <Link href="../contact" className="md-links">
           Contact Us
         </Link>
-        <Link href="signin" className="md-links">
+        <Link href="../signin" className="md-links">
           Log In
         </Link>
-        <Link href="signup" className="md-links">
+        <Link href="../signup" className="md-links">
           Sign Up
         </Link>
         <BedtimeIcon className="icon__bed" />
@@ -86,7 +86,7 @@ const NavBarLight = () => {
           <ul className="sidebar__links">
             {sidebarLinks.map((link) => (
               <li key={link.id}>
-                <Link href={`${link.link}`} className="sidebar__link">
+                <Link href={`../${link.link}`} className="sidebar__link">
                   <link.icon className="sidebar__links__icon" />
                   <span>{link.name}</span>
                 </Link>
@@ -98,4 +98,4 @@ const NavBarLight = () => {
     </div>
   );
 };
-export default NavBarLight;
+export default DashboardNavbar;

@@ -27,7 +27,7 @@ const DepositInfo = () => {
       </div>
 
       <div className="deposit__bottom">
-        <Link href="/" className="dep">
+        <Link href="deposit" className="dep">
           <SystemUpdateAltIcon style={{ fontSize: "2rem" }} />
           <span>Deposit</span>
         </Link>
@@ -36,7 +36,7 @@ const DepositInfo = () => {
           <GroupIcon style={{ fontSize: "2rem" }} />
           <span>Copy Traders</span>
         </Link>
-        <Link href="/" className="dep">
+        <Link href="referrals" className="dep">
           <SavingsIcon style={{ fontSize: "2rem" }} />
           <span>Refer & Earn</span>
         </Link>
