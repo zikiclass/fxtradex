@@ -9,14 +9,6 @@ import BottomNavBar from "../_components/BottomNavBar";
 import "../_components/styles/user.css";
 import "../dashboard/styles/dashboard.css";
 const DepositStep3 = () => {
-  const dashboardRef = useRef(null);
-
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
-
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
@@ -46,6 +38,13 @@ const DepositStep3Content = () => {
       `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}`
     );
   };
+  const dashboardRef = useRef(null);
+
+  useEffect(() => {
+    if (dashboardRef.current) {
+      dashboardRef.current.classList.add("fadeIn");
+    }
+  }, []);
 
   useEffect(() => {
     const fetchExchangeRate = async () => {

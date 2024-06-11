@@ -10,14 +10,24 @@ import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import Button from "../../components/Button2";
 import ButtonTransparent from "../../components/ButtonTransparent";
 const DepositWalletAddress = () => {
-  const initialTimeLeft =
-    typeof window !== "undefined"
-      ? localStorage.getItem("timeLeft") || 3600
-      : 3600;
-  const [timeLeft, setTimeLeft] = useState(parseInt(initialTimeLeft, 10));
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <DepositWalletAddressContent />
+      </Suspense>
+    </>
+  );
+};
+
+const DepositWalletAddressContent = () => {
+  const searchParams = useSearchParams();
+  const amount = searchParams.get("amount");
+  const paymethod = searchParams.get("paymethod");
 
   const dashboardRef = useRef(null);
   const router = useRouter();
+
+  const [timeLeft, setTimeLeft] = useState(3600);
   useEffect(() => {
     if (dashboardRef.current) {
       dashboardRef.current.classList.add("fadeIn");
@@ -38,6 +48,12 @@ const DepositWalletAddress = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  const initialTimeLeft =
+    typeof window !== "undefined"
+      ? localStorage.getItem("timeLeft") || 3600
+      : 3600;
+
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
@@ -49,20 +65,6 @@ const DepositWalletAddress = () => {
     e.preventDefault();
     router.push(`upload_proof`);
   };
-
-  return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <DepositWalletAddressContent />
-      </Suspense>
-    </>
-  );
-};
-
-const DepositWalletAddressContent = () => {
-  const searchParams = useSearchParams();
-  const amount = searchParams.get("amount");
-  const paymethod = searchParams.get("paymethod");
   return (
     <div>
       <DashboardNavbar />

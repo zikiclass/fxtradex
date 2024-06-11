@@ -8,16 +8,6 @@ import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 const DepositStep2 = () => {
-  const dashboardRef = useRef(null);
-  const router = useRouter();
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
-  const handleClick = (e) => {
-    router.push(`deposit_step_3?amount=${amount}`);
-  };
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
@@ -30,6 +20,18 @@ const DepositStep2 = () => {
 const DepositStep2Content = () => {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
+
+  const dashboardRef = useRef(null);
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    router.push(`deposit_step_3?amount=${amount}`);
+  };
+  useEffect(() => {
+    if (dashboardRef.current) {
+      dashboardRef.current.classList.add("fadeIn");
+    }
+  }, []);
   return (
     <div>
       <DashboardNavbar />
