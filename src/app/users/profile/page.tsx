@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../_components/styles/user.css";
 import camera from "../../../../public/img/camera.png";
 import Image from "next/image";
@@ -17,13 +17,6 @@ import { DashboardNavbar } from "../../HomeComponents";
 import Link from "next/link";
 import BottomNavBar from "../_components/BottomNavBar";
 const Profile = () => {
-  const dashboardRef = useRef(null);
-
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
   const profile1 = [
     {
       id: 1,
@@ -83,7 +76,7 @@ const Profile = () => {
     <>
       <DashboardNavbar />
       <div className="container">
-        <div className="profile" ref={dashboardRef}>
+        <div className="profile">
           <div className="profile__col">
             <div className="profile__pic__wrap">
               <Image src={camera} className="profile__pic" alt="profile pic" />

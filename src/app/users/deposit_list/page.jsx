@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
 import { DashboardNavbar } from "../../HomeComponents";
@@ -9,12 +9,6 @@ import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import CloseIcon from "@mui/icons-material/Close";
 const DepositList = () => {
   const [showPendingMsg, setShowPendingMsg] = useState(true);
-  const dashboardRef = useRef(null);
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
 
   const pendingLists = [
     {

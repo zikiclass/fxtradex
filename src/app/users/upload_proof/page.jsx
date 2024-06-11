@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { DashboardNavbar } from "../../HomeComponents";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
@@ -11,14 +11,7 @@ import { useRouter } from "next/navigation";
 const UploadProof = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const dashboardRef = useRef(null);
-
   const router = useRouter();
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]; // Get the selected file
@@ -44,7 +37,7 @@ const UploadProof = () => {
         <DashboardNavbar />
         <div className="container" style={{ marginTop: "3rem" }}>
           <DashboardPageNavigator text="Deposit" />
-          <div className="dashboard_" ref={dashboardRef}>
+          <div className="dashboard_">
             <div className="deposit">
               <h4 style={{ marginBottom: "1rem" }}>Upload Payment Proof</h4>
 

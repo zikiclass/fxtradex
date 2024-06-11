@@ -32,7 +32,7 @@ const DepositInfo = () => {
           <span>Deposit</span>
         </Link>
 
-        <Link href="/" className="dep">
+        <Link href="traders" className="dep">
           <GroupIcon style={{ fontSize: "2rem" }} />
           <span>Copy Traders</span>
         </Link>

@@ -301,11 +301,7 @@ gap: 0.3rem;
     display: flex;
     gap: 1rem;
     margin-top: 5rem;
-    opacity: 0;
-    transition: opacity 1s ease;
-}
-.profile.fadeIn{
-    opacity: 1;
+
 }
 .profile__col{
     flex: 1;
@@ -409,7 +405,7 @@ gap: 0.3rem;
     cursor: pointer;
     color: #545353;
 }
-.deposit_pending:hover, .deposit_list:hover, .no__refer:hover, .panel__:hover{
+.open_trades:hover, .trader:hover, .deposit_pending:hover, .deposit_list:hover, .no__refer:hover, .panel__:hover{
     background-color: rgba(0,0,0,0.05);
 }
 .deposit_pending p{
@@ -566,6 +562,9 @@ gap: 0.3rem;
     flex-direction: column;
     margin-bottom: 1.4rem;
 }
+.withdraw_form .input__form input[type="number"]{
+    width: 100%;
+}
 .withdraw_form label{
     font-size: 12px;
     color: #8e9db0;
@@ -589,8 +588,150 @@ gap: 0.3rem;
     color: #a3a2a2;
     font-weight: 100;
 }
-
+.searchTraders{
+    width: 100%;
+    border: 1px solid #ccc;
+    background: transparent;
+    padding: 7px;
+    border-radius: 5px;
+    margin: auto;
+}
+.searchTraders:focus{
+    outline: none;
+}
+.trader{
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    gap: 3rem;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    margin-top: -10px;
+}
+.trader p{
+    color: #000!important;
+    margin-bottom: 10px;
+}
+.trader__img{
+    width: 70px;
+    height: 65px;
+    border-radius: 50%;
+}
+.trader .details{
+    flex: 1;
+    width: 100%;
+}
+.trader span{
+    display: block;
+    margin-top: -5px;
+}
+.btn__copy{
+    width: 100px!important;
+    height: 100%!important;
+}
+.trade{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.trade__col__1 .row{
+    display: flex;
+    gap: 10px;
+}
+.trade__col__1 select{
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    color: #444;
+    font-size: 14px;
+}
+.open_trades{
+    background-color: #fff;
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: 0.2s ease all;
+}
+.trade__col__1{
+    flex: 0.5;
+}
+.trade__col__1 .input__{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.trade__col__1 button{
+    display: block;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 17px;
+    margin-top: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.2s ease;
+    color: #fff;
+    width: 100%;
+}
+.btn__buy{
+    background-color: #4caf4f;
+}
+.btn__buy:hover{
+    background-color: #60e364;
+}
+.btn__sell{
+    background-color: #f44336;
+    margin-bottom: 0.8rem;
+}
+.btn__sell:hover{
+    background-color: #f6675c;
+}
+.trade__col__1 .input__ input{
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    color: #818385;
+    font-size: 1.2rem;
+}
+.trade__col__1 .input__ label{
+    font-size: 13px;
+    margin-bottom: 3px;
+    color: #9e9e9e;
+}
+.trade__col__2{
+    flex: 1.3;
+    height: 450px;
+}
 @media screen and (max-width: 760px){
+    .trade__col__1 .row select{
+        flex: 1;
+    }
+    .trade{
+        flex-direction: column;
+        margin-bottom: 3rem;
+    }
+    .trade__col__2{
+        height: 400px!important;
+    }
     .withdraw_form{
         flex-direction: column;
         gap: 0;

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
 import Button from "../../components/Button";
@@ -8,13 +8,8 @@ import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 const CryptoWithdraw = () => {
-  const dashboardRef = useRef(null);
   const router = useRouter();
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
+
   const handleClick = (e) => {
     router.push(`deposit_step_3?amount=${amount}`);
   };
@@ -24,7 +19,7 @@ const CryptoWithdraw = () => {
         <DashboardNavbar />
         <div className="container" style={{ marginTop: "3rem" }}>
           <DashboardPageNavigator text="Crypto Withdraw" />
-          <div className="dashboard_" ref={dashboardRef}>
+          <div className="dashboard_">
             <span className="withdraw__heading">Withdraw to Crypto</span>
             <div className="withdrawal">
               <div className="withdraw_form" style={{ width: "500px" }}>
@@ -69,7 +64,11 @@ const CryptoWithdraw = () => {
                     <label>Amount</label>
                     <div className="input__usd">
                       <span>USD</span>
-                      <input type="number" name="amount" />
+                      <input
+                        type="number"
+                        name="amount"
+                        style={{ width: "100%" }}
+                      />
                     </div>
                   </div>
                   <div className="input__form">
@@ -77,7 +76,7 @@ const CryptoWithdraw = () => {
                     <input type="text" name="wallet_address" />
                   </div>
                   <div className="input__form">
-                    <label>AOTP Code</label>
+                    <label>OTP Code</label>
                     <input type="text" name="otp_code" />
                   </div>
                 </div>

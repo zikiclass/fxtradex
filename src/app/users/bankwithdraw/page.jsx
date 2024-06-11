@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
 import Button from "../../components/Button";
@@ -8,13 +8,8 @@ import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 const BankWithdraw = () => {
-  const dashboardRef = useRef(null);
   const router = useRouter();
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
+
   const handleClick = (e) => {
     router.push(`deposit_step_3?amount=${amount}`);
   };
@@ -24,7 +19,7 @@ const BankWithdraw = () => {
         <DashboardNavbar />
         <div className="container" style={{ marginTop: "3rem" }}>
           <DashboardPageNavigator text="Bank Withdraw" />
-          <div className="dashboard_" ref={dashboardRef}>
+          <div className="dashboard_">
             <span className="withdraw__heading">Withdraw to Bank</span>
             <div className="withdrawal">
               <p>We may contact you for additional information.</p>

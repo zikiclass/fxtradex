@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { DashboardNavbar } from "../../HomeComponents";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
@@ -10,14 +10,8 @@ import { project_link } from "../../../../env";
 import Button from "../../components/Button";
 import { useRouter } from "next/navigation";
 const Referrals = () => {
-  const dashboardRef = useRef(null);
-
   const router = useRouter();
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
+
   const handleWithdraw = (e) => {
     e.preventDefault();
     router.push("withdraw_select");
@@ -28,7 +22,7 @@ const Referrals = () => {
         <DashboardNavbar />
         <div className="container" style={{ marginTop: "3rem" }}>
           <DashboardPageNavigator text="Referrals" />
-          <div className="dashboard_" ref={dashboardRef}>
+          <div className="dashboard_">
             <div className="referral__wrap">
               <div className="col__1">
                 <div className="refer__balance">

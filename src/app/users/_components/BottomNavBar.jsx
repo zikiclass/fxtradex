@@ -13,9 +13,9 @@ const BottomNavBar = ({ active }) => {
   const navbars = [
     { id: 1, icon: HomeIcon, title: "Home", href: "dashboard" },
     { id: 2, icon: TokenIcon, title: "Mining", href: "mining" },
-    { id: 3, icon: InsertChartIcon, title: "Markets", href: "/" },
-    { id: 4, icon: BrowseGalleryIcon, title: "Trade", href: "/" },
-    { id: 5, icon: HistoryEduIcon, title: "Trades", href: "/" },
+    { id: 3, icon: InsertChartIcon, title: "Markets", href: "markets" },
+    { id: 4, icon: BrowseGalleryIcon, title: "Trade", href: "trade" },
+    { id: 5, icon: HistoryEduIcon, title: "Trades", href: "trades" },
     { id: 6, icon: WalletIcon, title: "Profile", href: "profile" },
   ];
   const handleClick = (href) => {

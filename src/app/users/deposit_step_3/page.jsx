@@ -1,7 +1,7 @@
 "use client";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Button from "../../components/Button";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import { DashboardNavbar } from "../../HomeComponents";
@@ -38,13 +38,6 @@ const DepositStep3Content = () => {
       `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}`
     );
   };
-  const dashboardRef = useRef(null);
-
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
 
   useEffect(() => {
     const fetchExchangeRate = async () => {

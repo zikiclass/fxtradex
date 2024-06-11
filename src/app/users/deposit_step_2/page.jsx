@@ -1,6 +1,6 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
-import React, { useEffect, useRef, Suspense } from "react";
+import React, { Suspense } from "react";
 import "../dashboard/styles/dashboard.css";
 import "../_components/styles/user.css";
 import PanelPlain from "../_components/Panel";
@@ -21,17 +21,12 @@ const DepositStep2Content = () => {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
 
-  const dashboardRef = useRef(null);
   const router = useRouter();
 
   const handleClick = (e) => {
     router.push(`deposit_step_3?amount=${amount}`);
   };
-  useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-  }, []);
+
   return (
     <div>
       <DashboardNavbar />

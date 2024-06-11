@@ -24,15 +24,10 @@ const DepositWalletAddressContent = () => {
   const amount = searchParams.get("amount");
   const paymethod = searchParams.get("paymethod");
 
-  const dashboardRef = useRef(null);
   const router = useRouter();
 
   const [timeLeft, setTimeLeft] = useState(3600);
   useEffect(() => {
-    if (dashboardRef.current) {
-      dashboardRef.current.classList.add("fadeIn");
-    }
-
     const timer = setInterval(() => {
       setTimeLeft((prevTimeLeft) => {
         if (prevTimeLeft === 0) {
@@ -70,7 +65,7 @@ const DepositWalletAddressContent = () => {
       <DashboardNavbar />
       <div className="container" style={{ marginTop: "3rem" }}>
         <DashboardPageNavigator text="Deposit" />
-        <div className="dashboard_" ref={dashboardRef}>
+        <div className="dashboard_">
           {minutes <= 0 ? (
             <p>Invalid or Expired Payment Link</p>
           ) : (

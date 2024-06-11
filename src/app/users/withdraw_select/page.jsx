@@ -31,11 +31,9 @@ const WithdrawalSelect = () => {
           <div className="dashboard_" ref={dashboardRef}>
             <h5>Select Withdrawal Method</h5>
             {withdrawals.map((withdraw) => (
-              <div key={withdraw.id} className="panel__">
-                <Link href={withdraw.href} className="panel__text">
-                  {withdraw.title}
-                </Link>
-              </div>
+              <Link href={withdraw.href} className="panel__" key={withdraw.id}>
+                <span className="panel__text">{withdraw.title}</span>
+              </Link>
             ))}
           </div>
         </div>

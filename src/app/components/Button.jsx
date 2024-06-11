@@ -6,7 +6,7 @@ const Button = ({ title, onClick }) => {
   return (
     <>
       <Button_ onClick={onClick}>
-        <span>{title}</span>
+        <span style={{ marginTop: "2px" }}>{title}</span>
       </Button_>
     </>
   );
@@ -22,6 +22,9 @@ const Button_ = styled.button`
   color: #fff;
   width: 100%;
   font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     background-color: var(--secondary-color);
