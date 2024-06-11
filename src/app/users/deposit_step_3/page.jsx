@@ -9,44 +9,32 @@ import BottomNavBar from "../_components/BottomNavBar";
 import "../_components/styles/user.css";
 import "../dashboard/styles/dashboard.css";
 const DepositStep3 = () => {
+  const dashboardRef = useRef(null);
+
+  useEffect(() => {
+    if (dashboardRef.current) {
+      dashboardRef.current.classList.add("fadeIn");
+    }
+  }, []);
+
+  return (
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <DepositStep3Content />
+      </Suspense>
+    </>
+  );
+};
+
+const DepositStep3Content = () => {
+  const searchParams = useSearchParams();
+  const amount = searchParams.get("amount");
+  const amountUSD = parseFloat(searchParams.get("amount"));
   const [buttonClicked, setButtonClicked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("BTC Bitcoin");
-
-  const amountUSD = parseFloat(searchParams.get("amount"));
+  const router = useRouter();
   const [btcEquivalent, setBtcEquivalent] = useState(null);
   const [loading, setLoading] = useState(true);
-  const dashboardRef = useRef(null);
-  const router = useRouter();
-  useEffect(
-    () => {
-      if (dashboardRef.current) {
-        dashboardRef.current.classList.add("fadeIn");
-      }
-      const fetchExchangeRate = async () => {
-        try {
-          const response = await fetch(
-            "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
-          );
-          const data = await response.json();
-          const exchangeRate = data.bitcoin.usd;
-          if (!isNaN(exchangeRate)) {
-            const btcEquivalentAmount = amountUSD / exchangeRate;
-            setBtcEquivalent(btcEquivalentAmount.toFixed(8));
-          } else {
-            console.error("Invalid exchange rate:", exchangeRate);
-          }
-        } catch (error) {
-          console.error("Error fetching exchange rate:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchExchangeRate();
-    },
-    [],
-    [amountUSD]
-  );
 
   const handleProceed = (e) => {
     e.preventDefault();
@@ -58,32 +46,30 @@ const DepositStep3 = () => {
       `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}`
     );
   };
-  return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <DepositStep3Content
-          searchParams={searchParams}
-          loading={loading}
-          btcEquivalent={btcEquivalent}
-          handleProceed={handleProceed}
-          buttonClicked={buttonClicked}
-          setPaymentMethod={setPaymentMethod}
-        />
-      </Suspense>
-    </>
-  );
-};
 
-const DepositStep3Content = ({
-  searchParams,
-  loading,
-  btcEquivalent,
-  handleProceed,
-  buttonClicked,
-  setPaymentMethod,
-}) => {
-  const searchParams = useSearchParams();
-  const amount = searchParams.get("amount");
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
+        );
+        const data = await response.json();
+        const exchangeRate = data.bitcoin.usd;
+        if (!isNaN(exchangeRate)) {
+          const btcEquivalentAmount = amountUSD / exchangeRate;
+          setBtcEquivalent(btcEquivalentAmount.toFixed(8));
+        } else {
+          console.error("Invalid exchange rate:", exchangeRate);
+        }
+      } catch (error) {
+        console.error("Error fetching exchange rate:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExchangeRate();
+  }, [amountUSD]);
   return (
     <div>
       <DashboardNavbar />
