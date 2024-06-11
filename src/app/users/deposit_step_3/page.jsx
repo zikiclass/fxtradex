@@ -10,10 +10,9 @@ import Button from "../../components/Button";
 import CircularProgress from "@mui/joy/CircularProgress";
 import { useRouter } from "next/navigation";
 const DepositStep3 = () => {
-  const searchParams = useSearchParams();
   const [buttonClicked, setButtonClicked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("BTC Bitcoin");
-  const amount = searchParams.get("amount");
+
   const amountUSD = parseFloat(searchParams.get("amount"));
   const [btcEquivalent, setBtcEquivalent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -63,84 +62,86 @@ const DepositStep3 = () => {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <div>
-          <DashboardNavbar />
-          <div className="container" style={{ marginTop: "3rem" }}>
-            <DashboardPageNavigator text="Deposit" />
-            <div className="dashboard_" ref={dashboardRef}>
-              <div className="deposit">
-                <h2>
-                  PAY{" "}
-                  {Number(amount).toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })}
-                </h2>
-                <p style={{ marginTop: "-20px" }}>Send Crypto</p>
-                <div className="deposit__form">
-                  <center>
-                    <label>
-                      {loading
-                        ? "Loading..."
-                        : btcEquivalent !== null && !isNaN(btcEquivalent)
-                        ? parseFloat(btcEquivalent).toFixed(8)
-                        : "N/A"}{" "}
-                      BTC
-                    </label>
-                  </center>
-                  <form action="#" onSubmit={handleProceed}>
-                    <div className="input__deposit">
-                      <label>Select Payment Method</label>
-                      <select
-                        className="select__deposit"
-                        name="paymentMethod"
-                        onChange={(e) => setPaymentMethod(e.target.value)}
-                      >
-                        <option value="BTC Bitcoin" selected="">
-                          BTC Bitcoin
-                        </option>
-                        <option value="ETH Ethereum">ETH Ethereum </option>
-                        <option value="USDT Usdt(trc20)">
-                          USDT Usdt(trc20){" "}
-                        </option>
-                        <option value="USDT Usdt(erc20)">
-                          USDT Usdt(erc20){" "}
-                        </option>
-                        <option value="TRX Trx(tron)">TRX Trx(tron) </option>
-                        <option value="PIX Elzimar medeiros de jesus ribeiro Nubank">
-                          PIX Elzimar medeiros de jesus ribeiro Nubank
-                        </option>
-                        <option value="PIXX Inter banco">
-                          PIXX Inter banco{" "}
-                        </option>
-                        <option value="PIXX Mercado pago elzimar medeiros de jesus ribeiro">
-                          PIXX Mercado pago elzimar medeiros de jesus ribeiro{" "}
-                        </option>
-                        <option value="PIXXX Sandra aparecida gagetti Chave BV">
-                          PIXXX Sandra aparecida gagetti Chave BV
-                        </option>
-                      </select>
-                    </div>
-                    {!buttonClicked ? (
-                      <Button title="Proceed" />
-                    ) : (
-                      <center
-                        style={{
-                          padding: "0px",
-                        }}
-                      >
-                        <CircularProgress thickness={4} />
-                      </center>
-                    )}
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <BottomNavBar active="dashboard" />
-        </div>
+        <DepositStep3Content />
       </Suspense>
     </>
+  );
+};
+
+const DepositStep3Content = () => {
+  const searchParams = useSearchParams();
+  const amount = searchParams.get("amount");
+  return (
+    <div>
+      <DashboardNavbar />
+      <div className="container" style={{ marginTop: "3rem" }}>
+        <DashboardPageNavigator text="Deposit" />
+        <div className="dashboard_" ref={dashboardRef}>
+          <div className="deposit">
+            <h2>
+              PAY{" "}
+              {Number(amount).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </h2>
+            <p style={{ marginTop: "-20px" }}>Send Crypto</p>
+            <div className="deposit__form">
+              <center>
+                <label>
+                  {loading
+                    ? "Loading..."
+                    : btcEquivalent !== null && !isNaN(btcEquivalent)
+                    ? parseFloat(btcEquivalent).toFixed(8)
+                    : "N/A"}{" "}
+                  BTC
+                </label>
+              </center>
+              <form action="#" onSubmit={handleProceed}>
+                <div className="input__deposit">
+                  <label>Select Payment Method</label>
+                  <select
+                    className="select__deposit"
+                    name="paymentMethod"
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
+                    <option value="BTC Bitcoin" selected="">
+                      BTC Bitcoin
+                    </option>
+                    <option value="ETH Ethereum">ETH Ethereum </option>
+                    <option value="USDT Usdt(trc20)">USDT Usdt(trc20) </option>
+                    <option value="USDT Usdt(erc20)">USDT Usdt(erc20) </option>
+                    <option value="TRX Trx(tron)">TRX Trx(tron) </option>
+                    <option value="PIX Elzimar medeiros de jesus ribeiro Nubank">
+                      PIX Elzimar medeiros de jesus ribeiro Nubank
+                    </option>
+                    <option value="PIXX Inter banco">PIXX Inter banco </option>
+                    <option value="PIXX Mercado pago elzimar medeiros de jesus ribeiro">
+                      PIXX Mercado pago elzimar medeiros de jesus ribeiro{" "}
+                    </option>
+                    <option value="PIXXX Sandra aparecida gagetti Chave BV">
+                      PIXXX Sandra aparecida gagetti Chave BV
+                    </option>
+                  </select>
+                </div>
+                {!buttonClicked ? (
+                  <Button title="Proceed" />
+                ) : (
+                  <center
+                    style={{
+                      padding: "0px",
+                    }}
+                  >
+                    <CircularProgress thickness={4} />
+                  </center>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <BottomNavBar active="dashboard" />
+    </div>
   );
 };
 
