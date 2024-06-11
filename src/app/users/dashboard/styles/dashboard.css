@@ -3,12 +3,8 @@
     width: 90%;
     display: flex;
     gap: 1rem;
-    opacity: 0;
-    transition: opacity 1s ease;
 }
-.dashboard.fadeIn{
-    opacity: 1;
-}
+
 .dashboard_{
     margin: 2rem auto;
     width: 90%;
@@ -17,12 +13,9 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    opacity: 0;
-    transition: opacity 1s ease;
+   
 }
-.dashboard_.fadeIn{
-    opacity: 1;
-}
+
 
 @media screen and (max-width: 760px){
     .dashboard{
