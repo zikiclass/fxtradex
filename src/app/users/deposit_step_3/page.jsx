@@ -1,14 +1,13 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef, useState, Suspense } from "react";
-import "../dashboard/styles/dashboard.css";
-import "../_components/styles/user.css";
+import CircularProgress from "@mui/joy/CircularProgress";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
+import Button from "../../components/Button";
+import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
-import DashboardPageNavigator from "../../components/DashboardPageNavigator";
-import Button from "../../components/Button";
-import CircularProgress from "@mui/joy/CircularProgress";
-import { useRouter } from "next/navigation";
+import "../_components/styles/user.css";
+import "../dashboard/styles/dashboard.css";
 const DepositStep3 = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("BTC Bitcoin");
@@ -62,13 +61,27 @@ const DepositStep3 = () => {
   return (
     <>
       <Suspense fallback={<div>Loading...</div>}>
-        <DepositStep3Content />
+        <DepositStep3Content
+          searchParams={searchParams}
+          loading={loading}
+          btcEquivalent={btcEquivalent}
+          handleProceed={handleProceed}
+          buttonClicked={buttonClicked}
+          setPaymentMethod={setPaymentMethod}
+        />
       </Suspense>
     </>
   );
 };
 
-const DepositStep3Content = () => {
+const DepositStep3Content = ({
+  searchParams,
+  loading,
+  btcEquivalent,
+  handleProceed,
+  buttonClicked,
+  setPaymentMethod,
+}) => {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
   return (
