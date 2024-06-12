@@ -67,7 +67,7 @@ const DepositStep3Content = () => {
       <DashboardNavbar />
       <div className="container" style={{ marginTop: "3rem" }}>
         <DashboardPageNavigator text="Deposit" />
-        <div className="dashboard_" ref={dashboardRef}>
+        <div className="dashboard_">
           <div className="deposit">
             <h2>
               PAY{" "}

@@ -20,57 +20,69 @@ const Profile = () => {
   const profile1 = [
     {
       id: 1,
-      icon: SavingsIcon,
+      icon: <SavingsIcon style={{ fontSize: 30 }} />,
       color: "#32a7e2",
       title: "Deposits",
-      href: "/",
+      href: "deposit_list",
     },
     {
       id: 2,
-      icon: PaymentsIcon,
+      icon: <PaymentsIcon style={{ fontSize: 30 }} />,
       color: "#b548c6",
       title: "Withdrawals",
-      href: "/",
+      href: "withdrawal_list",
     },
     {
       id: 3,
-      icon: GroupsIcon,
+      icon: <GroupsIcon style={{ fontSize: 30 }} />,
       color: "#e1545d",
       title: "Referrals",
-      href: "/",
+      href: "referrals",
     },
   ];
   const profile2 = [
-    { id: 1, icon: StarIcon, color: "#ff8700", title: "Watch List", href: "/" },
+    {
+      id: 1,
+      icon: <StarIcon style={{ fontSize: 30 }} />,
+      color: "#ff8700",
+      title: "Watch List",
+      href: "watch_list",
+    },
     {
       id: 2,
-      icon: EmailIcon,
+      icon: <EmailIcon style={{ fontSize: 30 }} />,
       color: "#008001",
       title: "Update Email",
-      href: "/",
+      href: "update_email",
     },
     {
       id: 3,
-      icon: AccountCircleIcon,
+      icon: <AccountCircleIcon style={{ fontSize: 30 }} />,
       color: "#b548c6",
       title: "Update Photo",
-      href: "/",
+      href: "update_photo",
     },
     {
       id: 4,
-      icon: LockIcon,
+      icon: <LockIcon style={{ fontSize: 30 }} />,
       color: "#32a7e2",
       title: "Update Password",
-      href: "/",
+      href: "update_password",
     },
     {
       id: 5,
-      icon: SettingsIcon,
+      icon: <SettingsIcon style={{ fontSize: 30 }} />,
       color: "#b548c6",
       title: "Account Settings",
+      href: "account_settings",
+    },
+    {
+      id: 6,
+      icon: <LogoutIcon style={{ fontSize: 30 }} />,
+      color: "#32a7e2",
+      title: "Logout",
       href: "/",
     },
-    { id: 6, icon: LogoutIcon, color: "#32a7e2", title: "Logout", href: "/" },
   ];
   return (
     <>
@@ -93,7 +105,7 @@ const Profile = () => {
                     className="list__icon"
                     style={{ backgroundColor: `${profile.color}` }}
                   >
-                    <profile.icon />
+                    {profile.icon}
                   </div>
                   <span>{profile.title}</span>
                 </Link>
@@ -112,7 +124,7 @@ const Profile = () => {
                     className="list__icon"
                     style={{ backgroundColor: `${profile2.color}` }}
                   >
-                    <profile2.icon />
+                    {profile2.icon}
                   </div>
                   <span>{profile2.title}</span>
                 </Link>

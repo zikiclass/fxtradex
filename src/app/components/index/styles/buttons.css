@@ -38,6 +38,7 @@
     border-radius: 5px;
     width: 100%;
     cursor: pointer;
+    font-size: 14px;
 }
 .btnTransparent:hover{
     box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.8);
