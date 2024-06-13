@@ -10,6 +10,10 @@
   --text-gray: #777;
   --dark: #000;
   --orange-color: #f7921b;
+
+  --admin-primary: #212096;
+  --sidebar-primary: #3835af;
+  --admin-dark: #1a254f;
 }
 
 @media (prefers-color-scheme: dark) {
