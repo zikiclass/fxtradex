@@ -10,7 +10,12 @@
     background-color: var(--sidebar-primary);
     box-shadow: 0px 10px 0px rgba(0,0,0,0.8);
     overflow: hidden;
+    transition: width 0.2s ease;
 }
+.ad__sidebar.hide{
+    width: 0px;
+}
+
 .ad__sidebar .sidebar__top{
     display: flex;
     justify-content: center;
@@ -241,6 +246,7 @@
     color: #fff;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 .details{
     display: flex;
@@ -278,8 +284,77 @@
 
 
 @media screen and (max-width: 760px){
+   .ad__sidebar.hide{
+    width: 70px;
+    height: auto;
+    z-index: 999;
+    top: 0;
+
+    
+   }
+   .ad__sidebar.hide .ad_logo{
+    width: 50px;
+    height: 50px;
+   }
+   .ad__sidebar.hide .sidebar__top{
+    padding: 0px;
+    margin: 2rem 0px;
+   }
+   .ad__sidebar.hide .sidebar__top__bottom{
+    display: none;
+   }
+   .ad__sidebar.hide .sidebar__links{
+    padding: 0px;
+   }
+   .ad__sidebar.hide .sidebar__links .link .ad__sidebar.hide .sidebar__links .link.active{
+    padding: 0.3rem;
+    margin-bottom: 0.6rem;
+   }
+   .ad__sidebar.hide .sidebar__links .link span{
+    font-size: 10px;
+   }
+   .ad__sidebar.hide .sidebar__links .arrow{
+    display: none;
+   }
+
     .ad__sidebar{
         width: 0px;
+    }
+    .ad__link__main{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+    }
+    .ad__sidebar.hide .sidebar__links li .link{
+        padding: 0.2rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.2rem;
+    }
+    .ad__sidebar.hide .sidebar__links li .link.active{
+        background-color: transparent;
+        color: #9590f0;
+    }
+    .ad__sidebar.hide .reveal{
+        margin-top: 0;
+        margin-bottom: 0.8rem;
+       
+    }
+    .ad__sidebar.hide .reveal .sublink{
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        padding: 0!important;
+        margin: 0;
+        gap: 2px;
+        
+        text-align: center;
+    }
+    .ad__sidebar.hide .reveal .sublink .hideSublink, .ad__sidebar.hide .reveal .sublink span{
+        color: #e1edf6;
     }
     .cards, .charts{
         flex-direction: column;
@@ -287,8 +362,18 @@
     .admin{
         height: auto;
     }
+    .s_ic_{
+        padding: 2px!important;
+    }
+    .s_ic{
+        padding: 1px!important;
+    }
+    .s_ic.hide{
+        display: none;
+    }
     .ad__container{
         height: auto;
+        padding-left: 1rem;
     }
     .card{
         padding: 1rem;
@@ -300,7 +385,7 @@
        display: none;
     }
     .shortcuts{
-        gap: 4px;
+        gap: 2px;
         margin-right: 3px;
     }
     .navbar__col__1{

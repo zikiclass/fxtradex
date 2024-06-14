@@ -16,7 +16,7 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { project_name, project_link } from "../../../../env";
 import React, { useEffect, useState } from "react";
 
-const SideBar = () => {
+const SideBar = ({ toggle }) => {
   const [activeLink, setActiveLink] = useState("dashboard");
 
   const handleLink = (data) => {
@@ -61,7 +61,7 @@ const SideBar = () => {
   ];
 
   return (
-    <div className="ad__sidebar">
+    <div className={toggle ? `ad__sidebar` : `ad__sidebar hide`}>
       <div className="sidebar__top">
         <Link href="dashboard">
           <Image src={Logo} alt="Logo" className="ad_logo" />
@@ -82,15 +82,18 @@ const SideBar = () => {
                   activeLink === `${linkList.title}` && "active"
                 }`}
               >
-                <div>
+                <div className="ad__link__main">
                   {linkList.icon} <span>{linkList.title}</span>
                 </div>
 
                 {linkList.sub &&
                   (activeLink === linkList.title ? (
-                    <ArrowDropDownIcon />
+                    <ArrowDropDownIcon className="arrow" />
                   ) : (
-                    <PlayArrowIcon style={{ fontSize: "13px" }} />
+                    <PlayArrowIcon
+                      style={{ fontSize: "13px" }}
+                      className="arrow"
+                    />
                   ))}
               </div>
               {linkList.sub && (
@@ -102,7 +105,10 @@ const SideBar = () => {
                   {linkList.subLink.map((sublink) => (
                     <li key={sublink.title}>
                       <Link href={sublink.href} className="sublink">
-                        <AdjustIcon style={{ fontSize: "14px" }} />
+                        <AdjustIcon
+                          style={{ fontSize: "14px" }}
+                          className="hideSublink"
+                        />
                         <span>{sublink.title}</span>
                       </Link>
                     </li>
