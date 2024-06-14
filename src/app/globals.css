@@ -6,11 +6,13 @@
   --foreground-rgb: 0, 0, 0;
   --primary-color: #6648fe;
   --secondary-color: #04b897;
-  --background-color: #f4f7fd;
+  --background-color: #000;
+  --background-color-2: #000;
+  
   --text-gray: #777;
   --dark: #000;
   --orange-color: #f7921b;
-
+  --dark-primary: #0c143d;
   --admin-primary: #212096;
   --admin-primary-second: #0c143d;
   --sidebar-primary: #3835af;
@@ -18,10 +20,15 @@
   --admin-chart-bg: #18254f;
   --admin-color-white-2: #e1edf6;
   --admin-color-white: #fff;
+  --admin-color-transparent: #fff;
+  --admin-color-gray: #fff;
   --admin-color-heading: #fff;
   --admin-color-white-3: #9590f0;
 }
 [data-theme='light']{
+  --dark-primary: #fff;
+  --background-color: #f4f7fd;
+  --background-color-2: #fff;
   --admin-primary: #e1e4f0;
   --admin-primary-second: #c1c3cc;
   --sidebar-primary: #dcd8fd;
@@ -29,8 +36,10 @@
   --admin-chart-bg: #eef1ff;
   --admin-color-white-2: #000;
   --admin-color-white: #000;
+  --admin-color-gray: #777;
   --admin-color-heading: #6648fe;
   --admin-color-white-3: #000;
+  --admin-color-transparent: trnasparent;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,4 +76,10 @@ input{
 .cta button:hover{
   background: linear-gradient(to bottom, var(--secondary-color), var(--secondary-color));
   box-shadow: 0 2px 6px 0px rgba(0,0,0,0.7);
+}
+h3{
+  color: var(--admin-color-white)!important;
+}
+.pageTitleColor{
+  color: var(--admin-color-gray);
 }

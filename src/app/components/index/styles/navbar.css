@@ -12,8 +12,8 @@
     z-index: 1000;
 }
 .scrolled{
-    background-color: #fff!important;
-    color: var(--dark);
+    background-color: var(--background-color-2)!important;
+    color: var(--admin-color-white);
 }
 .navbar__logo__harmburger{
     display: flex;

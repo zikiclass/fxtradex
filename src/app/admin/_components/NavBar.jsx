@@ -6,6 +6,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import DraftsIcon from "@mui/icons-material/Drafts";
+import BedtimeIcon from "@mui/icons-material/Bedtime";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import human from "../../../../public/img/TW2.jpeg";
@@ -47,7 +48,12 @@ const NavBar = ({ onClick, setIcon }) => {
 
       <div className="navbar__col__1">
         <div className="shortcuts">
-          <LightModeIcon className="s_ic" onClick={toggleTheme} />
+          {theme === "dark" ? (
+            <LightModeIcon className="s_ic" onClick={toggleTheme} />
+          ) : (
+            <BedtimeIcon className="s_ic" onClick={toggleTheme} />
+          )}
+
           <DashboardIcon className="s_ic hide" />
           <NotificationsIcon className="s_ic" />
           <DraftsIcon className="s_ic hide" />

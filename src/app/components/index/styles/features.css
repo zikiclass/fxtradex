@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     padding: 2.5rem;
-    background-color: #fff;
+    background-color: var(--dark-primary);
     height: 100%;
 }
 
@@ -19,7 +19,7 @@
 }
 .feature__card p{
     line-height: 1.2rem;
-    color: var(--text-gray);
+    color: var(--admin-color-gray);
     text-align: center;
 }
 

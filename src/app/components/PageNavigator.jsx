@@ -15,7 +15,7 @@ const PageNavigator = ({ text }) => {
       <Link href="/" style={{ color: "#6648fe" }}>
         Home
       </Link>
-      <span style={{ color: "#777" }}>&gt; {text}</span>
+      <span className="pageTitleColor">&gt; {text}</span>
     </div>
   );
 };

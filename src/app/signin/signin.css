@@ -74,7 +74,7 @@ label{
 }
 
 @media screen and (max-width: 760px){
-    .form{
-        width: auto;
+    .form__login{
+        width: 100%;
     }
 }

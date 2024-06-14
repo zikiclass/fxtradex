@@ -6,7 +6,7 @@
 }
 .faq__wrapper h3{
     text-transform: uppercase;
-    color: var(--dark);
+    color: var(--dark)!important;
 }
 .answer{
     opacity: 0;
@@ -14,7 +14,7 @@
 }
 .answer.hide{ display: none;}
 .answer > p{
-    color: var(--dark);
+    color: var(--admin-color-white);
     transition: 0.3s ease-in-out;
 }
 .faqs{

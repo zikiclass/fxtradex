@@ -1,6 +1,7 @@
 "use client";
 import { project_name } from "../../../../env";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
+import LightModeIcon from "@mui/icons-material/LightMode";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -28,6 +29,24 @@ const NavBarLight = () => {
     setFadeOut(true);
   }, []);
 
+  const [theme, setTheme] = useState("dark");
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   return (
     <div className="scrolled">
       <div className="navbar__logo__harmburger">
@@ -49,7 +68,11 @@ const NavBarLight = () => {
         <Link href="signup" className="md-links">
           Sign Up
         </Link>
-        <BedtimeIcon className="icon__bed" />
+        {theme === "dark" ? (
+          <LightModeIcon className="icon__bed" onClick={toggleTheme} />
+        ) : (
+          <BedtimeIcon className="icon__bed" onClick={toggleTheme} />
+        )}
         <div
           className="icon__"
           onClick={() => {

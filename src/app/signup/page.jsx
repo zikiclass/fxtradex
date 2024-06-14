@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { NavBarLight } from "../HomeComponents";
 import PageNavigator from "../components/PageNavigator";
 import { countries, currency } from "../components/index/data";
-import "./register.css";
+import "./signup.css";
 const Register = () => {
   const signupFormRef = useRef(null);
 
