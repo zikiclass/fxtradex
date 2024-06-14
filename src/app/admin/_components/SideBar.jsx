@@ -15,23 +15,39 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { project_name, project_link } from "../../../../env";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const SideBar = ({ toggle }) => {
-  const [activeLink, setActiveLink] = useState("dashboard");
+  const router = useRouter();
+  const [activeLink, setActiveLink] = useState("");
 
-  const handleLink = (data) => {
+  const handleLink = (data, nav) => {
     setActiveLink(data);
+    localStorage.setItem("activeLink", data);
+    router.push(nav);
+  };
+  const handleLink2 = (data) => {
+    setActiveLink(data);
+    localStorage.setItem("activeLink", data);
   };
 
+  useEffect(() => {
+    setActiveLink(localStorage.getItem("activeLink"));
+  }, []);
   const linkLists = [
-    { title: "dashboard", icon: <DashboardIcon />, subLink: [] },
+    {
+      title: "dashboard",
+      icon: <DashboardIcon />,
+      subLink: [],
+      href: "dashboard",
+    },
     {
       title: "accounts",
       icon: <PersonIcon />,
       sub: "accounts",
       subLink: [
-        { title: "users", href: "/" },
-        { title: "admin", href: "/" },
+        { title: "users", href: "users" },
+        { title: "admin", href: "admin_" },
       ],
     },
     {
@@ -39,22 +55,22 @@ const SideBar = ({ toggle }) => {
       icon: <AccountBalanceWalletIcon />,
       sub: "transactions",
       subLink: [
-        { title: "deposits", href: "/" },
-        { title: "withdrawals", href: "/" },
+        { title: "deposits", href: "deposits" },
+        { title: "withdrawals", href: "withdrawals" },
       ],
     },
-    { title: "traders", icon: <Diversity2Icon /> },
-    { title: "trades", icon: <CurrencyExchangeIcon /> },
+    { title: "traders", icon: <Diversity2Icon />, href: "traders" },
+    { title: "trades", icon: <CurrencyExchangeIcon />, href: "trades" },
     {
       title: "settings",
       icon: <SettingsIcon />,
       sub: "settings",
       subLink: [
-        { title: "favorites", href: "/" },
-        { title: "gainers", href: "/" },
-        { title: "losers", href: "/" },
-        { title: "accounts", href: "/" },
-        { title: "wallet address", href: "/" },
+        { title: "favorites", href: "favorites" },
+        { title: "gainers", href: "gainers" },
+        { title: "losers", href: "losers" },
+        { title: "accounts", href: "accounts" },
+        { title: "wallet address", href: "wallets" },
       ],
     },
     { title: "logout", icon: <ExitToAppIcon /> },
@@ -76,7 +92,13 @@ const SideBar = ({ toggle }) => {
       <div className="sidebar__bottom">
         <ul className="sidebar__links">
           {linkLists.map((linkList) => (
-            <li onClick={() => handleLink(`${linkList.title}`)}>
+            <li
+              onClick={() => {
+                linkList.href
+                  ? handleLink(`${linkList.title}`, `${linkList.href}`)
+                  : handleLink2(`${linkList.title}`);
+              }}
+            >
               <div
                 className={`link ${
                   activeLink === `${linkList.title}` && "active"
