@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../_components/admin.css";
 import SideBar from "../_components/SideBar";
 import NavBar from "../_components/NavBar";
@@ -11,6 +11,7 @@ const AdminDashboard = () => {
     e.preventDefault();
     setShowNavbar(!showNavbar);
   };
+
   return (
     <div className="admin">
       <SideBar toggle={showNavbar} />
