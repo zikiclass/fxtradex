@@ -9,10 +9,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FlagIcon } from "react-flag-kit";
 import { countryList, sidebarLinks } from "./data";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import { useSession } from "next-auth/react";
 import "./styles/navbar.css";
 
 const NavBar = () => {
+  const { status, data: session } = useSession();
+
   const [fadeOut, setFadeOut] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [countryShow, setCountryShow] = useState(false);
@@ -80,9 +82,16 @@ const NavBar = () => {
         <Link href="contact" className="md-links">
           Contact Us
         </Link>
-        <Link href="signin" className="md-links">
-          Log In
-        </Link>
+        {status === "unauthenticated" ? (
+          <Link href="signin" className="md-links">
+            Log In
+          </Link>
+        ) : (
+          <Link href="users/dashboard" className="md-links">
+            {session?.user?.name}
+          </Link>
+        )}
+
         <Link href="signup" className="md-links">
           Sign Up
         </Link>

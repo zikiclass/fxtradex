@@ -11,8 +11,10 @@ import { countryList, sidebarLinks } from "./data";
 import "./styles/navbar.css";
 import Image from "next/image";
 import logo from "../../../../public/img/logo.png";
-
+import { useSession } from "next-auth/react";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 const DashboardNavbar = () => {
+  const { status, data: session } = useSession();
   const [countryShow, setCountryShow] = useState(false);
   const [fadeOut, setFadeOut] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -47,6 +49,7 @@ const DashboardNavbar = () => {
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
+
   return (
     <div className="scrolled">
       <div className="navbar__logo__harmburger">
@@ -59,20 +62,24 @@ const DashboardNavbar = () => {
         </Link>
       </div>
       <div className="navbar__links">
-        <Link href="../contact" className="md-links">
-          Contact Us
-        </Link>
-        <Link href="../signin" className="md-links">
-          Log In
-        </Link>
-        <Link href="../signup" className="md-links">
-          Sign Up
-        </Link>
+        {status === "unauthenticated" ? (
+          <Link href="../signin" className="md-links">
+            Log In
+          </Link>
+        ) : (
+          <Link href="profile" className="md-links">
+            {session?.user?.name}
+          </Link>
+        )}
+
         {theme === "dark" ? (
           <LightModeIcon className="icon__bed" onClick={toggleTheme} />
         ) : (
           <BedtimeIcon className="icon__bed" onClick={toggleTheme} />
         )}
+        <Link href="../api/auth/signout">
+          <PowerSettingsNewIcon className="icon__bed" />
+        </Link>
         <div
           className="icon__"
           onClick={() => {
@@ -81,6 +88,7 @@ const DashboardNavbar = () => {
         >
           <FlagIcon code="US" className="icon__country" /> <span>EN</span>
         </div>
+
         <div className="country__list">
           <div className="country__wrap">
             {countryList.map((country) => (

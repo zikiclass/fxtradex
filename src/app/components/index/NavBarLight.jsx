@@ -10,8 +10,10 @@ import { countryList, sidebarLinks } from "./data";
 import "./styles/navbar.css";
 import Image from "next/image";
 import logo from "../../../../public/img/logo.png";
+import { useSession } from "next-auth/react";
 
 const NavBarLight = () => {
+  const { status, data: session } = useSession();
   const [countryShow, setCountryShow] = useState(false);
   const [fadeOut, setFadeOut] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -62,9 +64,16 @@ const NavBarLight = () => {
         <Link href="contact" className="md-links">
           Contact Us
         </Link>
-        <Link href="signin" className="md-links">
-          Log In
-        </Link>
+        {status === "unauthenticated" ? (
+          <Link href="signin" className="md-links">
+            Log In
+          </Link>
+        ) : (
+          <Link href="user/dashboard" className="md-links">
+            {session?.user?.name}
+          </Link>
+        )}
+
         <Link href="signup" className="md-links">
           Sign Up
         </Link>

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { Inter, Signika_Negative } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Theme } from "@radix-ui/themes";
-
+import AuthProvider from "./auth/Provider";
 // Assign the font loaders to consts with specified subsets
 const inter = Inter({ subsets: ["latin"] });
 const signika = Signika_Negative({ subsets: ["latin"] });
@@ -20,9 +20,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={signika.className}>
-        <ThemeProvider attribute="class">
-          <Theme appearance="dark">{children}</Theme>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute="class">
+            <Theme appearance="dark">{children}</Theme>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
