@@ -5,7 +5,8 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+// NextAuth configuration
+const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     // GoogleProvider({
@@ -14,10 +15,8 @@ export const authOptions = {
     // }),
     CredentialsProvider({
       name: "Credentials",
-
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (credentials?.role === "user") {
-          console.log(credentials?.role);
           if (!credentials?.email || !credentials?.password) return null;
 
           const user = await prisma.register.findUnique({
@@ -31,10 +30,8 @@ export const authOptions = {
             user.password
           );
 
-          // Return the user object with all required fields
           return passwordsMatch ? user : null;
         } else if (credentials?.role === "admin") {
-          console.log(credentials?.role);
           if (!credentials?.email || !credentials?.password) return null;
 
           const admin = await prisma.admin.findUnique({
@@ -42,23 +39,22 @@ export const authOptions = {
           });
 
           if (!admin) return null;
-          var currentDate = new Date();
+
+          const currentDate = new Date();
           await prisma.admin.update({
             where: { email: credentials.email },
             data: { lastLogin: currentDate },
           });
+
           const passwordsMatch = await bcrypt.compare(
             credentials.password,
             admin.password
           );
 
-          // Return the user object with all required fields
           return passwordsMatch ? admin : null;
         }
       },
     }),
-
-    // Add more providers here if needed
   ],
 
   session: {
@@ -73,6 +69,8 @@ export const authOptions = {
   database: process.env.DATABASE_URL,
 };
 
+// Define GET and POST handlers for NextAuth
 const handler = NextAuth(authOptions);
 
+// Export handler to handle GET and POST requests
 export { handler as GET, handler as POST };
