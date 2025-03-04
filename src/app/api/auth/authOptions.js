@@ -1,6 +1,7 @@
 // src/app/api/auth/authOptions.js
 
 import prisma from "../../../../prisma/client";
+
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
