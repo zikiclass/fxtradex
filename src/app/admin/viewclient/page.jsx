@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../Layout";
 import styles from "../users/users.module.css";
 import axios from "axios";
@@ -9,12 +9,16 @@ import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-const ViewClient = () => {
+
+// Component that handles fetching the user data and managing the state
+const ViewClientContent = () => {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
+
   const [users, setUsers] = useState([]);
   const [otpCode, setOtpCode] = useState(null);
   const [transactions, setTransactions] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,14 +27,14 @@ const ViewClient = () => {
         setOtpCode(response.data.user.otp_code);
         setTransactions(response.data.trans);
       } catch (error) {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     };
     fetchData();
-  }, []);
+  }, [userId]);
 
   const formatNumber = (number) => {
-    // Check if the number is a valid number or convert it to a string
+    // Format number to currency style
     const parts = parseFloat(number).toFixed(2).toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
@@ -44,15 +48,18 @@ const ViewClient = () => {
         otpCode,
       });
       if (response.data.message === "success") {
-        toast.success("OTP coded updated successfully");
-      } else toast.error("Error updating OTP code");
+        toast.success("OTP code updated successfully");
+      } else {
+        toast.error("Error updating OTP code");
+      }
     } catch (error) {
       toast.error("Unable to update OTP Code for this client");
     }
   };
+
   return (
     <Layout
-      pageTitle={`Client Profile for ${users.first_name}  ${users.last_name}`}
+      pageTitle={`Client Profile for ${users.first_name} ${users.last_name}`}
     >
       <div className={styles.wrapper}>
         <Toaster position="bottom-left" />
@@ -142,7 +149,6 @@ const ViewClient = () => {
                 <p>
                   <span>Referral</span>
                   <span>
-                    {" "}
                     {users.currency + formatNumber(transactions.referral)}
                   </span>
                 </p>
@@ -193,6 +199,23 @@ const ViewClient = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const ViewClient = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <ViewClientContent />
+    </Suspense>
   );
 };
 

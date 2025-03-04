@@ -3,12 +3,11 @@ import prisma from "../../../../../prisma/client";
 import { passwordSchema } from "../../../validationSchemas";
 import bcrypt from "bcrypt";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function PUT(req) {
   try {
     const body = await req.json();
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
 
     const validation = passwordSchema.safeParse(body);
     if (!validation.success) {

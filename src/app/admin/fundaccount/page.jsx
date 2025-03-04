@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../Layout";
 import styles from "../users/users.module.css";
 import axios from "axios";
@@ -10,7 +10,9 @@ import Box from "@mui/material/Box";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
 import delay from "delay";
-const FundAccount = () => {
+
+// Component to handle the user and transaction data fetching
+const FundAccountContent = () => {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
   const [users, setUsers] = useState([]);
@@ -23,10 +25,10 @@ const FundAccount = () => {
   const [bnb, setBNB] = useState(null);
   const [doge, setDOGE] = useState(null);
   const [atom, setATOM] = useState(null);
+  const [transaction, setTransaction] = useState(null);
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  const [transaction, setTransaction] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -77,12 +79,13 @@ const FundAccount = () => {
         delay(2000);
         router.push("/admin/users");
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured", error);
+      toast.error("An error occurred", error);
     }
   };
+
   return (
     <Layout pageTitle="Fund Account">
       <div className={styles.wrapper}>
@@ -207,6 +210,23 @@ const FundAccount = () => {
         )}
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const FundAccount = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <FundAccountContent />
+    </Suspense>
   );
 };
 

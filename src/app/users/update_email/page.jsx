@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../../components/Button";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import { DashboardNavbar } from "../../HomeComponents";
@@ -11,21 +11,22 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { signOut } from "next-auth/react";
+
 const UpdateEmail = () => {
   const router = useRouter();
-  const { data } = fetchUser();
+  const { data, error } = fetchUser(); // Assuming `fetchUser` provides both data and error
   const [email, setEmail] = useState("");
+
+  // Handle the email update process
   const handleUpdate = async (event) => {
     event.preventDefault();
     try {
       const updateEmail = await axios.put("/api/users/email", { email });
-      if (updateEmail) {
-        if (updateEmail !== "updated") {
-          toast.success("Email updated successfully " + email);
+      if (updateEmail.data === "updated") {
+        toast.success("Email updated successfully " + email);
 
-          await signOut({ redirect: false, callbackUrl: "/" });
-          router.push("/api/auth/signout");
-        }
+        await signOut({ redirect: false, callbackUrl: "/" });
+        router.push("/api/auth/signout");
       } else {
         toast.error("Unable to update email");
       }
@@ -39,6 +40,23 @@ const UpdateEmail = () => {
       }
     }
   };
+
+  // Ensure that `data` is not null before trying to access email
+  if (!data) {
+    return (
+      <div>
+        <DashboardNavbar />
+        <div className="container" style={{ marginTop: "3rem" }}>
+          <DashboardPageNavigator text="Update Email" />
+          <div className="dashboard_">
+            <h3>Loading user data...</h3>
+          </div>
+        </div>
+        <BottomNavBar active="profile" />
+      </div>
+    );
+  }
+
   return (
     <div>
       <DashboardNavbar />
@@ -56,7 +74,7 @@ const UpdateEmail = () => {
                     textAlign: "center",
                   }}
                 >
-                  {data.email}
+                  {data.email} {/* Only display email if `data` is not null */}
                 </p>
 
                 <div className="input__deposit prof_email">

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
 import z from "zod";
 
 const validationSchema = z.object({
@@ -23,7 +22,7 @@ export async function PUT(req) {
     }
 
     //get user
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
     const user = await prisma.register.findUnique({
       where: { email: session.user.email },
     });

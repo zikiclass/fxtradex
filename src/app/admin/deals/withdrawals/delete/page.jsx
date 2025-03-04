@@ -1,13 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../../../Layout";
 import styles from "../../../users/users.module.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
-const DeleteWithdrawal = () => {
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
+// Component to handle the withdrawal deletion logic
+const DeleteWithdrawalContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
@@ -27,12 +31,13 @@ const DeleteWithdrawal = () => {
 
         router.push(`/admin/deals/withdrawals?userId=${userId}`);
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred");
     }
   };
+
   return (
     <Layout pageTitle="Decline Deposit">
       <div className={styles.wrapper}>
@@ -62,6 +67,23 @@ const DeleteWithdrawal = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const DeleteWithdrawal = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <DeleteWithdrawalContent />
+    </Suspense>
   );
 };
 

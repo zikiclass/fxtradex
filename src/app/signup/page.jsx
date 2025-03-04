@@ -13,8 +13,29 @@ import { Callout, Text } from "@radix-ui/themes";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { registerSchema } from "../validationSchemas";
 import toast, { Toaster } from "react-hot-toast";
-const Register = () => {
+import { Suspense } from "react";
+
+// Simulate Suspense for useSearchParams
+const useSearchParamsWithSuspense = () => {
   const searchParams = useSearchParams();
+  const [params, setParams] = useState(null);
+
+  useEffect(() => {
+    if (searchParams) {
+      setParams(searchParams); // Set params when available
+    }
+  }, [searchParams]);
+
+  if (!params) {
+    // Simulate async behavior, suspend rendering
+    throw new Promise(() => {});
+  }
+
+  return params;
+};
+
+const RegisterForm = () => {
+  const searchParams = useSearchParamsWithSuspense(); // Get search params inside Suspense
   const referralId = searchParams.get("id");
 
   const router = useRouter();
@@ -57,7 +78,6 @@ const Register = () => {
                   <option value="LIVE">LIVE</option>
                   <option value="DEMO">DEMO</option>
                 </select>
-
                 <label htmlFor="accountType">Account Type</label>
               </div>
               <div className="reg">
@@ -160,12 +180,14 @@ const Register = () => {
     </>
   );
 };
-export default Register;
 
-// export const metadata: Metadata = {
-//   title: "Sign Up - " + project_name,
-//   description:
-//     "Forex, Stocks, ETFs and Options | " +
-//     project_name +
-//     " - Online Trading Platform",
-// };
+// Main Register Component wrapped in Suspense
+const Register = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RegisterForm />
+    </Suspense>
+  );
+};
+
+export default Register;

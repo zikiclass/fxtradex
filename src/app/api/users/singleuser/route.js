@@ -18,21 +18,23 @@ export async function PUT(req) {
         atom: parseFloat(body.atom),
       },
     });
+
     if (updateTransaction)
       return NextResponse.json({ message: "success" }, { status: 200 });
     else return NextResponse.json({ message: "error" }, { status: 400 });
   } catch (error) {
     return NextResponse.json(
-      { message: "Error handling request" + error },
+      { message: "Error handling request: " + error.message },
       { status: 500 }
     );
   }
 }
+
 export async function GET(req) {
   try {
-    const url = new URL(req.url);
-    const searchParams = new URLSearchParams(url.searchParams);
+    const searchParams = req.nextUrl.searchParams; // Corrected line to get query params
     const id = searchParams.get("id");
+
     if (!id) {
       return NextResponse.json("Missing ID parameter", { status: 400 });
     }
@@ -43,6 +45,7 @@ export async function GET(req) {
       where: { id: userId },
       include: { transactions: true },
     });
+
     const trans = await prisma.transaction.findUnique({
       where: { userId: userId },
     });
@@ -53,7 +56,7 @@ export async function GET(req) {
       return NextResponse.json("User not found", { status: 404 });
     }
   } catch (error) {
-    console.error("Internal server error:", id);
+    console.error("Internal server error:", error);
     return NextResponse.json("Internal server error", { status: 500 });
   }
 }

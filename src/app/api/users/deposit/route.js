@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../../prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function POST(req) {
   try {
@@ -11,7 +10,7 @@ export async function POST(req) {
       return NextResponse.json({ message: "Invalid details" }, { status: 400 });
     }
 
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
     if (!session) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }

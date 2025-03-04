@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../../Layout";
 import styles from "../../users/users.module.css";
 import axios from "axios";
@@ -7,8 +7,28 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
-const ApproveDeposit = () => {
+
+// Simulate an asynchronous operation to load searchParams
+const useSearchParamsWithSuspense = () => {
   const searchParams = useSearchParams();
+  const [params, setParams] = useState(null);
+
+  useEffect(() => {
+    if (searchParams) {
+      setParams(searchParams); // Set the parameters once they're available
+    }
+  }, [searchParams]);
+
+  if (!params) {
+    // Simulate a delay to suspend the component
+    throw new Promise(() => {});
+  }
+
+  return params;
+};
+
+const ApproveDepositContent = () => {
+  const searchParams = useSearchParamsWithSuspense(); // Use the modified hook with Suspense
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const router = useRouter();
@@ -22,15 +42,15 @@ const ApproveDeposit = () => {
       });
       if (approve_.data.message === "success") {
         toast.success("Transaction approved successfully");
-
         router.push(`/admin/deals?userId=${userId}`);
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred");
     }
   };
+
   return (
     <Layout pageTitle="Approve Deposit">
       <div className={styles.wrapper}>
@@ -55,6 +75,14 @@ const ApproveDeposit = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+const ApproveDeposit = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ApproveDepositContent />
+    </Suspense>
   );
 };
 

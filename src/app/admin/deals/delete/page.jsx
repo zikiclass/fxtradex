@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Layout from "../../Layout";
 import styles from "../../users/users.module.css";
 import axios from "axios";
@@ -7,29 +7,39 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
-const DeleteDeposit = () => {
+
+const DeleteDepositContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const router = useRouter();
 
+  // Validate if required parameters are present
+  if (!id || !userId) {
+    toast.error("Invalid or missing parameters");
+    router.push("/admin/deals");
+    return null; // Prevent rendering if missing params
+  }
+
   const handleDelete = async (event) => {
     event.preventDefault();
     try {
-      const delete_ = await axios.delete("/api/users/deposit/uniquedeposit", {
-        data: { id },
-      });
-      if (delete_.data.message === "success") {
-        toast.success("Transaction deleted successfully");
+      // Send the ID in the URL for the DELETE request
+      const deleteResponse = await axios.delete(
+        `/api/users/deposit/uniquedeposit/${id}`
+      );
 
+      if (deleteResponse.data.message === "success") {
+        toast.success("Transaction deleted successfully");
         router.push(`/admin/deals?userId=${userId}`);
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred while deleting the deposit");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred while deleting the deposit");
     }
   };
+
   return (
     <Layout pageTitle="Decline Deposit">
       <div className={styles.wrapper}>
@@ -54,6 +64,14 @@ const DeleteDeposit = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+const DeleteDeposit = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DeleteDepositContent />
+    </Suspense>
   );
 };
 

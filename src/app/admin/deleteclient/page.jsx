@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense } from "react";
 import Layout from "../Layout";
 import styles from "../users/users.module.css";
 import axios from "axios";
@@ -7,7 +7,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
-const DeleteClient = () => {
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
+// Component to handle the user deletion logic
+const DeleteClientContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("userId");
   const router = useRouter();
@@ -23,14 +27,15 @@ const DeleteClient = () => {
 
         router.push("/admin/users");
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred");
     }
   };
+
   return (
-    <Layout pageTitle="Fund Account">
+    <Layout pageTitle="Delete Client">
       <div className={styles.wrapper}>
         <Link href="/admin/users" className={styles.btnBack}>
           <ReplyIcon />
@@ -53,6 +58,23 @@ const DeleteClient = () => {
         </div>
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const DeleteClient = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <DeleteClientContent />
+    </Suspense>
   );
 };
 

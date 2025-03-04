@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../Layout";
 import styles from "../users/users.module.css";
 import axios from "axios";
@@ -15,11 +15,14 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import Box from "@mui/material/Box";
 import { format, parseISO } from "date-fns";
-const Deals = () => {
+
+// Component to handle the fetching and displaying of the transactions
+const DealsContent = () => {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,16 +32,18 @@ const Deals = () => {
         setUsers(response.data.data);
         setLoading(false);
       } catch (error) {
-        toast.error("Error");
+        toast.error("Error fetching data");
         setLoading(false);
       }
     };
     fetchData();
   }, [userId]);
+
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
     return format(date, "EEEE dd, MMMM yyyy hh:mm:ss a");
   };
+
   return (
     <Layout pageTitle="Transactions">
       <Toaster position="bottom-left" />
@@ -61,6 +66,7 @@ const Deals = () => {
           <IndeterminateCheckBoxIcon />
           Withdrawals
         </Link>
+
         {loading ? (
           <Box
             sx={{
@@ -139,6 +145,15 @@ const Deals = () => {
         )}
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const Deals = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DealsContent />
+    </Suspense>
   );
 };
 

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 import bcrypt from "bcrypt";
 
@@ -49,7 +48,7 @@ export async function POST(request) {
 export async function GET(req) {
   try {
     //const body = await req.json();
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession();
     const email = session.user.email;
 
     const admin = await prisma.admin.findUnique({

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../../../Layout";
 import styles from "../../../users/users.module.css";
 import axios from "axios";
@@ -10,18 +10,22 @@ import { format, parseISO } from "date-fns";
 import ReplyIcon from "@mui/icons-material/Reply";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-const ApproveWithdrawal = () => {
+
+// Component to handle the withdrawal approval logic
+const ApproveWithdrawalContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState([]);
+
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
     return format(date, "EEEE dd, MMMM yyyy hh:mm:ss a");
   };
 
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,7 +40,7 @@ const ApproveWithdrawal = () => {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [id]);
 
   const handleApprove = async (event) => {
     event.preventDefault();
@@ -50,17 +54,17 @@ const ApproveWithdrawal = () => {
       );
       if (approve_.data.message === "success") {
         toast.success("Transaction approved successfully");
-
         router.push(`/admin/deals/withdrawals?userId=${userId}`);
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred");
     }
   };
+
   return (
-    <Layout pageTitle="Approve Deposit">
+    <Layout pageTitle="Approve Withdrawal">
       <div className={styles.wrapper}>
         <Link
           href={`/admin/deals/withdrawals?userId=${userId}`}
@@ -100,7 +104,6 @@ const ApproveWithdrawal = () => {
                     <b>Amount: </b>
                     {user.amount}
                     <br />
-
                     {user.method === "bank" ? (
                       <span>
                         <b>Account Number: </b>
@@ -157,6 +160,23 @@ const ApproveWithdrawal = () => {
         )}
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const ApproveWithdrawal = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <ApproveWithdrawalContent />
+    </Suspense>
   );
 };
 

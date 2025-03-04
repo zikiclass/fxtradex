@@ -1,10 +1,10 @@
-import prisma from "../../../../../prisma/client";
-
+import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import prisma from "../../../../../prisma/client";
 
-export const authOptions = {
+const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -63,6 +63,6 @@ export const authOptions = {
   database: process.env.DATABASE_URL,
 };
 
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+// Handle GET and POST requests for NextAuth
+export const GET = (req, res) => NextAuth(req, res, authOptions);
+export const POST = (req, res) => NextAuth(req, res, authOptions);

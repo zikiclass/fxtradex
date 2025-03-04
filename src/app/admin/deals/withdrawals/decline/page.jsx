@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import Layout from "../../../Layout";
 import styles from "../../../users/users.module.css";
 import axios from "axios";
@@ -10,18 +10,21 @@ import { format, parseISO } from "date-fns";
 import ReplyIcon from "@mui/icons-material/Reply";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-const DeclineWithdrawal = () => {
+
+// Component to handle data fetching for the withdrawal details
+const DeclineWithdrawalContent = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const router = useRouter();
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const formatDate = (dateString) => {
     const date = parseISO(dateString);
     return format(date, "EEEE dd, MMMM yyyy hh:mm:ss a");
   };
 
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,12 +34,12 @@ const DeclineWithdrawal = () => {
         setUsers(response.data.data);
         setLoading(false);
       } catch (error) {
-        toast.error("Error");
+        toast.error("Error fetching withdrawal data");
         setLoading(false);
       }
     };
     fetchData();
-  }, [userId]);
+  }, [id]);
 
   const handleApprove = async (event) => {
     event.preventDefault();
@@ -50,17 +53,17 @@ const DeclineWithdrawal = () => {
       );
       if (approve_.data.message === "success") {
         toast.success("Transaction declined successfully");
-
         router.push(`/admin/deals/withdrawals?userId=${userId}`);
       } else {
-        toast.error("An error occured");
+        toast.error("An error occurred");
       }
     } catch (error) {
-      toast.error("An error occured");
+      toast.error("An error occurred");
     }
   };
+
   return (
-    <Layout pageTitle="Approve Deposit">
+    <Layout pageTitle="Decline Withdrawal">
       <div className={styles.wrapper}>
         <Link
           href={`/admin/deals/withdrawals?userId=${userId}`}
@@ -100,7 +103,6 @@ const DeclineWithdrawal = () => {
                     <b>Amount: </b>
                     {user.amount}
                     <br />
-
                     {user.method === "bank" ? (
                       <span>
                         <b>Account Number: </b>
@@ -157,6 +159,23 @@ const DeclineWithdrawal = () => {
         )}
       </div>
     </Layout>
+  );
+};
+
+// Wrapper component that uses Suspense
+const DeclineWithdrawal = () => {
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}
+        >
+          <CircularProgress />
+        </Box>
+      }
+    >
+      <DeclineWithdrawalContent />
+    </Suspense>
   );
 };
 
