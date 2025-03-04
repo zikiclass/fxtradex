@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { NavBarLight } from "../HomeComponents";
 import PageNavigator from "../components/PageNavigator";
 import { countries, currency } from "../components/index/data";
@@ -13,29 +13,10 @@ import { Callout, Text } from "@radix-ui/themes";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { registerSchema } from "../validationSchemas";
 import toast, { Toaster } from "react-hot-toast";
-import { Suspense } from "react";
 
-// Simulate Suspense for useSearchParams
-const useSearchParamsWithSuspense = () => {
-  const searchParams = useSearchParams();
-  const [params, setParams] = useState(null);
-
-  useEffect(() => {
-    if (searchParams) {
-      setParams(searchParams); // Set params when available
-    }
-  }, [searchParams]);
-
-  if (!params) {
-    // Simulate async behavior, suspend rendering
-    throw new Promise(() => {});
-  }
-
-  return params;
-};
-
+// RegisterForm Component
 const RegisterForm = () => {
-  const searchParams = useSearchParamsWithSuspense(); // Get search params inside Suspense
+  const searchParams = useSearchParams(); // Get search params directly
   const referralId = searchParams.get("id");
 
   const router = useRouter();
