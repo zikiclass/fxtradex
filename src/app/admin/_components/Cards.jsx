@@ -1,22 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Groups2Icon from "@mui/icons-material/Groups2";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import "./admin.css";
+import axios from "axios";
+import Link from "next/link";
 const Cards = () => {
+  const [deposit, setDeposit] = useState(0);
+  const [profit, setProfit] = useState(0);
+  const [users, setUsers] = useState(0);
+  const [with_d, setWith_d] = useState(0);
+
+  const formatNumber = (number) => {
+    // Check if the number is a valid number or convert it to a string
+    const parts = parseFloat(number).toFixed(2).toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/users");
+        if (response.data) {
+          setDeposit(response.data.response._sum.deposit);
+          setProfit(response.data.response._sum.profit);
+          setUsers(response.data.users._count.email);
+          setWith_d(response.data.withdrawals._sum.amount);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, [deposit, profit, users]);
   const cardLists = [
     {
       id: 1,
       title: "Users",
-      amount: "89",
+      amount: users,
       icon: <Groups2Icon style={{ fontSize: "3rem" }} />,
       color: "#feab2c",
+      link_href: "users",
     },
     {
       id: 2,
       title: "Deposits",
-      amount: "$67,123",
+      amount: "$" + formatNumber(deposit),
       icon: (
         <CurrencyBitcoinIcon
           style={{
@@ -28,11 +58,12 @@ const Cards = () => {
         />
       ),
       color: "#ac4bbb",
+      link_href: "/",
     },
     {
       id: 3,
       title: "Withdrawals",
-      amount: "$90,567",
+      amount: "$" + formatNumber(with_d),
       icon: (
         <AttachMoneyIcon
           style={{
@@ -44,11 +75,12 @@ const Cards = () => {
         />
       ),
       color: "#3693ff",
+      link_href: "/",
     },
     {
       id: 4,
       title: "Profits",
-      amount: "$89,900",
+      amount: "$" + formatNumber(profit),
       icon: (
         <CurrencyBitcoinIcon
           style={{
@@ -60,15 +92,17 @@ const Cards = () => {
         />
       ),
       color: "#ac4bbb",
+      link_href: "/",
     },
   ];
   return (
     <div className="cards">
       {cardLists.map((card) => (
-        <div
+        <Link
           className="card"
           key={card.id}
           style={{ backgroundColor: `${card.color}` }}
+          href={card.link_href}
         >
           <div className="title">
             <ArrowDropDownIcon /> <span>{card.title}</span>
@@ -77,7 +111,7 @@ const Cards = () => {
             <span>{card.amount}</span>
             {card.icon}
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

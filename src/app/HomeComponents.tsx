@@ -3,6 +3,7 @@ import CopyExperts from "./components/index/CopyExperts";
 import Features from "./components/index/Features";
 import NavBar from "./components/index/NavBar";
 import NavBarLight from "./components/index/NavBarLight";
+import AdminNav from "./components/index/AdminNav";
 import TradingViewWidget from "./components/index/TradingView";
 import WhatWeOffer from "./components/index/WhatWeOffer";
 import Cryptocurrencies from "./components/index/Cryptocourrencies";
@@ -31,4 +32,5 @@ export {
   PageNavigator,
   DashboardNavbar,
   DashboardPageNavigator,
+  AdminNav,
 };

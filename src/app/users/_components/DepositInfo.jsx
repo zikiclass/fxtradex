@@ -1,20 +1,36 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import GroupIcon from "@mui/icons-material/Group";
 import SavingsIcon from "@mui/icons-material/Savings";
 import "./styles/user.css";
 import Link from "next/link";
-const DepositInfo = () => {
+
+const DepositInfo = ({ data }) => {
+  const formatNumber = (number) => {
+    // Check if the number is a valid number or convert it to a string
+    const parts = parseFloat(number).toFixed(2).toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
   return (
     <div className="min_flex">
       <div className="deposit__top">
         <div className="deposit__top__item">
           <div>
-            <span>$0.00</span>
+            <span>
+              {data && data.transactions && data.transactions.length > 0
+                ? data.currency + formatNumber(data.transactions[0]?.deposit)
+                : ""}
+            </span>
             <span>deposit</span>
           </div>
           <div>
-            <span>$0.00</span>
+            <span>
+              {data && data.transactions && data.transactions.length > 0
+                ? data.currency + formatNumber(data.transactions[0]?.profit)
+                : ""}
+            </span>
             <span>profit</span>
           </div>
         </div>

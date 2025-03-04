@@ -4,6 +4,7 @@ import { Inter, Signika_Negative } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Theme } from "@radix-ui/themes";
 import AuthProvider from "./auth/Provider";
+
 // Assign the font loaders to consts with specified subsets
 const inter = Inter({ subsets: ["latin"] });
 const signika = Signika_Negative({ subsets: ["latin"] });

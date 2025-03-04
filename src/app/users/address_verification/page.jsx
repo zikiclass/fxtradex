@@ -10,7 +10,9 @@ import "../dashboard/styles/dashboard.css";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import CircularProgress from "@mui/joy/CircularProgress";
+import fetchUser from "../_components/FetchUser";
 const AddressVerification = () => {
+  const { data } = fetchUser();
   const [buttonClicked, setButtonClicked] = useState(false);
   const router = useRouter();
   const handleProceed = (e) => {
@@ -35,15 +37,15 @@ const AddressVerification = () => {
                   marginTop: "10px",
                 }}
               >
-                <b>City</b> <span>Delaware</span>
+                <b>City</b> <span>{data?.city}</span>
                 <br />
-                <b>State</b> <span>Lovey</span>
+                <b>State</b> <span>{data?.state}</span>
                 <br />
-                <b>Zip Code</b> <span></span>
+                <b>Zip Code</b> <span>{data?.postal_code}</span>
                 <br />
-                <b>Country</b> <span>AZ</span>
+                <b>Country</b> <span>{data?.country}</span>
                 <br />
-                <b>Street Address</b> <span></span>
+                <b>Street Address</b> <span>{data?.street_address}</span>
                 <br />
               </p>
               <div className="input__deposit">

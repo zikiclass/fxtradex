@@ -20,11 +20,11 @@ const DepositStep2 = () => {
 const DepositStep2Content = () => {
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
-
+  const depAccount = searchParams.get("depAccount");
   const router = useRouter();
 
   const handleClick = (e) => {
-    router.push(`deposit_step_3?amount=${amount}`);
+    router.push(`deposit_step_3?amount=${amount}&depAccount=${depAccount}`);
   };
 
   return (

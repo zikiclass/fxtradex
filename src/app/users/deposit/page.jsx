@@ -10,12 +10,15 @@ import Button from "../../components/Button";
 import { useRouter } from "next/navigation";
 const Deposit = () => {
   const [amount, setAmount] = useState("");
+  const [depositAccount, setDepositAccount] = useState("Trading Balance");
   const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (router) {
-      router.push(`/users/deposit_step_2?amount=${amount}`);
+      router.push(
+        `/users/deposit_step_2?amount=${amount}&depAccount=${depositAccount}`
+      );
     }
   };
   return (
@@ -48,7 +51,11 @@ const Deposit = () => {
                   </div>
                   <div className="input__deposit">
                     <label>To</label>
-                    <select name="to__deposit" className="select__deposit">
+                    <select
+                      name="to__deposit"
+                      className="select__deposit"
+                      onChange={(e) => setDepositAccount(e.target.value)}
+                    >
                       <option value="Trading Balance">Trading Balance</option>
                       <option value="Bitcoin Mining">Bitcoin Mining</option>
                       <option value="Ethereum Mining">Ethereum Mining</option>

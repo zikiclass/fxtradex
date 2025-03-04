@@ -69,7 +69,7 @@ const NavBarLight = () => {
             Log In
           </Link>
         ) : (
-          <Link href="user/dashboard" className="md-links">
+          <Link href="users/dashboard" className="md-links">
             {session?.user?.name}
           </Link>
         )}

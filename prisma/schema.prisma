@@ -20,8 +20,118 @@ model SignUp {
 }
 
 model Register {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(255)
+  id             Int           @id @default(autoincrement())
+  first_name     String?       @db.VarChar(255)
+  last_name      String?       @db.VarChar(255)
+  mobile         String?
+  accounttype    String        @default("LIVE")
+  email          String?       @unique
+  password       String?
+  currency       String        @default("USD")
+  country        String?
+  state          String?
+  city           String?
+  otp_code       String?
+  street_address String?
+  postal_code    String?
+  referral_id    Int?
+  date_created   DateTime?
+  transactions   Transaction[]
+  referrals      Referral[]
+  deposits       Deposit[]
+  withdrawals    Withdrawal[]
+  traders        UserTrader[]
+}
+
+model Traders {
+  id           Int          @id @default(autoincrement())
+  trader       String?
+  win_rate     String?
+  profit_share String?
+  publicID     String?
+  date         DateTime?
+  users        UserTrader[]
+}
+
+model UserTrader {
+  userId   Int
+  traderId Int
+  user     Register @relation(fields: [userId], references: [id])
+  traders  Traders  @relation(fields: [traderId], references: [id])
+
+  @@id([userId, traderId])
+}
+
+model Transaction {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  deposit  Float
+  profit   Float
+  btc      Float
+  eth      Float
+  bnb      Float
+  doge     Float
+  atom     Float
+  referral Float
+  user     Register @relation(fields: [userId], references: [id])
+}
+
+model Admin {
+  id        Int       @id @default(autoincrement())
+  email     String?   @unique
+  password  String?
+  firstname String?
+  lastname  String?
+  lastLogin DateTime?
+}
+
+model Referral {
+  id             Int      @id @default(autoincrement())
+  userId         Int
+  referral_bonus Float
+  user           Register @relation(fields: [userId], references: [id])
+}
+
+model Deposit {
+  id             Int       @id @default(autoincrement())
+  userId         Int
+  amount         Float?
+  account_       String?
+  dep_method     String?
+  date_deposited DateTime?
+  status         String?
+  user           Register  @relation(fields: [userId], references: [id])
+}
+
+model Withdrawal {
+  id             Int       @id @default(autoincrement())
+  userId         Int
+  amount         Float?
+  method         String?
+  from_account   String?
+  account_number String?
+  account_name   String?
+  bank_name      String?
+  crypto         String?
+  wallet_address String?
+  paypal_email   String?
+  cash_tag       String?
+  date           DateTime?
+  status         String?
+  user           Register  @relation(fields: [userId], references: [id])
+}
+
+model Walletlist {
+  id      Int       @id @default(autoincrement())
+  wallet  String
+  wallets Wallets[]
+}
+
+model Wallets {
+  id             Int        @id @default(autoincrement())
+  walletListId   Int
+  wallet_address String
+  wallet__       Walletlist @relation(fields: walletListId, references: [id])
 }
 
 model Account {

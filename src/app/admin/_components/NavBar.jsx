@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../_components/admin.css";
+
 import NotesIcon from "@mui/icons-material/Notes";
 import CloseIcon from "@mui/icons-material/Close";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import DraftsIcon from "@mui/icons-material/Drafts";
@@ -11,25 +11,22 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import LocationSearchingIcon from "@mui/icons-material/LocationSearching";
 import human from "../../../../public/img/TW2.jpeg";
 import Image from "next/image";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 import { project_name } from "../../../../env";
+import fetchAdmin from "../../users/_components/FetchAdmin";
 const NavBar = ({ onClick, setIcon }) => {
-  const [theme, setTheme] = useState("dark");
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+  const { admin, status } = fetchAdmin();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      router.push("/signin_");
+    } catch (err) {
+      console.error("Sign-out error:", err);
+    }
   };
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
   return (
     <div className="ad__navbar">
       <div className="navbar__col__1">
@@ -48,11 +45,13 @@ const NavBar = ({ onClick, setIcon }) => {
 
       <div className="navbar__col__1">
         <div className="shortcuts">
-          {theme === "dark" ? (
-            <LightModeIcon className="s_ic" onClick={toggleTheme} />
-          ) : (
-            <BedtimeIcon className="s_ic" onClick={toggleTheme} />
-          )}
+          <Link href="/api/auth/signout">
+            <PowerSettingsNewIcon
+              className="icon__bed"
+              onClick={handleSignOut}
+              style={{ cursor: "pointer", color: "white" }}
+            />
+          </Link>
 
           <DashboardIcon className="s_ic hide" />
           <NotificationsIcon className="s_ic" />
@@ -61,8 +60,8 @@ const NavBar = ({ onClick, setIcon }) => {
         </div>
         <div className="user">
           <div className="user__">
-            <span className="name">James Perl</span>
-            <span className="username">@perlyrosafe</span>
+            <span className="name">{admin?.admin.firstname || ""}</span>
+            <span className="username">@{admin?.admin.lastname || ""}</span>
           </div>
           <div>
             <Image src={human} alt="user" className="userImage" />

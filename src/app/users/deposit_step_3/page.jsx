@@ -8,6 +8,10 @@ import { DashboardNavbar } from "../../HomeComponents";
 import BottomNavBar from "../_components/BottomNavBar";
 import "../_components/styles/user.css";
 import "../dashboard/styles/dashboard.css";
+import axios from "axios";
+import fetchUser from "../_components/FetchUser";
+import toast, { Toaster } from "react-hot-toast";
+
 const DepositStep3 = () => {
   return (
     <>
@@ -19,24 +23,41 @@ const DepositStep3 = () => {
 };
 
 const DepositStep3Content = () => {
+  const { data } = fetchUser();
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
+  const depAccount = searchParams.get("depAccount");
   const amountUSD = parseFloat(searchParams.get("amount"));
   const [buttonClicked, setButtonClicked] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("BTC Bitcoin");
   const router = useRouter();
   const [btcEquivalent, setBtcEquivalent] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
-  const handleProceed = (e) => {
+  const handleProceed = async (e) => {
     e.preventDefault();
     setButtonClicked(true);
     setTimeout(() => {
       setButtonClicked(false);
     }, 2000);
-    router.push(
-      `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}`
-    );
+    try {
+      const response = await axios.post("/api/users/deposit", {
+        userId: data.id,
+        amount,
+        account_: depAccount,
+        dep_method: paymentMethod,
+      });
+      if (response) {
+        router.push(
+          `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}&depAccount=${depAccount}`
+        );
+      } else {
+        toast.error("Error making deposit");
+      }
+    } catch (error) {
+      toast.error("Error making deposit");
+    }
   };
 
   useEffect(() => {
@@ -69,6 +90,7 @@ const DepositStep3Content = () => {
         <DashboardPageNavigator text="Deposit" />
         <div className="dashboard_">
           <div className="deposit">
+            <Toaster position="bottom-left" />
             <h2>
               PAY{" "}
               {Number(amount).toLocaleString("en-US", {
@@ -99,18 +121,18 @@ const DepositStep3Content = () => {
                     <option value="BTC Bitcoin" selected="">
                       BTC Bitcoin
                     </option>
-                    <option value="ETH Ethereum">ETH Ethereum </option>
-                    <option value="USDT Usdt(trc20)">USDT Usdt(trc20) </option>
-                    <option value="USDT Usdt(erc20)">USDT Usdt(erc20) </option>
-                    <option value="TRX Trx(tron)">TRX Trx(tron) </option>
-                    <option value="PIX Elzimar medeiros de jesus ribeiro Nubank">
+                    <option value="ETH">ETH Ethereum </option>
+                    <option value="USDT (TRC20)">USDT Usdt(trc20) </option>
+                    <option value="USDT (ERC20)">USDT Usdt(erc20) </option>
+                    <option value="TRX">TRX Trx(tron) </option>
+                    <option value="PIX">
                       PIX Elzimar medeiros de jesus ribeiro Nubank
                     </option>
-                    <option value="PIXX Inter banco">PIXX Inter banco </option>
-                    <option value="PIXX Mercado pago elzimar medeiros de jesus ribeiro">
+                    <option value="PIXX Inter">PIXX Inter banco </option>
+                    <option value="PIXX Mercado">
                       PIXX Mercado pago elzimar medeiros de jesus ribeiro{" "}
                     </option>
-                    <option value="PIXXX Sandra aparecida gagetti Chave BV">
+                    <option value="PIXXX Sandra">
                       PIXXX Sandra aparecida gagetti Chave BV
                     </option>
                   </select>

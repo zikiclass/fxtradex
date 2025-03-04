@@ -1,5 +1,5 @@
 "use client";
-import "./admin.css";
+
 import Logo from "../../../../public/img/logo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { project_name, project_link } from "../../../../env";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
+import styles from "./sidebar.module.css";
 const SideBar = ({ toggle }) => {
   const router = useRouter();
   const [activeLink, setActiveLink] = useState("");
@@ -50,15 +50,7 @@ const SideBar = ({ toggle }) => {
         { title: "admin", href: "admin_" },
       ],
     },
-    {
-      title: "transactions",
-      icon: <AccountBalanceWalletIcon />,
-      sub: "transactions",
-      subLink: [
-        { title: "deposits", href: "deposits" },
-        { title: "withdrawals", href: "withdrawals" },
-      ],
-    },
+
     { title: "traders", icon: <Diversity2Icon />, href: "traders" },
     { title: "trades", icon: <CurrencyExchangeIcon />, href: "trades" },
     {
@@ -77,20 +69,20 @@ const SideBar = ({ toggle }) => {
   ];
 
   return (
-    <div className={toggle ? `ad__sidebar` : `ad__sidebar hide`}>
-      <div className="sidebar__top">
+    <div className={`${styles.ad__sidebar} ${toggle ? "" : styles.hide}`}>
+      <div className={styles.sidebar__top}>
         <Link href="dashboard">
-          <Image src={Logo} alt="Logo" className="ad_logo" />
+          <Image src={Logo} alt="Logo" className={styles.ad_logo} />
         </Link>
-        <div className="sidebar__top__bottom">
+        <div className={styles.sidebar__top__bottom}>
           <div>
             <span>{project_name}</span>
             <small>{project_link}</small>
           </div>
         </div>
       </div>
-      <div className="sidebar__bottom">
-        <ul className="sidebar__links">
+      <div className={styles.sidebar__bottom}>
+        <ul className={styles.sidebar__links}>
           {linkLists.map((linkList) => (
             <li
               onClick={() => {
@@ -100,8 +92,8 @@ const SideBar = ({ toggle }) => {
               }}
             >
               <div
-                className={`link ${
-                  activeLink === `${linkList.title}` && "active"
+                className={`${styles.link} ${
+                  activeLink === `${linkList.title}` && styles.active
                 }`}
               >
                 <div className="ad__link__main">
@@ -121,7 +113,7 @@ const SideBar = ({ toggle }) => {
               {linkList.sub && (
                 <ul
                   className={`${
-                    activeLink === `${linkList.title}` && "reveal"
+                    activeLink === `${linkList.title}` && styles.reveal
                   }`}
                 >
                   {linkList.subLink.map((sublink) => (

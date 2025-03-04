@@ -13,6 +13,7 @@ import Image from "next/image";
 import logo from "../../../../public/img/logo.png";
 import { useSession } from "next-auth/react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import { signOut } from "next-auth/react";
 const DashboardNavbar = () => {
   const { status, data: session } = useSession();
   const [countryShow, setCountryShow] = useState(false);
@@ -50,6 +51,15 @@ const DashboardNavbar = () => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false });
+      router.push("/signin");
+      // Optionally, handle any additional client-side cleanup or redirection
+    } catch (err) {
+      console.error("Sign-out error:", err);
+    }
+  };
   return (
     <div className="scrolled">
       <div className="navbar__logo__harmburger">
@@ -77,9 +87,14 @@ const DashboardNavbar = () => {
         ) : (
           <BedtimeIcon className="icon__bed" onClick={toggleTheme} />
         )}
-        <Link href="../api/auth/signout">
-          <PowerSettingsNewIcon className="icon__bed" />
+        <Link href="/api/auth/signout">
+          <PowerSettingsNewIcon
+            className="icon__bed"
+            onClick={handleSignOut}
+            style={{ cursor: "pointer" }}
+          />
         </Link>
+
         <div
           className="icon__"
           onClick={() => {

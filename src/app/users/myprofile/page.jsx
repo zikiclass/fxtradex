@@ -8,7 +8,9 @@ import "../_components/styles/user.css";
 import "../dashboard/styles/dashboard.css";
 import camera from "../../../../public/img/camera.png";
 import Image from "next/image";
+import fetchUser from "../_components/FetchUser";
 const MyProfile = () => {
+  const { data } = fetchUser();
   return (
     <div>
       <DashboardNavbar />
@@ -29,39 +31,39 @@ const MyProfile = () => {
                 <tbody>
                   <tr className="trcl">
                     <td>EMAIL</td>
-                    <td>rosafetrade@gmail.com</td>
+                    <td>{data?.email || "N/A"}</td>
                   </tr>
                   <tr>
                     <td>MOBILE NUMBER</td>
-                    <td>908377738</td>
+                    <td>{data?.mobile || "N/A"}</td>
                   </tr>
                   <tr className="trcl">
                     <td>FIRST NAME</td>
-                    <td>Rosafe</td>
+                    <td>{data?.first_name || "N/A"}</td>
                   </tr>
                   <tr>
                     <td>LAST NAME</td>
-                    <td>Berl</td>
+                    <td>{data?.last_name || "N/A"}</td>
                   </tr>
                   <tr className="trcl">
                     <td>STREET ADDRESS</td>
-                    <td></td>
+                    <td>{data?.street_address || "N/A"}</td>
                   </tr>
                   <tr>
                     <td>POST CODE</td>
-                    <td></td>
+                    <td>{data?.postal_code || "N/A"}</td>
                   </tr>
                   <tr className="trcl">
                     <td>CITY</td>
-                    <td>Delaware</td>
+                    <td>{data?.city || "N/A"}</td>
                   </tr>
                   <tr>
                     <td>STATE</td>
-                    <td>Lovey</td>
+                    <td>{data?.state || "N/A"}</td>
                   </tr>
                   <tr className="trcl">
                     <td>COUNTRY</td>
-                    <td>AZ</td>
+                    <td>{data?.country || "N/A"}</td>
                   </tr>
                 </tbody>
               </table>

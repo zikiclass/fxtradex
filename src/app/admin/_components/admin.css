@@ -1,118 +1,11 @@
 .admin{
-    background-color: var(--admin-primary);
+    /* background-color: var(--admin-primary); */
+    background-color: #212096;
     width: 100%;
     height: 100vh;
     display: flex;
 }
-.ad__sidebar{
-    width: 250px;
-    height: 100vh;
-    background-color: var(--sidebar-primary);
-    box-shadow: 0px 10px 0px rgba(0,0,0,0.8);
-    overflow: hidden;
-    transition: width 0.2s ease;
-}
-.ad__sidebar.hide{
-    width: 0px;
-}
 
-.ad__sidebar .sidebar__top{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 6px 1.5rem;
-}
-.ad_logo{
-    width: 130px;
-    margin-bottom: 0.3rem;
-}
-.sidebar__top__bottom{
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    width: auto;
-    
-
-}
-.sidebar__top__bottom div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--admin-color-white-2);
-    cursor: pointer;
-    margin-bottom: 14px;
-}
-.sidebar__top__bottom div span{
-    font-weight: bold;
-    font-size: 1.4rem;
-    margin-bottom: -5px;
-}
-.sidebar__top__bottom div small{
-    font-size: 12px;
-    color: #9590f0;
-}
-.sidebar__bottom{
-    background-color: var(--admin-dark);
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    padding-top: 1rem;
-   
-}
-.sidebar__links{
-    padding: 0.6rem;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    max-height: calc(100vh - 250px); /* Adjust the height as needed */
-    height: 100vh;
-    text-transform: capitalize;
-}
-.sidebar__links li{
-    list-style: none;
-    width: 100%;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
-.sidebar__links li .link{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 7px;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    transition: all 0.2s ease;
-}
-.sidebar__links li .link:hover{
-    margin-left: 6px;
-}
-.sidebar__links li .link div{
-    display: flex;
-    gap: 5px;
-}
-.sidebar__links .active{
-    background-color: #7a78ff;
-    border-radius: 7px;
-    
-}
-.sidebar__links li .active:hover{
-    color: #fff;
-    margin-left: 0px;
-}
-.sidebar__links li ul{
-    display: none;
-    width: 100%;
-    transition:all 0.2s ease;
-}
-.sidebar__links li ul li{
-    width: 100%;
-
-}
 .sublink{
     width: 100%;
     text-align: left;
@@ -127,9 +20,7 @@
 .sublink:hover{
     color: #7a78ff;
 }
-.reveal{
-    display: block!important;
-}
+
 .ad__container{
     width: 100%;
     height: 100vh;
@@ -163,14 +54,16 @@
     padding: 6px 10px !important;
 }
 .search input{
-    color: var(--admin-color-white);
+    /* color: var(--admin-color-white); */
+    color: #fff;
     padding-right: 8px;
 }
 .search input:focus{
     outline: none;
 }
 .s_ic, .s_ic_, .search{
-    color: var(--admin-color-white);
+    /* color: var(--admin-color-white); */
+    color: #fff;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 2px;
     border-radius: 3px;
@@ -190,11 +83,13 @@
     display: flex;
     flex-direction: column;
     text-align: right;
-    color: var(--admin-color-white);
+    /* color: var(--admin-color-white); */
+    color: #fff;
     font-size: 14px;
 }
 .username{
-    color: var(--admin-color-white-3);
+    /* color: var(--admin-color-white-3); */
+    color: #9590f0;
     margin-top: -8px;
     font-size: 12px;
 }
@@ -204,22 +99,25 @@
     border: 3px solid rgba(255,255,255, 0.5);
 }
 .pageTitle{
-    color: var(--admin-color-heading);
+    /* color: var(--admin-color-heading); */
+    color: #fff!important;
     font-weight: bold;
     font-size: 1.5rem;
     margin: 1.5rem 0px;
+    text-align: left!important;
 }
 
 
 /* BACKGROUND-COLOR */
 .bg__dark__{
-    background-color: var(--admin-primary-second);
+    /* background-color: var(--admin-primary-second); */
+    background-color: #0c143d;
     position: absolute;
     width: 100%;
     height: 68%;
     bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 1;
 }
 .bg__blue__{
     background-color: #222199;
@@ -260,7 +158,9 @@
 .title span{
     font-size: 14px;
 }
-
+.cards .title{
+    text-align: left!important;
+}
 /* CHARTS */
 .charts{
     z-index: 10;
@@ -272,7 +172,8 @@
 }
 .chart{
     flex: 1;
-    background-color: var(--admin-chart-bg);
+    /* background-color: var(--admin-chart-bg); */
+    background-color: #18254f;
     padding: 10px;
     border-radius: 4px;
     overflow: hidden;
@@ -284,42 +185,7 @@
 
 
 @media screen and (max-width: 760px){
-   .ad__sidebar.hide{
-    width: 70px;
-    height: auto;
-    z-index: 999;
-    top: 0;
-
-    
-   }
-   .ad__sidebar.hide .ad_logo{
-    width: 50px;
-    height: 50px;
-   }
-   .ad__sidebar.hide .sidebar__top{
-    padding: 0px;
-    margin: 2rem 0px;
-   }
-   .ad__sidebar.hide .sidebar__top__bottom{
-    display: none;
-   }
-   .ad__sidebar.hide .sidebar__links{
-    padding: 0px;
-   }
-   .ad__sidebar.hide .sidebar__links .link .ad__sidebar.hide .sidebar__links .link.active{
-    padding: 0.3rem;
-    margin-bottom: 0.6rem;
-   }
-   .ad__sidebar.hide .sidebar__links .link span{
-    font-size: 10px;
-   }
-   .ad__sidebar.hide .sidebar__links .arrow{
-    display: none;
-   }
-
-    .ad__sidebar{
-        width: 0px;
-    }
+   
     .ad__link__main{
         display: flex;
         flex-direction: column;
@@ -327,35 +193,7 @@
         align-items: center;
         padding: 0px;
     }
-    .ad__sidebar.hide .sidebar__links li .link{
-        padding: 0.2rem;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 1.2rem;
-    }
-    .ad__sidebar.hide .sidebar__links li .link.active{
-        background-color: transparent;
-        color: #9590f0;
-    }
-    .ad__sidebar.hide .reveal{
-        margin-top: 0;
-        margin-bottom: 0.8rem;
-       
-    }
-    .ad__sidebar.hide .reveal .sublink{
-        display: flex;
-        flex-direction: column;
-        font-size: 12px;
-        padding: 0!important;
-        margin: 0;
-        gap: 2px;
-        
-        text-align: center;
-    }
-    .ad__sidebar.hide .reveal .sublink .hideSublink, .ad__sidebar.hide .reveal .sublink span{
-        color: #e1edf6;
-    }
+    
     .cards, .charts{
         flex-direction: column;
     }

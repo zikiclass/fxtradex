@@ -6,7 +6,7 @@ import Image from "next/image";
 import SavingsIcon from "@mui/icons-material/Savings";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import GroupsIcon from "@mui/icons-material/Groups";
-
+import { useRouter } from "next/navigation";
 import StarIcon from "@mui/icons-material/Star";
 import EmailIcon from "@mui/icons-material/Email";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -16,7 +16,11 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { DashboardNavbar } from "../../HomeComponents";
 import Link from "next/link";
 import BottomNavBar from "../_components/BottomNavBar";
+import fetchUser from "../_components/FetchUser";
+import { signOut } from "next-auth/react";
 const Profile = () => {
+  const { data } = fetchUser();
+  const router = useRouter();
   const profile1 = [
     {
       id: 1,
@@ -76,14 +80,15 @@ const Profile = () => {
       title: "Account Settings",
       href: "account_settings",
     },
-    {
-      id: 6,
-      icon: <LogoutIcon style={{ fontSize: 30 }} />,
-      color: "#32a7e2",
-      title: "Logout",
-      href: "/",
-    },
   ];
+  const handleSignOut = async () => {
+    try {
+      await signOut({ redirect: false, callbackUrl: "/" });
+      router.push("/api/auth/signin");
+    } catch (err) {
+      console.error("Sign-out error:", err);
+    }
+  };
   return (
     <>
       <DashboardNavbar />
@@ -92,7 +97,7 @@ const Profile = () => {
           <div className="profile__col">
             <div className="profile__pic__wrap">
               <Image src={camera} className="profile__pic" alt="profile pic" />
-              <span>Rosafe Berl</span>
+              <span>{data?.first_name || ""}</span>
             </div>
             <div className="profile__listings">
               {profile1.map((profile) => (
@@ -129,6 +134,20 @@ const Profile = () => {
                   <span>{profile2.title}</span>
                 </Link>
               ))}
+
+              <div
+                onClick={handleSignOut}
+                className="profile_list"
+                style={{ cursor: "pointer" }}
+              >
+                <div
+                  className="list__icon"
+                  style={{ backgroundColor: "#b548c6" }}
+                >
+                  <LogoutIcon style={{ fontSize: 30 }} />
+                </div>
+                <span>Logout</span>
+              </div>
             </div>
           </div>
         </div>

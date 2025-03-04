@@ -9,12 +9,20 @@ import Link from "next/link";
 import { project_link } from "../../../../env";
 import Button from "../../components/Button";
 import { useRouter } from "next/navigation";
+import fetchUser from "../_components/FetchUser";
 const Referrals = () => {
+  const { data } = fetchUser();
   const router = useRouter();
 
   const handleWithdraw = (e) => {
     e.preventDefault();
     router.push("withdraw_select");
+  };
+  const formatNumber = (number) => {
+    // Check if the number is a valid number or convert it to a string
+    const parts = parseFloat(number).toFixed(2).toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
   };
   return (
     <>
@@ -26,7 +34,14 @@ const Referrals = () => {
             <div className="referral__wrap">
               <div className="col__1">
                 <div className="refer__balance">
-                  <span id="amt">$0.00</span>
+                  <span id="amt">
+                    {data && data.transactions && data.transactions.length > 0
+                      ? data.currency +
+                        formatNumber(
+                          parseFloat(data.transactions[0]?.referral).toFixed(2)
+                        )
+                      : ""}
+                  </span>
                   <span id="refer_bal">Referral Balance</span>
 
                   <Button title="WITHDRAW" onClick={handleWithdraw} />
@@ -34,7 +49,7 @@ const Referrals = () => {
                 <div className="refer__link">
                   <input
                     type="text"
-                    value={`https://${project_link}/signup.html?user_id=537`}
+                    value={`https://${project_link}/signup?id=${data?.id}`}
                     readOnly
                   />
                   <span>Referral Link</span>

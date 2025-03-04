@@ -3,7 +3,13 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import "./styles/user.css"; // Import your CSS styles
 
-const Contract = () => {
+const Contract = ({ data }) => {
+  const formatNumber = (number) => {
+    // Check if the number is a valid number or convert it to a string
+    const parts = parseFloat(number).toFixed(2).toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
   useEffect(() => {
     const appendTradingViewScript = (symbol, containerClass) => {
       const script = document.createElement("script");
@@ -49,7 +55,12 @@ const Contract = () => {
   return (
     <div className="min_flex">
       <div className="min_flex_top">
-        <span>$0.00</span>
+        <span>
+          $
+          {data && data.transactions && data.transactions.length > 0
+            ? formatNumber(data.transactions[0]?.profit)
+            : ""}
+        </span>
       </div>
       <div className="min_flex_buttons">
         <Link href="/" id="link__button__min">

@@ -78,7 +78,7 @@ input{
   box-shadow: 0 2px 6px 0px rgba(0,0,0,0.7);
 }
 .cta p{
-  color: var(--background-color-2);
+  color: var(--dark);
 }
 h3{
   color: var(--admin-color-white)!important;
@@ -86,3 +86,8 @@ h3{
 .pageTitleColor{
   color: var(--admin-color-gray);
 }
+
+
+
+
+

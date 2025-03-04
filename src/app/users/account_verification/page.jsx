@@ -9,7 +9,9 @@ import Image from "next/image";
 import { DashboardNavbar } from "../../HomeComponents";
 import Link from "next/link";
 import BottomNavBar from "../_components/BottomNavBar";
+import fetchUser from "../_components/FetchUser";
 const AccountVerification = () => {
+  const { data } = fetchUser();
   const profile1 = [
     {
       id: 1,
@@ -45,7 +47,7 @@ const AccountVerification = () => {
           <div className="profile__col">
             <div className="profile__pic__wrap">
               <Image src={camera} className="profile__pic" alt="profile pic" />
-              <span>Rosafe Berl</span>
+              <span>{data?.first_name + " " + data?.last_name}</span>
               <small style={{ textTransform: "uppercase", fontSize: "16px" }}>
                 verifications
               </small>
