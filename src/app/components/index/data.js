@@ -163,7 +163,7 @@ export const offerList = [
   },
 ];
 export const plans = [
-  { title: "Bronze", amount: "50" },
+  { title: "Bronze", amount: "300" },
   { title: "Premium", amount: "600" },
   { title: "Gold", amount: "1200" },
   { title: "Platinum", amount: "50000" },
@@ -181,7 +181,7 @@ export const faqs = (param) => {
       id: 2,
       question: "What are the fees?",
       answer:
-        "Every investor is to pay a 15% withdrawal fee to complete withdrawal process and each trader gets a set percentage of the profit they make.",
+        "Every investor is to pay a 10% withdrawal fee to complete withdrawal process and each trader gets a set percentage of the profit they make.",
     },
     {
       id: 3,
