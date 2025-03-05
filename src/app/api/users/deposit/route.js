@@ -49,6 +49,7 @@ export async function GET(req) {
 
     const deposits = await prisma.deposit.findMany({
       where: { userId: parseInt(id) },
+      orderBy: [{ id: "desc" }],
     });
     if (deposits) return NextResponse.json({ data: deposits }, { status: 200 });
     return NextResponse.json({ message: "Error" }, { status: 404 });

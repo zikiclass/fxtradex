@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import Layout from "../../Layout";
 import styles from "../../users/users.module.css";
 import axios from "axios";
@@ -8,27 +8,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
 
-// Simulate an asynchronous operation to load searchParams
-const useSearchParamsWithSuspense = () => {
-  const searchParams = useSearchParams();
-  const [params, setParams] = useState(null);
-
-  useEffect(() => {
-    if (searchParams) {
-      setParams(searchParams); // Set the parameters once they're available
-    }
-  }, [searchParams]);
-
-  if (!params) {
-    // Simulate a delay to suspend the component
-    throw new Promise(() => {});
-  }
-
-  return params;
-};
-
+// Component that uses the search parameters (wrapped in Suspense)
 const ApproveDepositContent = () => {
-  const searchParams = useSearchParamsWithSuspense(); // Use the modified hook with Suspense
+  const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const userId = searchParams.get("userId");
   const router = useRouter();
@@ -51,6 +33,13 @@ const ApproveDepositContent = () => {
     }
   };
 
+  // Validate if parameters are missing
+  if (!id || !userId) {
+    toast.error("Missing parameters");
+    router.push("/admin/deals");
+    return null;
+  }
+
   return (
     <Layout pageTitle="Approve Deposit">
       <div className={styles.wrapper}>
@@ -68,7 +57,7 @@ const ApproveDepositContent = () => {
             >
               No
             </button>
-            <button className={styles.btnDelete} onClick={handleApprove}>
+            <button className={styles.btnDecline} onClick={handleApprove}>
               Yes
             </button>
           </div>
@@ -78,6 +67,7 @@ const ApproveDepositContent = () => {
   );
 };
 
+// Wrapper component that uses Suspense
 const ApproveDeposit = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>

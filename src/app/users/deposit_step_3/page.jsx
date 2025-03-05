@@ -121,11 +121,11 @@ const DepositStep3Content = () => {
                     <option value="BTC Bitcoin" selected="">
                       BTC Bitcoin
                     </option>
-                    <option value="ETH">ETH Ethereum </option>
+                    <option value="ETH Ethereum">ETH Ethereum </option>
                     <option value="USDT (TRC20)">USDT Usdt(trc20) </option>
                     <option value="USDT (ERC20)">USDT Usdt(erc20) </option>
-                    <option value="TRX">TRX Trx(tron) </option>
-                    <option value="PIX">
+                    <option value="TRX (Tron)">TRX Trx(tron) </option>
+                    {/* <option value="PIX">
                       PIX Elzimar medeiros de jesus ribeiro Nubank
                     </option>
                     <option value="PIXX Inter">PIXX Inter banco </option>
@@ -134,7 +134,7 @@ const DepositStep3Content = () => {
                     </option>
                     <option value="PIXXX Sandra">
                       PIXXX Sandra aparecida gagetti Chave BV
-                    </option>
+                    </option> */}
                   </select>
                 </div>
                 {!buttonClicked ? (

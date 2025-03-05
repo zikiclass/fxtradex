@@ -86,9 +86,11 @@
     
 }
 .input input{
-    border: 1px solid #fff;
+    border: 1px solid #fff!important;
     padding: 4px;
     border-radius: 5px;
+    margin-bottom: 0.6rem;
+    color: #fff!important;
 }
 .input label {
     color: #fff;

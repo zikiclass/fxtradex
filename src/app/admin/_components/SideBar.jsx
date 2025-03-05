@@ -53,18 +53,8 @@ const SideBar = ({ toggle }) => {
 
     { title: "traders", icon: <Diversity2Icon />, href: "traders" },
     { title: "trades", icon: <CurrencyExchangeIcon />, href: "trades" },
-    {
-      title: "settings",
-      icon: <SettingsIcon />,
-      sub: "settings",
-      subLink: [
-        { title: "favorites", href: "favorites" },
-        { title: "gainers", href: "gainers" },
-        { title: "losers", href: "losers" },
-        { title: "accounts", href: "accounts" },
-        { title: "wallet address", href: "wallets" },
-      ],
-    },
+    { title: "Wallets", icon: <SettingsIcon />, href: "wallets" },
+
     { title: "logout", icon: <ExitToAppIcon /> },
   ];
 

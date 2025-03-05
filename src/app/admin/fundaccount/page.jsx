@@ -132,7 +132,7 @@ const FundAccountContent = () => {
                   style={{
                     fontSize: "13px",
                     fontStyle: "italic",
-                    color: "#fff",
+                    color: "#fff!important",
                     marginBottom: "0px",
                   }}
                 >

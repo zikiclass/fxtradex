@@ -9,13 +9,13 @@ const Categories = () => {
       <div className="categories">
         <ul>
           <li className="active">
-            <Link href="/">Favorites</Link>
+            <Link href="#">Favorites</Link>
           </li>
           <li>
-            <Link href="/">Gainers</Link>
+            <Link href="#">Gainers</Link>
           </li>
           <li>
-            <Link href="/">Losers</Link>
+            <Link href="#">Losers</Link>
           </li>
         </ul>
         <WatchLists />

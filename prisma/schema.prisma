@@ -121,17 +121,10 @@ model Withdrawal {
   user           Register  @relation(fields: [userId], references: [id])
 }
 
-model Walletlist {
-  id      Int       @id @default(autoincrement())
-  wallet  String
-  wallets Wallets[]
-}
-
 model Wallets {
-  id             Int        @id @default(autoincrement())
-  walletListId   Int
-  wallet_address String
-  wallet__       Walletlist @relation(fields: walletListId, references: [id])
+  id             Int     @id @default(autoincrement())
+  wallet         String?
+  wallet_address String? @unique
 }
 
 model Account {

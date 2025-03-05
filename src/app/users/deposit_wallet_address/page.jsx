@@ -9,6 +9,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import Button from "../../components/Button2";
 import ButtonTransparent from "../../components/ButtonTransparent";
+import axios from "axios";
 const DepositWalletAddress = () => {
   return (
     <>
@@ -20,6 +21,7 @@ const DepositWalletAddress = () => {
 };
 
 const DepositWalletAddressContent = () => {
+  const [wallets, setWallets] = useState("");
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
   const paymethod = searchParams.get("paymethod");
@@ -43,6 +45,23 @@ const DepositWalletAddressContent = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `/api/users/wallets?paymentmethod=${paymethod}`
+        );
+
+        if (response.data.wallets) {
+          setWallets(response.data.wallets[0]);
+          console.log(wallets.wallets);
+        } else {
+        }
+      } catch (error) {}
+    };
+    fetchData();
+  }, [paymethod]);
 
   const initialTimeLeft =
     typeof window !== "undefined"
@@ -87,7 +106,7 @@ const DepositWalletAddressContent = () => {
                   <ContentCopyIcon id="icon" />
                   <input
                     type="text"
-                    value="TPdKeof3op2RYnXetT7eRWLsZ8oFBNjECu"
+                    value={wallets.wallet}
                     placeholder="Wallet Address"
                     readOnly
                   />
