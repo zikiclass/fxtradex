@@ -1,7 +1,5 @@
 "use client";
-// components/admin/Login.js
-
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../../public/img/logo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +14,8 @@ import toast, { Toaster } from "react-hot-toast";
 const Login = () => {
   const router = useRouter();
   const loginFormRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false); // Add loading state
+  const [loadingDuration, setLoadingDuration] = useState(3000); // Duration in milliseconds (3000ms = 3 seconds)
 
   useEffect(() => {
     if (loginFormRef.current) {
@@ -26,25 +26,31 @@ const Login = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
+    setIsLoading(true); // Set loading to true when button is clicked
 
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        role: "admin",
-        email: email.value,
-        password: password.value,
-      });
+    // Simulate a delay before checking credentials
+    setTimeout(async () => {
+      try {
+        const result = await signIn("credentials", {
+          redirect: false,
+          role: "admin",
+          email: email.value,
+          password: password.value,
+        });
 
-      if (result.error) {
-        toast.error("Invalid login details.");
-      } else {
-        // Redirect manually upon successful login
-        router.push("/admin/dashboard"); // Adjust to your admin dashboard path
+        if (result.error) {
+          toast.error("Invalid login details.");
+          setIsLoading(false); // Reset loading on error
+        } else {
+          // Redirect manually upon successful login
+          router.push("/admin/dashboard"); // Adjust to your admin dashboard path
+        }
+      } catch (error) {
+        console.error("Sign in error:", error);
+        toast.error("Sign in failed. Please try again.");
+        setIsLoading(false); // Reset loading on error
       }
-    } catch (error) {
-      console.error("Sign in error:", error);
-      toast.error("Sign in failed. Please try again.");
-    }
+    }, loadingDuration); // Set delay here, for example, 3 seconds
   };
 
   return (
@@ -69,9 +75,19 @@ const Login = () => {
               <label>Password</label>
             </div>
             <div className="cta">
-              <button type="submit">Sign In</button>
+              <button type="submit" disabled={isLoading}>
+                Sign In
+              </button>
             </div>
           </form>
+
+          {/* Add overlay with spinner when loading */}
+          {isLoading && (
+            <div className="loading-overlay">
+              <div className="spinner"></div>
+              <div className="processing-text">Processing...</div>
+            </div>
+          )}
         </div>
       </div>
     </>

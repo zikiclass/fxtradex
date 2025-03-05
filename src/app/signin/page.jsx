@@ -1,6 +1,6 @@
 "use client";
 // Login component
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../../public/img/logo.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import KeyIcon from "@mui/icons-material/Key";
 import "./signin.css";
 import { NavBarLight } from "../HomeComponents";
+import Swal from "sweetalert2";
 import google from "../../../public/img/google.svg";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,7 @@ const Login = () => {
   const { data } = fetchUser();
   const router = useRouter();
   const loginFormRef = useRef(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     if (loginFormRef.current) {
       loginFormRef.current.classList.add("fadeIn");
@@ -27,7 +28,7 @@ const Login = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-
+    setIsLoading(true);
     try {
       const result = await signIn("credentials", {
         redirect: false,
@@ -37,6 +38,13 @@ const Login = () => {
       });
 
       if (result.error) {
+        setIsLoading(false);
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Invalid login details.",
+          timer: 1500,
+        });
         toast.error("Invalid login details.");
       } else {
         // Redirect manually upon successful login
@@ -45,6 +53,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Sign in error:", error);
+      setIsLoading(false);
       toast.error("Sign in failed. Please try again.");
     }
   };
@@ -84,6 +93,14 @@ const Login = () => {
               </p>
             </div>
           </form>
+
+          {/* Add overlay with spinner when loading */}
+          {isLoading && (
+            <div className="loading-overlay">
+              <div className="spinner"></div>
+              <div className="processing-text">Processing...</div>
+            </div>
+          )}
         </div>
       </div>
     </>

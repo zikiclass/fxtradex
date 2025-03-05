@@ -13,8 +13,8 @@
     transition: all 0.3s;
 }
 .answer.hide{ display: none;}
-.answer > p{
-    color: var(--admin-color-white);
+p{
+    color: var(--dark)!important;
     transition: 0.3s ease-in-out;
 }
 .faqs{

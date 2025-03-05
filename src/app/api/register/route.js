@@ -20,7 +20,10 @@ export async function POST(request) {
       },
     });
     if (checkEmail) {
-      return NextResponse.json("Email already registered", { status: 400 });
+      return NextResponse.json(
+        { message: "Email already registered" },
+        { status: 400 }
+      );
     } else {
       //hashed the password
       const hashedPassword = await bcrypt.hash(body.password, 10);

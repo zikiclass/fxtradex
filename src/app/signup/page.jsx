@@ -6,6 +6,7 @@ import PageNavigator from "../components/PageNavigator";
 import { countries, currency } from "../components/index/data";
 import "./signup.css";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,7 +19,7 @@ import toast, { Toaster } from "react-hot-toast";
 const RegisterForm = () => {
   const searchParams = useSearchParams(); // Get search params directly
   const referralId = searchParams.get("id");
-
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -45,11 +46,19 @@ const RegisterForm = () => {
             <form
               onSubmit={handleSubmit(async (data) => {
                 try {
+                  setIsLoading(true);
                   await axios.post("/api/register", { ...data, referralId });
                   toast.success("Account successfully registered");
                   router.push("/signin");
                 } catch (error) {
-                  toast.error(error.message);
+                  setIsLoading(false);
+                  Swal.fire({
+                    icon: "error",
+                    title: "Error!",
+                    text: "Email already registered",
+                    timer: 1500,
+                  });
+                  toast.error("Email already registered");
                 }
               })}
             >
@@ -155,6 +164,13 @@ const RegisterForm = () => {
                 </p>
               </div>
             </form>
+            {/* Add overlay with spinner when loading */}
+            {isLoading && (
+              <div className="loading-overlay">
+                <div className="spinner"></div>
+                <div className="processing-text">Creating Account...</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

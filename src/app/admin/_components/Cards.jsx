@@ -23,10 +23,10 @@ const Cards = () => {
       try {
         const response = await axios.get("/api/users");
         if (response.data) {
-          setDeposit(response.data.response._sum.deposit);
-          setProfit(response.data.response._sum.profit);
-          setUsers(response.data.users._count.email);
-          setWith_d(response.data.withdrawals._sum.amount);
+          setDeposit(response.data.response._sum.deposit || 0);
+          setProfit(response.data.response._sum.profit || 0);
+          setUsers(response.data.users._count.email || 0);
+          setWith_d(response.data.withdrawals._sum.amount || 0);
         }
       } catch (e) {
         console.log(e);
@@ -58,7 +58,7 @@ const Cards = () => {
         />
       ),
       color: "#ac4bbb",
-      link_href: "/",
+      link_href: "users",
     },
     {
       id: 3,
@@ -75,7 +75,7 @@ const Cards = () => {
         />
       ),
       color: "#3693ff",
-      link_href: "/",
+      link_href: "users",
     },
     {
       id: 4,
@@ -92,7 +92,7 @@ const Cards = () => {
         />
       ),
       color: "#ac4bbb",
-      link_href: "/",
+      link_href: "users",
     },
   ];
   return (
@@ -101,7 +101,7 @@ const Cards = () => {
         <Link
           className="card"
           key={card.id}
-          style={{ backgroundColor: `${card.color}` }}
+          style={{ backgroundColor: "#D3D3D3", color: "#212096" }}
           href={card.link_href}
         >
           <div className="title">

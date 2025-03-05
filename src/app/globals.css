@@ -26,6 +26,7 @@
   --admin-color-white-3: #9590f0;
 }
 [data-theme='light']{
+  --dark: #000;
   --dark-primary: #fff;
   --background-color: #f4f7fd;
   --background-color-2: #fff;
