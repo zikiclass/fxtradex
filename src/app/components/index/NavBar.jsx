@@ -97,9 +97,9 @@ const NavBar = () => {
           Sign Up
         </Link>
         {theme === "dark" ? (
-          <LightModeIcon className="icon__bed" onClick={toggleTheme} />
-        ) : (
           <BedtimeIcon className="icon__bed" onClick={toggleTheme} />
+        ) : (
+          <LightModeIcon className="icon__bed" onClick={toggleTheme} />
         )}
 
         <div

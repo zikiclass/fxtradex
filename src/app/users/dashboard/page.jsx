@@ -17,6 +17,7 @@ const Dashboard = () => {
   return (
     <div>
       <DashboardNavbar />
+      <BottomNavBar active="dashboard" />
       <div className="container" style={{ marginTop: "7rem" }}>
         <div className="dashboard">
           {data && <DepositInfo data={data} />}
@@ -24,7 +25,6 @@ const Dashboard = () => {
           <Categories />
         </div>
       </div>
-      <BottomNavBar active="dashboard" />
     </div>
   );
 };
