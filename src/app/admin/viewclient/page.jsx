@@ -25,7 +25,7 @@ const ViewClientContent = () => {
         const response = await axios.get(`/api/users/singleuser?id=${userId}`);
         setUsers(response.data.user);
         setOtpCode(response.data.user.otp_code);
-        setTransactions(response.data.trans);
+        setTransactions(response.data.user.transactions[0]);
       } catch (error) {
         toast.error("An error occurred");
       }

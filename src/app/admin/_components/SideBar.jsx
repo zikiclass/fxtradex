@@ -83,8 +83,9 @@ const SideBar = ({ toggle }) => {
       </div>
       <div className={styles.sidebar__bottom}>
         <ul className={styles.sidebar__links}>
-          {linkLists.map((linkList) => (
+          {linkLists.map((linkList, lis) => (
             <li
+              key={lis}
               onClick={() => {
                 linkList.href
                   ? handleLink(`${linkList.title}`, `${linkList.href}`)
@@ -123,7 +124,9 @@ const SideBar = ({ toggle }) => {
                           style={{ fontSize: "14px" }}
                           className="hideSublink"
                         />
-                        <span>{sublink.title}</span>
+                        <span className={styles.sublinkSpan}>
+                          {sublink.title}
+                        </span>
                       </Link>
                     </li>
                   ))}

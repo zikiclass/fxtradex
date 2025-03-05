@@ -37,7 +37,7 @@ const FundAccountContent = () => {
         console.log("API Response:", response.data);
         if (response.data.user) {
           setUsers(response.data.user);
-          setTransaction(response.data.trans);
+          setTransaction(response.data.user.transactions[0]);
         } else {
           toast.error("User not found");
         }

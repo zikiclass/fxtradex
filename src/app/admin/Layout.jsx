@@ -17,8 +17,6 @@ const Layout = ({ children, pageTitle }) => {
         <NavBar onClick={handleClick} setIcon={showNavbar} />
         <h3 className="pageTitle">{pageTitle}</h3>
         {children}
-        <div className="bg__blue__"></div>
-        <div className="bg__dark__"></div>
       </div>
     </div>
   );

@@ -46,12 +46,8 @@ export async function GET(req) {
       include: { transactions: true },
     });
 
-    const trans = await prisma.transaction.findUnique({
-      where: { userId: userId },
-    });
-
     if (user) {
-      return NextResponse.json({ user, trans }, { status: 200 });
+      return NextResponse.json({ user }, { status: 200 });
     } else {
       return NextResponse.json("User not found", { status: 404 });
     }

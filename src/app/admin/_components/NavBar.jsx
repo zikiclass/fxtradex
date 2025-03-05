@@ -45,18 +45,19 @@ const NavBar = ({ onClick, setIcon }) => {
 
       <div className="navbar__col__1">
         <div className="shortcuts">
-          <Link href="/api/auth/signout">
+          <Link href="/api/auth/signout" style={{ color: "#fff" }}>
             <PowerSettingsNewIcon
               className="icon__bed"
               onClick={handleSignOut}
               style={{ cursor: "pointer", color: "white" }}
-            />
+            />{" "}
+            Sign Out
           </Link>
 
-          <DashboardIcon className="s_ic hide" />
+          {/* <DashboardIcon className="s_ic hide" />
           <NotificationsIcon className="s_ic" />
           <DraftsIcon className="s_ic hide" />
-          <SettingsIcon className="s_ic" />
+          <SettingsIcon className="s_ic" /> */}
         </div>
         <div className="user">
           <div className="user__">
