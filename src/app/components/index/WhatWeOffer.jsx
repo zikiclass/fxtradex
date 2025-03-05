@@ -27,7 +27,7 @@ const WhatWeOffer = () => {
                 />
                 <div className="card__content">
                   <h4>{offer.heading}</h4>
-                  <p className="text-gray-500">{offer.paragraph}</p>
+                  <p>{offer.paragraph}</p>
                   <Button href={offer.link} title="Learn More"></Button>
                 </div>
               </div>

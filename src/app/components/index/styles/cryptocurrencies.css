@@ -11,7 +11,7 @@
 }
 .crypto__container p{
     margin: 0.9rem 0;
-    color: var(--admin-color-white);
+    color: var(--dark)!important;
 }
 .crypto__miners{
     display: flex;

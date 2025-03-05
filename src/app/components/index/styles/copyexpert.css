@@ -4,12 +4,16 @@
     background-color: var(--background-color-2);
     padding: 0.5rem 0;
     margin-bottom: 2.6rem;
+  
 }
 .copyexpert__container h3{
     text-align: center;
     font-size: 2rem;
     color: var(--admin-color-white)!important;
     margin: 2rem 0;
+}
+p{
+    color: var(--dark)!important;
 }
 .copyexpert__rows{
     display: flex;

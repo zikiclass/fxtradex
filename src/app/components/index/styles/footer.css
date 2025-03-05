@@ -1,6 +1,6 @@
 .footer{
     padding: 2rem 6rem;
-    background-color: var(--dark);
+    background-color: var(--dark__);
 }
 .footer .container{
     display: flex;

@@ -6,15 +6,15 @@
 }
 .faq__wrapper h3{
     text-transform: uppercase;
-    color: var(--dark)!important;
+    color: var(--dark__)!important;
 }
 .answer{
     opacity: 0;
     transition: all 0.3s;
 }
 .answer.hide{ display: none;}
-p{
-    color: var(--dark)!important;
+.para{
+    color: var(--dark__)!important;
     transition: 0.3s ease-in-out;
 }
 .faqs{

@@ -10,7 +10,8 @@
   --background-color-2: #000;
   
   --text-gray: #777;
-  --dark: #000;
+  --dark: #fff;
+  --dark__: #000;
   --orange-color: #f7921b;
   --dark-primary: #0c143d;
   --admin-primary: #212096;
@@ -26,7 +27,7 @@
   --admin-color-white-3: #9590f0;
 }
 [data-theme='light']{
-  
+  --dark: #000;
   --dark-primary: #fff;
   --background-color: #f4f7fd;
   --background-color-2: #fff;

@@ -73,7 +73,10 @@ const Faq = ({ project_title }) => {
                       activeItems[index] ? "answer active" : "answer hide"
                     }
                   >
-                    <p dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                    <p
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                      className="para"
+                    ></p>
                   </div>
                 </div>
               ))}

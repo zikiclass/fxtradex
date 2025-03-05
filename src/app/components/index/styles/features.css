@@ -16,6 +16,7 @@
 
 .feature__card h4{
     font-size: 1.7rem;
+    color: var(--dark)!important;
 }
 .feature__card p{
     line-height: 1.2rem;
