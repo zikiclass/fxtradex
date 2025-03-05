@@ -1,3 +1,5 @@
+"use client";
+import { useEffect } from "react";
 import "./globals.css";
 import { Metadata } from "next";
 import { Inter, Signika_Negative } from "next/font/google";
@@ -18,6 +20,20 @@ const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // Adding the Tidio chat script dynamically
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "//code.tidio.co/kyt8gjstcbty5znemqs9jld0tsqxwtq7.js";
+    script.async = true;
+    script.onload = () => console.log("Tidio chat script loaded!");
+    document.body.appendChild(script);
+
+    // Cleanup the script on component unmount
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []); // Empty dependency array to ensure it's only added once when the component mounts
+
   return (
     <html lang="en">
       <body className={signika.className}>
