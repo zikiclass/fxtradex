@@ -41,17 +41,19 @@ export async function GET(req) {
 
     const userId = parseInt(id);
 
+    // Find the user by ID
     const user = await prisma.register.findUnique({
       where: { id: userId },
-      include: { transactions: true },
+      include: { transactions: true }, // Include associated transactions
     });
 
-    const trans = await prisma.transaction.findUnique({
-      where: { userId: userId },
+    // Find the transactions for the user by userId
+    const transactions = await prisma.transaction.findMany({
+      where: { userId: userId }, // Use findMany for a non-unique field
     });
 
     if (user) {
-      return NextResponse.json({ user, trans }, { status: 200 });
+      return NextResponse.json({ user, transactions }, { status: 200 });
     } else {
       return NextResponse.json("User not found", { status: 404 });
     }
