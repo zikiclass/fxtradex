@@ -82,7 +82,7 @@ const Users = () => {
                   <tr key={index} className={styles.tr}>
                     <td className={styles.hide}>{user.id}</td>
                     <td className={styles.hide}>{user.first_name}</td>
-                    <td>{user.email}</td>
+                    <td style={{ textAlign: "left" }}>{user.email}</td>
                     <td>{user.mobile}</td>
                     <td>
                       {user.transactions.map((transaction, idx) => (
@@ -154,10 +154,10 @@ const Users = () => {
                         <PreviewIcon />
                         <span>View</span>
                       </Link>
-                      <Link className={styles.cta_} href="">
+                      {/* <Link className={styles.cta_} href="">
                         <LockOpenIcon />
                         <span>Login</span>
-                      </Link>
+                      </Link> */}
                       <Link
                         className={styles.cta_}
                         href={`deleteclient?userId=${user.id}`}

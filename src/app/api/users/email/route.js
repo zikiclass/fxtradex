@@ -67,15 +67,14 @@ export async function DELETE(req) {
 }
 export async function GET(req) {
   try {
-    //const body = await req.json();
     const page = req.nextUrl.searchParams.get("page") || "1"; // Default to '1' if not provided
     const limit = req.nextUrl.searchParams.get("limit") || "7"; // Default to '7' if not provided
     const email = req.nextUrl.searchParams.get("email") || "";
-    // console.log("Raw query parameters:", { page, limit });
+
     const pageNumber = parseInt(page, 10);
     const limitNumber = parseInt(limit, 10);
-    //console.log("Parsed values:", { pageNumber, limitNumber });
 
+    // Validate page and limit
     if (
       isNaN(pageNumber) ||
       isNaN(limitNumber) ||
@@ -87,10 +86,20 @@ export async function GET(req) {
         { status: 400 }
       );
     }
-    const whereClause = email ? { email } : {};
-    //console.log(`Fetching users for page ${pageNumber}, limit ${limitNumber}`);
-    //console.log(`Fetching users for page ${page}`);
 
+    // Build the whereClause for partial email match
+    const whereClause = email
+      ? {
+          email: {
+            contains: email, // Partial match for email
+          },
+        }
+      : {}; // No filter if no email is provided
+
+    // Log the query for debugging
+    console.log("Where clause:", whereClause);
+
+    // Fetch the users with pagination and email search filter
     const users = await prisma.register.findMany({
       where: whereClause,
       skip: (pageNumber - 1) * limitNumber,
@@ -98,37 +107,25 @@ export async function GET(req) {
       orderBy: [{ id: "desc" }],
       include: { transactions: true },
     });
-    const totalUsers = await prisma.register.count();
 
-    //console.log("Total users:", totalUsers);
-    if (users) {
-      if (email) {
-        const checkEmail = await prisma.register.findUnique({
-          where: { email },
-        });
-        if (checkEmail) {
-          return NextResponse.json(
-            {
-              users,
-              totalPages: Math.ceil(totalUsers / limitNumber),
-              currentPage: parseInt(page),
-            },
-            { status: 200 }
-          );
-        } else
-          return NextResponse.json("Unable to get request", { status: 404 });
-      } else {
-        return NextResponse.json(
-          {
-            users,
-            totalPages: Math.ceil(totalUsers / limitNumber),
-            currentPage: parseInt(page),
-          },
-          { status: 200 }
-        );
-      }
-    }
+    // Get the total count of users matching the search condition for pagination
+    const totalUsers = await prisma.register.count({
+      where: whereClause,
+    });
+
+    return NextResponse.json(
+      {
+        users,
+        totalPages: Math.ceil(totalUsers / limitNumber),
+        currentPage: pageNumber,
+      },
+      { status: 200 }
+    );
   } catch (error) {
-    return NextResponse.json("Internal server error" + error, { status: 500 });
+    console.error("Error occurred during query:", error.message); // Log the actual error
+    return NextResponse.json(
+      { error: "Internal server error", details: error.message },
+      { status: 500 }
+    );
   }
 }
