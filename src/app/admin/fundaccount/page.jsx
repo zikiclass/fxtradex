@@ -15,6 +15,7 @@ import delay from "delay";
 const FundAccountContent = () => {
   const searchParams = useSearchParams();
   const userId = searchParams.get("userId");
+
   const [users, setUsers] = useState([]);
   const [id, setId] = useState(null);
   const [deposit, setDeposit] = useState(null);
@@ -33,6 +34,7 @@ const FundAccountContent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`/api/users/singleuser?id=${userId}`);
+        console.log("API Response:", response.data);
         if (response.data.user) {
           setUsers(response.data.user);
           setTransaction(response.data.trans);
