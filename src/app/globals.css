@@ -3,6 +3,27 @@
 @tailwind utilities;
 
 :root {
+  --dark: #000;
+  --dark-primary: #fff;
+  --background-color: #f4f7fd;
+  --background-color-2: #fff;
+  --admin-primary: #e1e4f0;
+  --admin-primary-second: #c1c3cc;
+  --sidebar-primary: #dcd8fd;
+  --admin-dark: #9f98d8;
+  --admin-chart-bg: #eef1ff;
+  --admin-color-white-2: #000;
+  --admin-color-white: #000;
+  --admin-color-gray: #777;
+  --admin-color-heading: #6648fe;
+  --admin-color-white-3: #000;
+  --admin-color-transparent: trnasparent;
+
+
+  
+}
+[data-theme='light']{
+
   --foreground-rgb: 0, 0, 0;
   --primary-color: #6648fe;
   --secondary-color: #04b897;
@@ -25,23 +46,7 @@
   --admin-color-gray: #fff;
   --admin-color-heading: #fff;
   --admin-color-white-3: #9590f0;
-}
-[data-theme='light']{
-  --dark: #000;
-  --dark-primary: #fff;
-  --background-color: #f4f7fd;
-  --background-color-2: #fff;
-  --admin-primary: #e1e4f0;
-  --admin-primary-second: #c1c3cc;
-  --sidebar-primary: #dcd8fd;
-  --admin-dark: #9f98d8;
-  --admin-chart-bg: #eef1ff;
-  --admin-color-white-2: #000;
-  --admin-color-white: #000;
-  --admin-color-gray: #777;
-  --admin-color-heading: #6648fe;
-  --admin-color-white-3: #000;
-  --admin-color-transparent: trnasparent;
+
 }
 
 @media (prefers-color-scheme: dark) {
