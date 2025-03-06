@@ -154,7 +154,11 @@ const RegisterForm = () => {
                 <span>I accept all terms of service</span>
               </div>
               <div className="cta">
-                <button type="submit">Create My Account</button>
+                {!isLoading ? (
+                  <button type="submit">Create My Account</button>
+                ) : (
+                  <span className="processing-text">Processing...</span>
+                )}
 
                 <p>
                   Already have an account?{" "}

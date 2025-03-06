@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { DashboardNavbar } from "../../HomeComponents";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import BottomNavBar from "../_components/BottomNavBar";
+import { FaLevelUpAlt } from "react-icons/fa";
+import { FaLevelDownAlt } from "react-icons/fa";
 import {
   TradeSelectFirst,
   TradeSelectSecond,
@@ -101,21 +103,28 @@ const Trade = () => {
           </div>
           <div className="trade__col__1">
             <form action="">
-              <div className="input__">
-                <label>Amount</label>
-                <input type="number" value="0.00" name="amount" />
+              <div className="updown__">
+                <button className="btn__buy">
+                  Buy <FaLevelUpAlt />
+                </button>
+                <button className="btn__sell">
+                  Sell <FaLevelDownAlt />
+                </button>
               </div>
-              <div className="input__">
-                <label>Time (Minutes)</label>
-                <input type="number" value="10" name="time" />
+              <div className="levr">
+                <div className="input__">
+                  <label>Amount</label>
+                  <input type="number" value="0.00" name="amount" />
+                </div>
+                <div className="input__">
+                  <label>Time (Minutes)</label>
+                  <input type="number" value="10" name="time" />
+                </div>
+                <div className="input__">
+                  <label>Leverage (5000 MAX)</label>
+                  <input type="number" value="1" name="leverage" />
+                </div>
               </div>
-              <div className="input__">
-                <label>Leverage (5000 MAX)</label>
-                <input type="number" value="1" name="leverage" />
-              </div>
-              <button className="btn__buy">Buy</button>
-              <button className="btn__sell">Sell</button>
-              <label style={{ float: "right" }}>SOLUSD 89.66</label>
             </form>
           </div>
         </div>

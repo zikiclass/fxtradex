@@ -127,6 +127,14 @@ model Wallets {
   wallet_address String? @unique
 }
 
+model CopyTraders {
+  id          Int     @id @default(autoincrement())
+  title       String?
+  winrate     String?
+  profitshare String?
+  image       String?
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")

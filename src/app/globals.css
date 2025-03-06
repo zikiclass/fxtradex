@@ -4,11 +4,7 @@
 
 :root {
 
-  --foreground-rgb: 0, 0, 0;
-  --primary-color: #6648fe;
-  --secondary-color: #04b897;
-  --background-color: #000;
-  --background-color-2: #000;
+
 
   
   --dark: #000;
@@ -26,8 +22,8 @@
   --admin-color-heading: #6648fe;
   --admin-color-white-3: #000;
   --admin-color-transparent: trnasparent;
-
-
+  --dark-gray: #777;
+  --dark-trans: transparent;
   
 }
 [data-theme='light']{
@@ -39,7 +35,9 @@
   --background-color-2: #000;
   
   --text-gray: #777;
+  --dark-gray: #fff;
   --dark: #fff;
+  --dark-trans: #fff;
   --dark__: #000;
   --orange-color: #f7921b;
   --dark-primary: #0c143d;
@@ -62,7 +60,9 @@
     --foreground-rgb: 255, 255, 255;
   }
 }
-
+select, input{
+  background-color: var(--dark-trans)!important;
+}
 body {
   color: #000;
   background-color: var(--background-color);

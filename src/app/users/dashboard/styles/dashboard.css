@@ -19,7 +19,9 @@
     width: 100%!important;
 }
 
-
+.pard{
+    color: #000!important;
+}
 @media screen and (max-width: 760px){
     .dashboard{
         flex-direction: column;

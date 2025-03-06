@@ -71,7 +71,9 @@ const BankWithdraw = () => {
             <span className="withdraw__heading">Withdraw to Bank</span>
             <div className="withdrawal">
               <form onSubmit={handleSubmit}>
-                <p>We may contact you for additional information.</p>
+                <p className="pard">
+                  We may contact you for additional information.
+                </p>
                 <div className="withdraw_form">
                   <div className="col_1">
                     <div className="input__form">
