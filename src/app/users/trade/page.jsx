@@ -4,11 +4,13 @@ import { DashboardNavbar } from "../../HomeComponents";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import BottomNavBar from "../_components/BottomNavBar";
 import { FaLevelUpAlt, FaLevelDownAlt } from "react-icons/fa";
+import btc from "../../../../public/img/btc.webp";
 import {
   TradeSelectFirst,
   TradeSelectSecond,
   TradeSelectThird,
 } from "../../components/index/data";
+import Image from "next/image";
 
 const Trade = () => {
   const container = useRef();
@@ -145,11 +147,25 @@ const Trade = () => {
               ) : (
                 openTrades.map((trade) => (
                   <div key={trade.id} className="open_trade">
-                    <p>Symbol: {trade.symbol}</p>
-                    <p>Amount: {trade.amount}</p>
-                    <p>Leverage: {trade.leverage}</p>
-                    <p>Action: {trade.action}</p>
-                    <p>Time Remaining: {formatTime(trade.remainingTime)}</p>
+                    <div className="open_trade_col1">
+                      <Image src={btc} alt="btc" className="btcImage" />
+
+                      <div className="open_trade_quote">
+                        <span
+                          style={{ fontWeight: "bold" }}
+                          className={trade.action === "buy" ? "buy" : "sell"}
+                        >
+                          {trade.action} {trade.amount} BTCUSD
+                        </span>
+                        <p>83290.3 - 83780.2</p>
+                      </div>
+                    </div>
+                    <div className="open_trade_col2">
+                      <span className={trade.action === "buy" ? "buy" : "sell"}>
+                        668.10
+                      </span>
+                      <p>({formatTime(trade.remainingTime)})</p>
+                    </div>
                   </div>
                 ))
               )}

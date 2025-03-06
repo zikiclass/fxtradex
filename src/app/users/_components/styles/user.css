@@ -724,6 +724,39 @@ gap: 0.3rem;
     color: #000 !important;
     accent-color: transparent !important;
 }
+.buy{
+    color: green;
+}
+.sell{
+    color: red;
+}
+.open_trades{
+    flex-direction: column;
+}
+.open_trade{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.btcImage{
+    width: 60px;
+    border-radius: 50%;
+}
+.open_trade_col1{
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+.open_trade_col2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.open_trade_col2 span{
+  
+    font-weight: bold;
+}
 .trade__col__1 button{
     display: block;
     text-transform: uppercase;
@@ -829,6 +862,19 @@ gap: 0.3rem;
     font-size: 12px
 }
 @media screen and (max-width: 760px){
+    .trader{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    .details{
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
     .updown__{
         display: flex;
         gap: 1rem;

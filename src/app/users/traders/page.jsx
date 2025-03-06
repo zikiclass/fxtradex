@@ -9,14 +9,23 @@ import Link from "next/link";
 import Button from "../../components/Button";
 import { tradersList } from "../../components/index/data";
 import Image from "next/image";
+import Swal from "sweetalert2";
 const Traders = () => {
+  const handleClick = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Error!",
+      text: "Insufficient funds! please make deposit to be able to copy this trader.",
+    });
+  };
   return (
     <>
       <DashboardNavbar />
       <div className="container" style={{ marginTop: "3rem" }}>
         <DashboardPageNavigator text="Traders" />
         <div className="dashboard__">
-          <input type="text" placeholder="Search" className="searchTraders" />
+          {/* <input type="text" placeholder="Search" className="searchTraders" />
+           */}
           <div className="dashboard_">
             {tradersList.map((trader) => (
               <div className="trader" key={trader.id}>
@@ -31,7 +40,7 @@ const Traders = () => {
                   <span>{trader.profitshare}% Profit Share</span>
                 </div>
                 <div className="btn__copy">
-                  <Button title="COPY" />
+                  <Button title="COPY" onClick={handleClick} />
                 </div>
               </div>
             ))}
