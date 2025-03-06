@@ -54,8 +54,7 @@ const DepositWalletAddressContent = () => {
         );
 
         if (response.data.wallets) {
-          setWallets(response.data.wallets[0]);
-          console.log(wallets.wallets);
+          setWallets(response.data.wallets);
         } else {
         }
       } catch (error) {}
@@ -121,10 +120,10 @@ const DepositWalletAddressContent = () => {
                   Awaiting Payment
                 </span>
 
-                <Button
+                {/* <Button
                   title="UPLOAD PAYMENT PROOF"
                   onClick={showPaymentProofUpload}
-                />
+                /> */}
 
                 <ButtonTransparent
                   title="wait for confirmation"

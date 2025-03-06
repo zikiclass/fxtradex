@@ -110,7 +110,7 @@ const NavBar = () => {
         >
           <FlagIcon code="US" className="icon__country" /> <span>EN</span>
         </div>
-        <div className="country__list">
+        {/* <div className="country__list">
           <div className="country__wrap">
             {countryList.map((country) => (
               <div className="icon__country__list" key={country.id}>
@@ -119,7 +119,7 @@ const NavBar = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div

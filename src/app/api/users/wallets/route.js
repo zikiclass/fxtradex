@@ -73,3 +73,23 @@ export async function PUT(request) {
     );
   }
 }
+
+export async function GET(req) {
+  try {
+    const searchParams = req.nextUrl.searchParams; // Corrected line to get query params
+    const paymentmethod = searchParams.get("paymentmethod");
+
+    const wallets = await prisma.wallets.findUnique({
+      where: { wallet_address: paymentmethod },
+    });
+
+    if (wallets) {
+      return NextResponse.json({ wallets }, { status: 200 });
+    } else {
+      return NextResponse.json("User not found", { status: 404 });
+    }
+  } catch (error) {
+    console.error("Internal server error:", error);
+    return NextResponse.json("Internal server error", { status: 500 });
+  }
+}

@@ -3,18 +3,68 @@ import React, { useEffect, useRef, useState } from "react";
 import { DashboardNavbar } from "../../HomeComponents";
 import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import BottomNavBar from "../_components/BottomNavBar";
-import { FaLevelUpAlt } from "react-icons/fa";
-import { FaLevelDownAlt } from "react-icons/fa";
+import { FaLevelUpAlt, FaLevelDownAlt } from "react-icons/fa";
 import {
   TradeSelectFirst,
   TradeSelectSecond,
   TradeSelectThird,
 } from "../../components/index/data";
+
 const Trade = () => {
   const container = useRef();
+  const [firstSelect, setFirstSelect] = useState("");
+  const [secondSelect, setSecondSelect] = useState("");
+  const [thirdSelect, setThirdSelect] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [time, setTime] = useState(10); // Default time is 10 minutes
+  const [leverage, setLeverage] = useState(1); // Default leverage
+  const [openTrades, setOpenTrades] = useState([]); // Store open trades
+
+  // Add a new trade to the list of open trades
+  const handleBuySell = (action) => {
+    const trade = {
+      id: Date.now(), // Unique ID for the trade
+      symbol: thirdSelect,
+      amount,
+      time,
+      leverage,
+      action,
+      remainingTime: time * 60, // Store time in seconds
+    };
+
+    // Add trade to the list
+    setOpenTrades((prevTrades) => [...prevTrades, trade]);
+  };
+
+  // Countdown each trade every second
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOpenTrades((prevTrades) => {
+        return prevTrades.map((trade) => {
+          if (trade.remainingTime > 0) {
+            return { ...trade, remainingTime: trade.remainingTime - 1 };
+          }
+          return trade; // No change if time is 0
+        });
+      });
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup the interval when component unmounts
+  }, []);
+
+  const handleFirstSelectChange = (event) => {
+    setFirstSelect(event.target.value);
+    setSecondSelect(""); // Reset second select when first changes
+  };
+
+  // Convert remaining time in seconds to a more readable format (e.g., 5 minutes 30 seconds)
+  const formatTime = (remainingTime) => {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    return `${minutes}m ${seconds}s`;
+  };
 
   useEffect(() => {
-    // Check if the TradingView script is already appended
     if (!document.getElementById("tradingview-widget-script")) {
       const script = document.createElement("script");
       script.src =
@@ -43,13 +93,6 @@ const Trade = () => {
     }
   }, []);
 
-  const [firstSelect, setFirstSelect] = useState("");
-  const [secondSelect, setSecondSelect] = useState("");
-  const handleFirstSelectChange = (event) => {
-    const { value } = event.target;
-    setFirstSelect(value);
-    setSecondSelect("");
-  };
   return (
     <>
       <DashboardNavbar />
@@ -84,7 +127,11 @@ const Trade = () => {
                       )
                     )}
               </select>
-              <select name="third_select">
+              <select
+                name="third_select"
+                value={thirdSelect}
+                onChange={(e) => setThirdSelect(e.target.value)}
+              >
                 {TradeSelectThird.map((tradeSelect, index) => (
                   <option value={tradeSelect} key={index}>
                     {tradeSelect}
@@ -92,7 +139,21 @@ const Trade = () => {
                 ))}
               </select>
             </div>
-            <div className="open_trades">No open trades</div>
+            <div className="open_trades">
+              {openTrades.length === 0 ? (
+                <p>No open trades</p>
+              ) : (
+                openTrades.map((trade) => (
+                  <div key={trade.id} className="open_trade">
+                    <p>Symbol: {trade.symbol}</p>
+                    <p>Amount: {trade.amount}</p>
+                    <p>Leverage: {trade.leverage}</p>
+                    <p>Action: {trade.action}</p>
+                    <p>Time Remaining: {formatTime(trade.remainingTime)}</p>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
           <div className="trade__col__2">
             <div
@@ -104,25 +165,63 @@ const Trade = () => {
           <div className="trade__col__1">
             <form action="">
               <div className="updown__">
-                <button className="btn__buy">
+                <button
+                  type="button"
+                  className="btn__buy"
+                  onClick={() => handleBuySell("buy")}
+                >
                   Buy <FaLevelUpAlt />
                 </button>
-                <button className="btn__sell">
+                <button
+                  type="button"
+                  className="btn__sell"
+                  onClick={() => handleBuySell("sell")}
+                >
                   Sell <FaLevelDownAlt />
                 </button>
               </div>
               <div className="levr">
                 <div className="input__">
-                  <label>Amount</label>
-                  <input type="number" value="0.00" name="amount" />
+                  <label>Amount (USD)</label>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    name="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
                 </div>
                 <div className="input__">
+                  <label>Amount (BTC)</label>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    name="amount"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="levr">
+                <div className="input__">
                   <label>Time (Minutes)</label>
-                  <input type="number" value="10" name="time" />
+                  <input
+                    type="text"
+                    placeholder="10"
+                    name="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
                 </div>
                 <div className="input__">
                   <label>Leverage (5000 MAX)</label>
-                  <input type="number" value="1" name="leverage" />
+                  <input
+                    type="text"
+                    placeholder="1"
+                    name="leverage"
+                    value={leverage}
+                    onChange={(e) => setLeverage(e.target.value)}
+                  />
                 </div>
               </div>
             </form>

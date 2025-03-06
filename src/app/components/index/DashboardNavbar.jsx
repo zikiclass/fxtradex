@@ -14,12 +14,13 @@ import logo from "../../../../public/img/logo.png";
 import { useSession } from "next-auth/react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { signOut } from "next-auth/react";
+import fetchUser from "../../users/_components/FetchUser";
 const DashboardNavbar = () => {
   const { status, data: session } = useSession();
   const [countryShow, setCountryShow] = useState(false);
   const [fadeOut, setFadeOut] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
-
+  const { data } = fetchUser();
   // Function to handle scroll event
   const handleScroll = (event) => {
     setScrollPosition(event.target.scrollTop);
@@ -78,7 +79,7 @@ const DashboardNavbar = () => {
           </Link>
         ) : (
           <Link href="profile" className="md-links">
-            {session?.user?.name}
+            {data?.first_name}
           </Link>
         )}
 
@@ -95,16 +96,16 @@ const DashboardNavbar = () => {
           />
         </Link>
 
-        <div
+        {/* <div
           className="icon__"
           onClick={() => {
             setCountryShow(!countryShow);
           }}
         >
           <FlagIcon code="US" className="icon__country" /> <span>EN</span>
-        </div>
+        </div> */}
 
-        <div className="country__list">
+        {/* <div className="country__list">
           <div className="country__wrap">
             {countryList.map((country) => (
               <div className="icon__country__list" key={country.id}>
@@ -113,7 +114,7 @@ const DashboardNavbar = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div

@@ -166,9 +166,7 @@
 }
 
 @media screen and (max-width: 760px){
-    .md-links{
-        display: none;
-    }
+   
     .sidebar{
         width: 250px;
     }

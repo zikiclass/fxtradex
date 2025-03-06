@@ -708,6 +708,21 @@ gap: 0.3rem;
     justify-content: center;
     align-items: center;
     margin-bottom: 10px;
+    
+}
+.input__ label{
+    color: var(--dark) !important;
+}
+.levr{
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+}
+.input__ input{
+    border: 1px solid #000!important;
+    color: #000 !important;
+    accent-color: transparent !important;
 }
 .trade__col__1 button{
     display: block;
@@ -820,10 +835,7 @@ gap: 0.3rem;
         align-items: center;
         justify-content: center;
     }
-    .levr{
-        display: flex;
-        gap: 0.4rem;
-    }
+   
     .btn__buy, .btn__sell{
       margin: 0;
       margin-bottom: 1rem;
@@ -840,7 +852,7 @@ gap: 0.3rem;
         flex: 1;
     }
     .trade{
-        flex-direction: column;
+        flex-direction: column-reverse;
         margin-bottom: 3rem;
     }
     .trade__col__2{
