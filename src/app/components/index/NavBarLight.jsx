@@ -9,7 +9,7 @@ import { FlagIcon } from "react-flag-kit";
 import { countryList, sidebarLinks } from "./data";
 import "./styles/navbar.css";
 import Image from "next/image";
-import logo from "../../../../public/img/logo2.png";
+import logo from "../../../../public/img/logo.png";
 import { useSession } from "next-auth/react";
 
 const NavBarLight = () => {

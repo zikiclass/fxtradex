@@ -1,6 +1,6 @@
 "use client";
 import { project_email, project_name } from "../../../../env";
-import logo from "../../../../public/img/logo2.png";
+import logo from "../../../../public/img/logo.png";
 import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";

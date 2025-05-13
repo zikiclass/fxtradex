@@ -1,6 +1,6 @@
 "use client";
 import { project_name } from "../../../../env";
-import logo from "../../../../public/img/logo2.png";
+import logo from "../../../../public/img/logo.png";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
