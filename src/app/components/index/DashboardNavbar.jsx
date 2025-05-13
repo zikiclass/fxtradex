@@ -10,7 +10,7 @@ import { FlagIcon } from "react-flag-kit";
 import { countryList, sidebarLinks } from "./data";
 import "./styles/navbar.css";
 import Image from "next/image";
-import logo from "../../../../public/img/logo.png";
+import logo from "../../../../public/img/logo2.png";
 import { useSession } from "next-auth/react";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { signOut } from "next-auth/react";
