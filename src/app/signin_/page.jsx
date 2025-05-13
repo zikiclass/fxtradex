@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import Logo from "../../../public/img/logo2.png";
+import Logo from "../../../public/img/logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import EmailIcon from "@mui/icons-material/Email";
