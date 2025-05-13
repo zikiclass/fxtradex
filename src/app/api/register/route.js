@@ -90,8 +90,8 @@ async function sendRegistrationEmail(userEmail, userDetails) {
     port: "465",
     secure: "465",
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: "support@mt5indexpro.com",
+      pass: "Mt5Index@2025",
     },
   });
 

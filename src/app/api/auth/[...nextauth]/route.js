@@ -75,12 +75,12 @@ const authOptions = {
 
 async function sendSignInEmail(userEmail) {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST, // Your SMTP host
-    port: process.env.SMTP_PORT, // SMTP port (587 for TLS, 465 for SSL)
-    secure: true, // Set true if using SSL (port 465)
+    host: "smtp.hostinger.com",
+    port: "465",
+    secure: "465",
     auth: {
-      user: process.env.EMAIL_USER, // Email account used for sending
-      pass: process.env.EMAIL_PASS, // Password or App Password
+      user: "support@mt5indexpro.com",
+      pass: "Mt5Index@2025",
     },
   });
 

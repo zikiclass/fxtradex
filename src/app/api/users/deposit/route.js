@@ -53,12 +53,12 @@ export async function POST(req) {
 
 async function sendDepositEmail(user, depDetails) {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT, 10),
-    secure: process.env.SMTP_PORT === "465",
+    host: "smtp.hostinger.com",
+    port: "465",
+    secure: "465",
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: "support@mt5indexpro.com",
+      pass: "Mt5Index@2025",
     },
   });
 
