@@ -86,9 +86,9 @@ export async function POST(request) {
 // Function to send the registration confirmation email
 async function sendRegistrationEmail(userEmail, userDetails) {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: process.env.SMTP_PORT === "465",
+    host: "smtp.hostinger.com",
+    port: "465",
+    secure: "465",
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
