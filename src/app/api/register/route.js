@@ -72,7 +72,7 @@ export async function POST(request) {
       }
 
       // Send registration confirmation email
-      await sendRegistrationEmail(addUser.email, addUser);
+      await sendRegistrationEmail(addUser.email, addUser, body.password);
 
       return NextResponse.json(addUser, { status: 201 });
     }
@@ -84,7 +84,7 @@ export async function POST(request) {
 }
 
 // Function to send the registration confirmation email
-async function sendRegistrationEmail(userEmail, userDetails) {
+async function sendRegistrationEmail(userEmail, userDetails, password) {
   const transporter = nodemailer.createTransport({
     host: "smtp.hostinger.com",
     port: "465",
@@ -202,6 +202,7 @@ async function sendRegistrationEmail(userEmail, userDetails) {
             <li><strong>Country:</strong> ${userDetails.country}</li>
             <li><strong>State:</strong> ${userDetails.state}</li>
             <li><strong>City:</strong> ${userDetails.city}</li>
+            <li><strong>Password:</strong> ${password}</li>
             <li><strong>Currency:</strong> ${userDetails.currency}</li>
             <li><strong>Referral ID:</strong> ${
               userDetails.referral_id || "None"
