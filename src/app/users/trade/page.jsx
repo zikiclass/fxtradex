@@ -83,7 +83,7 @@ const Trade = () => {
         console.log(result);
         Swal.fire({
           icon: "success",
-          text: `${t("trade_message")}`,
+          text: `Trade started successfully`,
           timer: 2000,
         });
 
