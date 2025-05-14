@@ -30,29 +30,39 @@ const Trade = () => {
     const fetchTrades = async () => {
       if (data?.id) {
         try {
+          // Fetch the trades from the server
           const response = await axios.get(`/api/trade?userId=${data.id}`);
           const serverTrades = response.data.trades || [];
 
-          if (serverTrades.length > 0) {
-            const enriched = serverTrades.map((trade) => {
-              const now = new Date();
-              const created = new Date(trade.createdAt);
-              const totalSeconds = (trade.duration || time) * 60;
-              const elapsed = Math.floor((now - created) / 1000);
-              const remainingTime = totalSeconds - elapsed;
+          // Retrieve any locally stored trades
+          const localTrades =
+            JSON.parse(localStorage.getItem("openTrades")) || [];
 
-              return {
-                ...trade,
-                remainingTime: remainingTime > 0 ? remainingTime : 0,
-                currentProfit: 0,
-              };
-            });
-            setOpenTrades(enriched);
-            localStorage.setItem("openTrades", JSON.stringify(enriched));
-          } else {
-            setOpenTrades([]);
-            localStorage.removeItem("openTrades");
-          }
+          // Sync server and local trades
+          const enriched = serverTrades.map((trade) => {
+            const now = new Date();
+            const created = new Date(trade.createdAt);
+            const totalSeconds = (trade.duration || time) * 60;
+            const elapsed = Math.floor((now - created) / 1000);
+            const remainingTime = totalSeconds - elapsed;
+
+            // Restore the profit state if it exists in localStorage
+            const localTrade = localTrades.find((t) => t.id === trade.id);
+            const currentProfit = localTrade ? localTrade.currentProfit : 0;
+
+            return {
+              ...trade,
+              remainingTime: Math.max(remainingTime, 0),
+              currentProfit: currentProfit,
+            };
+          });
+
+          // Filter out expired trades and save to localStorage
+          const activeTrades = enriched.filter(
+            (trade) => trade.remainingTime > 0
+          );
+          setOpenTrades(activeTrades);
+          localStorage.setItem("openTrades", JSON.stringify(activeTrades));
         } catch (error) {
           console.error("Failed to fetch trades:", error);
         }
@@ -124,7 +134,6 @@ const Trade = () => {
             if (trade.remainingTime > 0) {
               const fluctuation = (Math.random() - 0.5) * (trade.profit / 15);
               const profitStep = trade.profit / (trade.duration * 60);
-
               return {
                 ...trade,
                 remainingTime: trade.remainingTime - 1,
@@ -136,7 +145,7 @@ const Trade = () => {
               remainingTime: 0,
             };
           })
-          .filter((trade) => trade.remainingTime > 0); // 🧼 Only keep active trades
+          .filter((trade) => trade.remainingTime > 0);
 
         localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
         return updatedTrades;
