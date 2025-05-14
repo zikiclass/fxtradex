@@ -100,7 +100,7 @@ const Trade = () => {
       } else {
         Swal.fire({
           icon: "error",
-          text: `Insufficient funds! please topup your balance to take this trade.`,
+          text: `Insufficienfunds! please topup your balance to take this trade.`,
           timer: 2000,
         });
       }
