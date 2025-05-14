@@ -26,10 +26,7 @@ export async function POST(req) {
       },
     });
 
-    if (
-      parseFloat(amount) >
-      parseFloat(user._sum.deposit) + parseFloat(user._sum.profit)
-    ) {
+    if (parseFloat(amount) > parseFloat(user._sum.deposit)) {
       return NextResponse.json(
         {
           message:
