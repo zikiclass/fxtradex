@@ -18,83 +18,83 @@ export async function POST(req) {
   try {
     const { userId, amount, leverage, action, time, email } = await req.json();
 
-    // const user = await prisma.transaction.aggregate({
-    //   where: { userId: Number(userId) },
-    //   _sum: {
-    //     deposit: true,
-    //     profit: true,
-    //   },
-    // });
-
-    // if (parseFloat(amount) > parseFloat(user._sum.deposit)) {
-    //   return NextResponse.json(
-    //     {
-    //       message:
-    //         "Insufficient funds! please topup your balance to take this trade.",
-    //     },
-    //     { status: 400 }
-    //   );
-    // } else {
-    const trade = await prisma.trade.create({
-      data: {
-        userId,
-        leverage: parseFloat(leverage),
-        action,
-        status: "open",
-        profit: parseFloat(amount) * 0.2,
-        loss: 0,
-        createdAt: new Date(),
-        duration: parseInt(time),
+    const user = await prisma.transaction.aggregate({
+      where: { userId: Number(userId) },
+      _sum: {
+        deposit: true,
+        profit: true,
       },
     });
 
-    setTimeout(async () => {
-      try {
-        // Re-fetch the trade to get the latest profit value
-        const latestTrade = await prisma.trade.findUnique({
-          where: { id: trade.id },
-        });
+    if (parseFloat(amount) > parseFloat(user._sum.deposit)) {
+      return NextResponse.json(
+        {
+          message:
+            "Insufficient funds! please topup your balance to take this trade.",
+        },
+        { status: 400 }
+      );
+    } else {
+      const trade = await prisma.trade.create({
+        data: {
+          userId,
+          leverage: parseFloat(leverage),
+          action,
+          status: "open",
+          profit: parseFloat(amount) * 0.2,
+          loss: 0,
+          createdAt: new Date(),
+          duration: parseInt(time),
+        },
+      });
 
-        if (!latestTrade || latestTrade.status === "closed") return;
+      setTimeout(async () => {
+        try {
+          // Re-fetch the trade to get the latest profit value
+          const latestTrade = await prisma.trade.findUnique({
+            where: { id: trade.id },
+          });
 
-        // Close the trade
-        await prisma.trade.update({
-          where: { id: trade.id },
-          data: { status: "closed" },
-        });
+          if (!latestTrade || latestTrade.status === "closed") return;
 
-        // Apply the latest profit or loss
-        await prisma.transaction.updateMany({
-          where: { userId: Number(userId) },
-          data: {
-            profit:
-              latestTrade.profit > 0
-                ? { increment: parseFloat(latestTrade.profit) }
-                : { decrement: Math.abs(parseFloat(latestTrade.loss)) },
-          },
-        });
-      } catch (err) {
-        console.error("Error closing trade:", err);
-      }
-    }, time * 60000); // time is in minutes
+          // Close the trade
+          await prisma.trade.update({
+            where: { id: trade.id },
+            data: { status: "closed" },
+          });
 
-    sendTradeEmail(trade, email);
-    return NextResponse.json(
-      { message: "Trade started successfully", trade },
-      { status: 200 }
-    );
+          // Apply the latest profit or loss
+          await prisma.transaction.updateMany({
+            where: { userId: Number(userId) },
+            data: {
+              profit:
+                latestTrade.profit > 0
+                  ? { increment: parseFloat(latestTrade.profit) }
+                  : { decrement: Math.abs(parseFloat(latestTrade.loss)) },
+            },
+          });
+        } catch (err) {
+          console.error("Error closing trade:", err);
+        }
+      }, time * 60000); // time is in minutes
 
-    // Fetch available trade signals
-    // const tradeSignal = await prisma.tradesignal.findFirst({
-    //   where: { amount: parseFloat(amount), leverage: parseFloat(leverage) },
-    // });
+      sendTradeEmail(trade, email);
+      return NextResponse.json(
+        { message: "Trade started successfully", trade },
+        { status: 200 }
+      );
 
-    // if (!tradeSignal) {
-    //   return NextResponse.json(
-    //     { message: "No matching trade signal found" },
-    //     { status: 400 }
-    //   );
-    // }
+      // Fetch available trade signals
+      // const tradeSignal = await prisma.tradesignal.findFirst({
+      //   where: { amount: parseFloat(amount), leverage: parseFloat(leverage) },
+      // });
+
+      // if (!tradeSignal) {
+      //   return NextResponse.json(
+      //     { message: "No matching trade signal found" },
+      //     { status: 400 }
+      //   );
+    }
 
     // // Start the trade
 
