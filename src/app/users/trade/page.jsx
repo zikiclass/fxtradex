@@ -22,6 +22,14 @@ const Trade = () => {
   let interval;
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Load saved trades from localStorage (if available)
+      const savedTrades = JSON.parse(localStorage.getItem("openTrades")) || [];
+      setOpenTrades(savedTrades);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchTrades = async () => {
       if (data?.id) {
         try {
