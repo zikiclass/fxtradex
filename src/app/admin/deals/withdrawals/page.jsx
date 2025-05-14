@@ -4,7 +4,6 @@ import Layout from "../../Layout";
 import styles from "../../users/users.module.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import { useSearchParams } from "next/navigation";
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "next/link";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -15,28 +14,10 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import Box from "@mui/material/Box";
 import { format, parseISO } from "date-fns";
-
-// Simulate a delay for Suspense
-const useSearchParamsWithSuspense = () => {
-  const searchParams = useSearchParams();
-  const [params, setParams] = useState(null);
-
-  useEffect(() => {
-    if (searchParams) {
-      setParams(searchParams); // Set the params when available
-    }
-  }, [searchParams]);
-
-  if (!params) {
-    // Simulate async behavior by throwing a Promise
-    throw new Promise(() => {});
-  }
-
-  return params;
-};
+import { useSearchParams } from "next/navigation";
 
 const DealsWithdrawalsContent = () => {
-  const searchParams = useSearchParamsWithSuspense(); // Wrap useSearchParams to trigger Suspense
+  const searchParams = useSearchParams(); // Wrap useSearchParams to trigger Suspense
   const userId = searchParams.get("userId");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -66,16 +47,16 @@ const DealsWithdrawalsContent = () => {
     <Layout pageTitle="Transactions">
       <Toaster position="bottom-left" />
       <div className={styles.wrapper}>
-        <Link href="/admin/users" className={styles.btnBack}>
+        <Link href="../users" className={styles.btnBack}>
           <ReplyIcon />
           Back
         </Link>
-        <Link href={`/admin/deals?userId=${userId}`} className={styles.btnTop}>
+        <Link href={`../deals?userId=${userId}`} className={styles.btnTop}>
           <MonetizationOnIcon />
           Deposits
         </Link>
         <Link
-          href={`/admin/deals/withdrawals?userId=${userId}`}
+          href={`withdrawals?userId=${userId}`}
           className={styles.btnTopActive}
         >
           <IndeterminateCheckBoxIcon />

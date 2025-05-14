@@ -5,53 +5,138 @@ import DashboardPageNavigator from "../../components/DashboardPageNavigator";
 import BottomNavBar from "../_components/BottomNavBar";
 import { FaLevelUpAlt, FaLevelDownAlt } from "react-icons/fa";
 import btc from "../../../../public/img/btc.webp";
+import fetchUser from "../_components/FetchUser";
+import Swal from "sweetalert2";
 import {
   TradeSelectFirst,
   TradeSelectSecond,
   TradeSelectThird,
 } from "../../components/index/data";
 import Image from "next/image";
-
+import axios from "axios";
 const Trade = () => {
+  const { data } = fetchUser();
   const container = useRef();
   const [firstSelect, setFirstSelect] = useState("");
   const [secondSelect, setSecondSelect] = useState("");
   const [thirdSelect, setThirdSelect] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(10);
   const [time, setTime] = useState(10); // Default time is 10 minutes
-  const [leverage, setLeverage] = useState(1); // Default leverage
-  const [openTrades, setOpenTrades] = useState([]); // Store open trades
+  const [leverage, setLeverage] = useState("1:2000"); // Default leverage
+  const [openTrades, setOpenTrades] = useState([]);
+  let interval;
 
-  // Add a new trade to the list of open trades
-  const handleBuySell = (action) => {
-    const trade = {
-      id: Date.now(), // Unique ID for the trade
-      symbol: thirdSelect,
-      amount,
-      time,
-      leverage,
-      action,
-      remainingTime: time * 60, // Store time in seconds
+  useEffect(() => {
+    const fetchTrades = async () => {
+      if (data?.id) {
+        try {
+          const response = await axios.get(`/api/trade?userId=${data.id}`);
+          const serverTrades = response.data.trades || [];
+
+          if (serverTrades.length > 0) {
+            const enriched = serverTrades.map((trade) => {
+              const now = new Date();
+              const created = new Date(trade.createdAt);
+              const totalSeconds = (trade.duration || time) * 60;
+              const elapsed = Math.floor((now - created) / 1000);
+              const remainingTime = totalSeconds - elapsed;
+
+              return {
+                ...trade,
+                remainingTime: remainingTime > 0 ? remainingTime : 0,
+                currentProfit: 0,
+              };
+            });
+            setOpenTrades(enriched);
+            localStorage.setItem("openTrades", JSON.stringify(enriched));
+          } else {
+            setOpenTrades([]);
+            localStorage.removeItem("openTrades");
+          }
+        } catch (error) {
+          console.error("Failed to fetch trades:", error);
+        }
+      }
     };
 
-    // Add trade to the list
-    setOpenTrades((prevTrades) => [...prevTrades, trade]);
+    fetchTrades();
+  }, [data]);
+
+  const handleBuySell = async (action) => {
+    try {
+      const response = await fetch("/api/trade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: data?.id,
+          amount,
+          leverage,
+          action,
+          time,
+          email: data?.email,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        console.log(result);
+        Swal.fire({
+          icon: "success",
+          text: `${t("trade_message")}`,
+          timer: 2000,
+        });
+
+        const newTrade = {
+          ...result.trade,
+          remainingTime: time * 60, // Convert minutes to seconds
+          currentProfit: 0, // Start from 0 and increase to actual profit
+        };
+
+        // Update openTrades and save to localStorage
+        const updatedTrades = [...openTrades, newTrade];
+        setOpenTrades(updatedTrades);
+        localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: `Insufficient funds! please topup your balance to take this trade.`,
+          timer: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("Error placing trade:", error);
+    }
   };
 
-  // Countdown each trade every second
   useEffect(() => {
     const interval = setInterval(() => {
       setOpenTrades((prevTrades) => {
-        return prevTrades.map((trade) => {
-          if (trade.remainingTime > 0) {
-            return { ...trade, remainingTime: trade.remainingTime - 1 };
-          }
-          return trade; // No change if time is 0
-        });
+        const updatedTrades = prevTrades
+          .map((trade) => {
+            if (trade.remainingTime > 0) {
+              const fluctuation = (Math.random() - 0.5) * (trade.profit / 15);
+              const profitStep = trade.profit / (trade.duration * 60);
+
+              return {
+                ...trade,
+                remainingTime: trade.remainingTime - 1,
+                currentProfit: trade.currentProfit + profitStep + fluctuation,
+              };
+            }
+            return {
+              ...trade,
+              remainingTime: 0,
+            };
+          })
+          .filter((trade) => trade.remainingTime > 0); // 🧼 Only keep active trades
+
+        localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
+        return updatedTrades;
       });
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup the interval when component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   const handleFirstSelectChange = (event) => {
@@ -101,76 +186,6 @@ const Trade = () => {
       <div className="container" style={{ marginTop: "3rem" }}>
         <DashboardPageNavigator text="Trade" />
         <div className="trade">
-          <div className="trade__col__1">
-            <div className="row">
-              <select
-                name="first_select"
-                value={firstSelect}
-                onChange={handleFirstSelectChange}
-              >
-                {TradeSelectFirst.map((tradeSelect, index) => (
-                  <option value={tradeSelect} key={index}>
-                    {tradeSelect}
-                  </option>
-                ))}
-              </select>
-              <select name="second_select">
-                {firstSelect
-                  ? TradeSelectSecond[firstSelect].map((tradeSelect, index) => (
-                      <option value={tradeSelect} key={index}>
-                        {tradeSelect}
-                      </option>
-                    ))
-                  : TradeSelectSecond["Crypto (43)"].map(
-                      (tradeSelect, index) => (
-                        <option value={tradeSelect} key={index}>
-                          {tradeSelect}
-                        </option>
-                      )
-                    )}
-              </select>
-              <select
-                name="third_select"
-                value={thirdSelect}
-                onChange={(e) => setThirdSelect(e.target.value)}
-              >
-                {TradeSelectThird.map((tradeSelect, index) => (
-                  <option value={tradeSelect} key={index}>
-                    {tradeSelect}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="open_trades">
-              {openTrades.length === 0 ? (
-                <p>No open trades</p>
-              ) : (
-                openTrades.map((trade) => (
-                  <div key={trade.id} className="open_trade">
-                    <div className="open_trade_col1">
-                      <Image src={btc} alt="btc" className="btcImage" />
-
-                      <div className="open_trade_quote">
-                        <span
-                          style={{ fontWeight: "bold" }}
-                          className={trade.action === "buy" ? "buy" : "sell"}
-                        >
-                          {trade.action} {trade.amount} BTCUSD
-                        </span>
-                        <p>83290.3 - 83780.2</p>
-                      </div>
-                    </div>
-                    <div className="open_trade_col2">
-                      <span className={trade.action === "buy" ? "buy" : "sell"}>
-                        668.10
-                      </span>
-                      <p>({formatTime(trade.remainingTime)})</p>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
           <div className="trade__col__2">
             <div
               className="tradingview-widget-container"
@@ -178,6 +193,39 @@ const Trade = () => {
               style={{ height: "calc(100vh - 64px)", width: "100%" }}
             ></div>
           </div>
+          <div className="trade__col__1">
+            {openTrades.length !== 0 && (
+              <div className="open_trades">
+                {openTrades.map((trade) => (
+                  <div key={trade.id} className="open_trade">
+                    <div className="open_trade_col1">
+                      <Image src={btc} alt="btc" className="btcImage" />
+                      <div className="open_trade_quote">
+                        <span
+                          className={trade.action === "buy" ? "buy" : "sell"}
+                        >
+                          {trade.action === "buy" ? "Buy" : "Sell"} BTCUSD
+                        </span>
+                        <p>Leverage: {trade.leverage}</p>
+                      </div>
+                    </div>
+                    <div className="open_trade_col2">
+                      <span
+                        className={trade.profit.toFixed(2) > 0 ? "buy" : "sell"}
+                      >
+                        {trade.profit.toFixed(2) > 0
+                          ? "+" + trade.profit.toFixed(2)
+                          : "-" + trade.loss.toFixed(2)}{" "}
+                        $
+                      </span>
+                      <p>{formatTime(trade.remainingTime)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="trade__col__1">
             <form action="">
               <div className="updown__">
@@ -198,7 +246,9 @@ const Trade = () => {
               </div>
               <div className="levr">
                 <div className="input__">
-                  <label>Amount (USD)</label>
+                  <label>
+                    <label>Amount ({data && data.currency})</label>
+                  </label>
                   <input
                     type="text"
                     placeholder="0.00"
@@ -207,18 +257,6 @@ const Trade = () => {
                     onChange={(e) => setAmount(e.target.value)}
                   />
                 </div>
-                <div className="input__">
-                  <label>Amount (BTC)</label>
-                  <input
-                    type="text"
-                    placeholder="0.00"
-                    name="amount"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className="levr">
                 <div className="input__">
                   <label>Time (Minutes)</label>
                   <input
@@ -229,6 +267,8 @@ const Trade = () => {
                     onChange={(e) => setTime(e.target.value)}
                   />
                 </div>
+              </div>
+              <div className="levr">
                 <div className="input__">
                   <label>Leverage (5000 MAX)</label>
                   <input

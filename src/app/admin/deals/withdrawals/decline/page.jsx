@@ -53,7 +53,7 @@ const DeclineWithdrawalContent = () => {
       );
       if (approve_.data.message === "success") {
         toast.success("Transaction declined successfully");
-        router.push(`/admin/deals/withdrawals?userId=${userId}`);
+        router.push(`../withdrawals?userId=${userId}`);
       } else {
         toast.error("An error occurred");
       }
@@ -66,7 +66,7 @@ const DeclineWithdrawalContent = () => {
     <Layout pageTitle="Decline Withdrawal">
       <div className={styles.wrapper}>
         <Link
-          href={`/admin/deals/withdrawals?userId=${userId}`}
+          href={`../withdrawals?userId=${userId}`}
           className={styles.btnBack}
         >
           <ReplyIcon />
@@ -145,9 +145,7 @@ const DeclineWithdrawalContent = () => {
             <div className={styles.btnWrap}>
               <button
                 className={styles.btnNo}
-                onClick={() =>
-                  router.push(`/admin/deals/withdrawals?userId=${userId}`)
-                }
+                onClick={() => router.push(`../withdrawals?userId=${userId}`)}
               >
                 No
               </button>

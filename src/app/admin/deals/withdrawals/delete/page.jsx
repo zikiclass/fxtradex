@@ -9,7 +9,7 @@ import Link from "next/link";
 import ReplyIcon from "@mui/icons-material/Reply";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-
+import { useRouter } from "next/navigation";
 // Component to handle the withdrawal deletion logic
 const DeleteWithdrawalContent = () => {
   const searchParams = useSearchParams();
@@ -29,7 +29,7 @@ const DeleteWithdrawalContent = () => {
       if (delete_.data.message === "success") {
         toast.success("Transaction deleted successfully");
 
-        router.push(`/admin/deals/withdrawals?userId=${userId}`);
+        router.push(`../withdrawals?userId=${userId}`);
       } else {
         toast.error("An error occurred");
       }
@@ -42,7 +42,7 @@ const DeleteWithdrawalContent = () => {
     <Layout pageTitle="Decline Deposit">
       <div className={styles.wrapper}>
         <Link
-          href={`/admin/deals/withdrawals?userId=${userId}`}
+          href={`../withdrawals?userId=${userId}`}
           className={styles.btnBack}
         >
           <ReplyIcon />
@@ -54,9 +54,7 @@ const DeleteWithdrawalContent = () => {
           <div className={styles.btnWrap}>
             <button
               className={styles.btnNo}
-              onClick={() =>
-                router.push(`/admin/deals/withdrawals?userId=${userId}`)
-              }
+              onClick={() => router.push(`../withdrawals?userId=${userId}`)}
             >
               No
             </button>

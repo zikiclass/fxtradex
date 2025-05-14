@@ -10,6 +10,7 @@
     backdrop-filter: blur(10px);
     color: #fff;
     overflow-x: auto;
+
 }
 .table{
     width: 100%;
@@ -21,6 +22,8 @@
     max-width: 100%; */
     
 }
+
+  
 .thead{
     width: 100%;
     border-bottom: 1px solid #fff;
@@ -67,6 +70,12 @@
     border-color: #777;
     color: #777;
 }
+.input select{
+    background-color: #fff!important;
+    padding: 0.4rem;
+    border-radius: 4px;
+    color: #000;
+}
 .cta_{
     color:  rgb(250, 251, 252);
     padding: 3px 9px;
@@ -89,8 +98,9 @@
     border: 1px solid #fff!important;
     padding: 4px;
     border-radius: 5px;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.1rem;
     color: #fff!important;
+    background-color: transparent!important;
 }
 .input label {
     color: #fff;
@@ -124,7 +134,7 @@
 }
 .btnSubmit, .btnBack, .btnTopActive, .btnTop{
     width: 100%;
-    background-color: green;
+    background-color: green!important;
     padding: 6px;
     cursor: pointer;
     transition: 0.3s all;
@@ -140,12 +150,12 @@
     background-color: rgb(136, 219, 13);
 }
 .btnTopActive{
-    background-color: #fff;
+    background-color: #fff!important;
     color: #000;
     
 }
 .btnTop{
-    background-color: transparent;
+    background-color: transparent!important;
     border: 1px solid #fff;
 }
 .container{
@@ -197,6 +207,7 @@
     width: 100%;
     margin-bottom: 15px;
     color: #fff;
+    background-color: transparent!important;
 }
 .searchInput:focus{
     outline: none;
@@ -216,7 +227,7 @@
 }
 .btnWrap{
     display: flex;
-    width: 100%;
+    width: 60%;
     gap: 1rem;
     margin-top: 2rem;
 
@@ -270,6 +281,9 @@
     background-color: red;
 }
 @media screen and (max-width: 760px){
+    .ctaWrap{
+        width: 100%;
+    }
     .table{
         font-size: 11px;
     }
