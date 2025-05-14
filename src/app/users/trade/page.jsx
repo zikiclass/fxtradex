@@ -105,9 +105,10 @@ const Trade = () => {
         // });
         Swal.fire({
           icon: "error",
-          text: `Insufficient funds! please topup your balance to take this trade. ${response}`,
+          text: `Insufficient funds! Please top up your balance to take this trade. Server responded with: ${result.message}`,
           timer: 2000,
         });
+
         //
       }
     } catch (error) {
