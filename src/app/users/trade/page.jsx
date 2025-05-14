@@ -7,11 +7,7 @@ import { FaLevelUpAlt, FaLevelDownAlt } from "react-icons/fa";
 import btc from "../../../../public/img/btc.webp";
 import fetchUser from "../_components/FetchUser";
 import Swal from "sweetalert2";
-import {
-  TradeSelectFirst,
-  TradeSelectSecond,
-  TradeSelectThird,
-} from "../../components/index/data";
+
 import Image from "next/image";
 import axios from "axios";
 const Trade = () => {
@@ -19,7 +15,6 @@ const Trade = () => {
   const container = useRef();
   const [firstSelect, setFirstSelect] = useState("");
   const [secondSelect, setSecondSelect] = useState("");
-  const [thirdSelect, setThirdSelect] = useState("");
   const [amount, setAmount] = useState(10);
   const [time, setTime] = useState(10); // Default time is 10 minutes
   const [leverage, setLeverage] = useState("1:2000"); // Default leverage
@@ -70,7 +65,7 @@ const Trade = () => {
     };
 
     fetchTrades();
-  }, [data]);
+  }, [data]); // Depend on `data` to trigger fetch on user change
 
   const handleBuySell = async (action) => {
     try {
@@ -108,18 +103,11 @@ const Trade = () => {
         setOpenTrades(updatedTrades);
         localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
       } else {
-        // Swal.fire({
-        //   icon: "success",
-        //   text: `Trade started successfully`,
-        //   timer: 2000,
-        // });
         Swal.fire({
           icon: "error",
           text: `Insufficient funds! Please top up your balance to take this trade.`,
           timer: 2000,
         });
-
-        //
       }
     } catch (error) {
       console.error("Error placing trade:", error);
