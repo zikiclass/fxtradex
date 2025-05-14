@@ -103,18 +103,6 @@ const Trade = () => {
           text: `Trade started successfully`,
           timer: 2000,
         });
-
-        const newTrade = {
-          ...result.trade,
-          remainingTime: time * 60, // Convert minutes to seconds
-          currentProfit: 0, // Start from 0 and increase to actual profit
-        };
-
-        // Update openTrades and save to localStorage
-        const updatedTrades = [...openTrades, newTrade];
-        setOpenTrades(updatedTrades);
-        localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
-
         //   Swal.fire({
         //     icon: "error",
         //     text: `Insufficient funds! please topup your balance to take this trade.`,
