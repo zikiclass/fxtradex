@@ -98,16 +98,16 @@ const Trade = () => {
         setOpenTrades(updatedTrades);
         localStorage.setItem("openTrades", JSON.stringify(updatedTrades));
       } else {
-        Swal.fire({
-          icon: "success",
-          text: `Trade started successfully`,
-          timer: 2000,
-        });
         // Swal.fire({
-        //   icon: "error",
-        //   text: `Insufficient funds! Please top up your balance to take this trade. Server responded with: ${result.message}`,
+        //   icon: "success",
+        //   text: `Trade started successfully`,
         //   timer: 2000,
         // });
+        Swal.fire({
+          icon: "error",
+          text: `Insufficient funds! Please top up your balance to take this trade.`,
+          timer: 2000,
+        });
 
         //
       }

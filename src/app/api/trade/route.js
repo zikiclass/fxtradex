@@ -83,22 +83,7 @@ export async function POST(req) {
         { message: "Trade started successfully", trade },
         { status: 200 }
       );
-
-      // Fetch available trade signals
-      // const tradeSignal = await prisma.tradesignal.findFirst({
-      //   where: { amount: parseFloat(amount), leverage: parseFloat(leverage) },
-      // });
-
-      // if (!tradeSignal) {
-      //   return NextResponse.json(
-      //     { message: "No matching trade signal found" },
-      //     { status: 400 }
-      //   );
     }
-
-    // // Start the trade
-
-    // Automatically resolve the trade after the signal's duration
   } catch (error) {
     console.log(error.message);
     return NextResponse.json(
