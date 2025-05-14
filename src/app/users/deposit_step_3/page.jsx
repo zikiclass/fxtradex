@@ -23,7 +23,6 @@ const DepositStep3 = () => {
 };
 
 const DepositStep3Content = () => {
-  const t = useTranslations("Deposit");
   const { data } = fetchUser();
   const searchParams = useSearchParams();
   const amount = searchParams.get("amount");
