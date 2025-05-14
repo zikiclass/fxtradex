@@ -111,13 +111,13 @@ const DepositStep3Content = () => {
           <div className="deposit">
             <Toaster position="bottom-left" />
             <h2>
-              {t("pay")}{" "}
+              Pay
               {Number(amount).toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
               })}
             </h2>
-            <p style={{ marginTop: "-20px" }}>{t("sendcrypto")}</p>
+            <p style={{ marginTop: "-20px" }}>Send Crypto</p>
             <div className="deposit__form">
               {paymentMethod !== "BANK" ? (
                 <center>
