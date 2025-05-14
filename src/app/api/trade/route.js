@@ -18,13 +18,13 @@ export async function POST(req) {
   try {
     const { userId, amount, leverage, action, time, email } = await req.json();
 
-    const user = await prisma.transaction.aggregate({
-      where: { userId: Number(userId) },
-      _sum: {
-        deposit: true,
-        profit: true,
-      },
-    });
+    // const user = await prisma.transaction.aggregate({
+    //   where: { userId: Number(userId) },
+    //   _sum: {
+    //     deposit: true,
+    //     profit: true,
+    //   },
+    // });
 
     // if (parseFloat(amount) > parseFloat(user._sum.deposit)) {
     //   return NextResponse.json(
