@@ -43,7 +43,7 @@ const BankWithdraw = () => {
         userOtp: data.otp_code,
       });
 
-      if (response.data.message === "success") {
+      if (response.data.message === "Success") {
         toast.success("Your withdrawal request is in process.");
         router.push(`withdrawal_list`);
       }

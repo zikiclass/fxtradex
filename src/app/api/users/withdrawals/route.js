@@ -9,10 +9,10 @@ export async function POST(req) {
       where: { id: body.id },
     });
 
-    if (body.OTP !== getOTP.otp_code) {
+    if (body.otpCode !== getOTP.otp_code) {
       return NextResponse.json(
         {
-          message: "Invalid OTP code, please contact support@mt5indexpro.com ",
+          message: `Invalid OTP code, please contact support@mt5indexpro.com`,
         },
         { status: 400 }
       );
@@ -51,7 +51,7 @@ export async function POST(req) {
       },
     });
 
-    await sendDepositEmail(user, withDetails);
+    // await sendDepositEmail(user, withDetails);
 
     return NextResponse.json(
       { message: "Success", data: dep },

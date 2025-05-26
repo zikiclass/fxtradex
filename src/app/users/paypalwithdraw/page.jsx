@@ -16,21 +16,21 @@ const PaypalWithdraw = () => {
   const [fromAccount, setFromAccount] = useState("balance");
   const [paypalEmail, setPaypalEmail] = useState(null);
   const [amount, setAmount] = useState(null);
-  const [OTP, setOTP] = useState(null);
+  const [otpCode, setOTP] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/api/users/withdrawal", {
+      const response = await axios.post("/api/users/withdrawals", {
         type: "paypal",
         id: data.id,
         fromAccount,
         paypalEmail,
         amount,
-        OTP,
+        otpCode,
         userOtp: data.otp_code,
       });
 
-      if (response.data.message === "success") {
+      if (response.data.message === "Success") {
         toast.success("Your withdrawal request is in process.");
         router.push(`withdrawal_list`);
       }

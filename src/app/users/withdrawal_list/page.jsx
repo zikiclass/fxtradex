@@ -50,7 +50,7 @@ const WithdrawalList = () => {
 
         try {
           const response_ = await axios.get(
-            `/api/users/withdrawal?id=${response.data.id}`
+            `/api/users/withdrawals?id=${response.data.id}`
           );
           if (response_) {
             setLists(response_.data.data);
