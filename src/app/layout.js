@@ -18,21 +18,28 @@ const metadata = {
     process.env.PROJECT_NAME,
   description: process.env.PROJECT_DESCRIPTION,
 };
-
 export default function RootLayout({ children }) {
-  // Adding the Tidio chat script dynamically
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "//code.tidio.co/kyt8gjstcbty5znemqs9jld0tsqxwtq7.js";
-    script.async = true;
-    script.onload = () => console.log("Tidio chat script loaded!");
-    document.body.appendChild(script);
+    const smartsuppScript = document.createElement("script");
+    smartsuppScript.type = "text/javascript";
+    smartsuppScript.innerHTML = `
+      var _smartsupp = _smartsupp || {};
+      _smartsupp.key = '27946429bd10e3c3605575a3e91fdf4618a2bf83';
+      window.smartsupp||(function(d) {
+        var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+        s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+        c.type='text/javascript';c.charset='utf-8';c.async=true;
+        c.src='https://www.smartsuppchat.com/loader.js?';
+        s.parentNode.insertBefore(c,s);
+      })(document);
+    `;
+    document.body.appendChild(smartsuppScript);
 
-    // Cleanup the script on component unmount
+    // Cleanup on unmount
     return () => {
-      document.body.removeChild(script);
+      document.body.removeChild(smartsuppScript);
     };
-  }, []); // Empty dependency array to ensure it's only added once when the component mounts
+  }, []);
 
   return (
     <html lang="en">
