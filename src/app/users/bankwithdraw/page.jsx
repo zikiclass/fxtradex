@@ -158,7 +158,7 @@ const BankWithdraw = () => {
                     <div className="input__form">
                       <label>Account Number</label>
                       <input
-                        type="number"
+                        type="text"
                         name="account_number"
                         onChange={(e) => setAccountNumber(e.target.value)}
                       />
