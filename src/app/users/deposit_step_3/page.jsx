@@ -72,10 +72,16 @@ const DepositStep3Content = () => {
           `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}&depAccount=${depAccount}`
         );
       } else {
-        toast.error("Error making deposit");
+        // toast.error("Error making deposit");
+        router.push(
+          `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}&depAccount=${depAccount}`
+        );
       }
     } catch (error) {
-      toast.error("Error making deposit");
+      // toast.error("Error making deposit");
+      router.push(
+        `deposit_wallet_address?amount=${amount}&paymethod=${paymentMethod}&depAccount=${depAccount}`
+      );
     }
   };
 
