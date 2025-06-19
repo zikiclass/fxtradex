@@ -12,11 +12,11 @@ const BottomNavBar = ({ active }) => {
   const [activeIndex, setActiveIndex] = useState(active);
   const navbars = [
     { id: 1, icon: HomeIcon, title: "Home", href: "dashboard" },
-    { id: 2, icon: TokenIcon, title: "Mining", href: "mining" },
-    { id: 3, icon: InsertChartIcon, title: "Markets", href: "markets" },
-    { id: 4, icon: BrowseGalleryIcon, title: "Trade", href: "trade" },
-    { id: 5, icon: HistoryEduIcon, title: "Trades", href: "trades" },
-    { id: 6, icon: WalletIcon, title: "Profile", href: "profile" },
+    { id: 2, icon: WalletIcon, title: "Profile", href: "profile" },
+    { id: 3, icon: TokenIcon, title: "Mining", href: "mining" },
+    { id: 4, icon: InsertChartIcon, title: "Markets", href: "markets" },
+    { id: 5, icon: BrowseGalleryIcon, title: "Trade", href: "trade" },
+    { id: 6, icon: HistoryEduIcon, title: "Trades", href: "trades" },
   ];
   const handleClick = (href) => {
     if (activeIndex === href) return;
