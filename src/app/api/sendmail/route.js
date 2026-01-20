@@ -1,5 +1,10 @@
 import nodemailer from "nodemailer";
 
+export async function GET() {
+  const result = await prisma.$queryRaw`SELECT @@hostname as host, DATABASE() as db`;
+  return NextResponse.json(result);
+}
+
 // Named export for POST method
 export async function POST(req) {
   try {
