@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-
+import { NextResponse } from "next/server";
+import prisma from "../../../../prisma/client";
 export async function GET() {
   const result = await prisma.$queryRaw`SELECT @@hostname as host, DATABASE() as db`;
   return NextResponse.json(result);
